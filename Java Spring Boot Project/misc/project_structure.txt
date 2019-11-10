@@ -1,0 +1,55 @@
+CompanyDirectory
+
+common
+	* Enums
+controllers
+	* BusinessUnitController
+	* CompanyController
+	* DepartmentController
+	* EmployeeController
+	* PositionController
+	* UnitController
+mappers
+	* BusinessUnitMapper
+	* CompanyMapper
+	* DepartmentMapper
+	* EmployeeMapper
+	* PositionMapper
+	* UnitMapper
+models
+	- entities
+		* BusinessUnit
+		* Company
+		* Department
+		* Employee
+		* Position
+		* Unit
+	- responses
+		* GenericResponse
+		* ErrorResponse
+		* AllBusinessUnitsResponse
+		* AllCompaniesResponse
+		* AllDepartmentsResponse
+		* AllEmployeesResponse
+		* AllPositionsResponse
+		* AllUnitsResponse
+		* BusinessUnitResponse
+		* CompanyResponse
+		* DepartmentResponse
+		* EmployeeResponse
+		* PositionResponse
+		* UnitResponse
+repositories
+	* BusinessUnitRepo
+	* CompanyRepo
+	* DepartmentRepo
+	* EmployeeRepo
+	* PositionRepo
+	* UnitRepo
+services
+	* BusinessUnitService
+	* CompanyService
+	* DepartmentService
+	* EmployeeService
+	* PositionService
+	* UnitService
