@@ -53,3 +53,11 @@ services
 	* EmployeeService
 	* PositionService
 	* UnitService
+strategies
+	* SearchEmployeeStrategy
+	* SearchEmployeeStrategyFactory
+	* SearchEmployeeStrategyByBusinessUnit
+	* SearchEmployeeStrategyByCompany
+	* SearchEmployeeStrategyByDepartment
+	* SearchEmployeeStrategyByPosition
+	* SearchEmployeeStrategyByUnit
