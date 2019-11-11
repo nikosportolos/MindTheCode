@@ -63,9 +63,10 @@ strategies
 	* SearchEmployeeStrategyByUnit
 
 tests
-	* BusinessUnitMapperShould
-	* CompanyMapperShould
-	* DepartmentMapperShould
-	* EmployeeMapperShould
-	* PositionMapperShould
-	* UnitMapperShould
+	- mappers
+		* BusinessUnitMapperShould
+		* CompanyMapperShould
+		* DepartmentMapperShould
+		* EmployeeMapperShould
+		* PositionMapperShould
+		* UnitMapperShould
