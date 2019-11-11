@@ -61,3 +61,11 @@ strategies
 	* SearchEmployeeStrategyByDepartment
 	* SearchEmployeeStrategyByPosition
 	* SearchEmployeeStrategyByUnit
+
+tests
+	* BusinessUnitMapperShould
+	* CompanyMapperShould
+	* DepartmentMapperShould
+	* EmployeeMapperShould
+	* PositionMapperShould
+	* UnitMapperShould
