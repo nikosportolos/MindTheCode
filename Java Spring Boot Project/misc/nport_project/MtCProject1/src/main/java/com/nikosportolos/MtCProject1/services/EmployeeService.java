@@ -9,6 +9,8 @@ import com.nikosportolos.MtCProject1.models.responses.AllEmployeesResponse;
 import com.nikosportolos.MtCProject1.models.responses.DepartmentResponse;
 import com.nikosportolos.MtCProject1.models.responses.EmployeeResponse;
 import com.nikosportolos.MtCProject1.repos.EmployeeRepo;
+import com.nikosportolos.MtCProject1.strategy.SearchEmployeeStrategy;
+import com.nikosportolos.MtCProject1.strategy.SearchEmployeeStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,13 @@ import java.util.List;
 @Service
 public class EmployeeService {
     @Autowired
-    EmployeeRepo repo;
+    private EmployeeRepo repo;
 
     @Autowired
-    EmployeeMapper mapper;
+    private EmployeeMapper mapper;
+
+    @Autowired
+    private SearchEmployeeStrategyFactory factory;
 
     public AllEmployeesResponse getAllEmployees() {
         return new AllEmployeesResponse(mapper.mapEmployees(repo.findAll()));
@@ -39,21 +44,23 @@ public class EmployeeService {
     }
 
     public AllEmployeesResponse getEmployeeByCriteria(String searchCriteria, long id) {
+        SearchEmployeeStrategy strategy = factory.makeStrategyForCriteria(searchCriteria);
+        return new AllEmployeesResponse(mapper.mapEmployees(strategy.execute(repo.findAll(), id)));
 
-        if (searchCriteria.toUpperCase().equals(String.valueOf(Enums.SearchCriteria.BUSINESSUNIT)))
-            return getEmployeesByBusinessUnit(id);
-
-        if (searchCriteria.toUpperCase().equals(String.valueOf(Enums.SearchCriteria.COMPANY)))
-            return getEmployeesByCompany(id);
-
-        if (searchCriteria.toUpperCase().equals(String.valueOf(Enums.SearchCriteria.DEPARTMENT)))
-            return getEmployeesByDepartment(id);
-
-        if (searchCriteria.toUpperCase().equals(String.valueOf(Enums.SearchCriteria.UNIT)))
-            return getEmployeesByUnit(id);
-
-        List<EmployeeResponse> employeeResponses = new ArrayList<>();
-        return new AllEmployeesResponse(employeeResponses);
+//        if (searchCriteria.equalsIgnoreCase(String.valueOf(Enums.SearchCriteria.BUSINESSUNIT)))
+//            return getEmployeesByBusinessUnit(id);
+//
+//        if (searchCriteria.equalsIgnoreCase(String.valueOf(Enums.SearchCriteria.COMPANY)))
+//            return getEmployeesByCompany(id);
+//
+//        if (searchCriteria.equalsIgnoreCase(String.valueOf(Enums.SearchCriteria.DEPARTMENT)))
+//            return getEmployeesByDepartment(id);
+//
+//        if (searchCriteria.equalsIgnoreCase(String.valueOf(Enums.SearchCriteria.UNIT)))
+//            return getEmployeesByUnit(id);
+//
+//        List<EmployeeResponse> employeeResponses = new ArrayList<>();
+//        return new AllEmployeesResponse(employeeResponses);
     }
 
     private AllEmployeesResponse getEmployeesByUnit(long id) {
@@ -89,8 +96,7 @@ public class EmployeeService {
         return new AllEmployeesResponse(employeeResponses);
     }
 
-
-    public AllEmployeesResponse getEmployeesByDepartment(long id) {
+    private AllEmployeesResponse getEmployeesByDepartment(long id) {
         System.out.println("###Loading employee by department: " + id);
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
         Iterable<Employee> retrievedEmployees = repo.findAll();
