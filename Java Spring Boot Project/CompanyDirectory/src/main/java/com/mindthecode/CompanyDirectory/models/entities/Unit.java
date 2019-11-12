@@ -31,6 +31,11 @@ public class Unit {
         this.name = name;
     }
 
+    public Unit(long id, String name, Department department) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+    }
 
     /**
      * Getters / Setters
