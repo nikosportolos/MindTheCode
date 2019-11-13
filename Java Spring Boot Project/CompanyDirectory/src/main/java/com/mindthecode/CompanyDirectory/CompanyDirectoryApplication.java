@@ -21,9 +21,11 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
 		BusinessUnit bUnit1 = new BusinessUnit("Solutions");
 		BusinessUnit bUnit2 = new BusinessUnit("Markets");
 		BusinessUnit bUnit3 = new BusinessUnit("Services");
+        BusinessUnit bUnit4 = new BusinessUnit("Company");
 
 		businessUnitRepository.save(bUnit1);
 		businessUnitRepository.save(bUnit2);
 		businessUnitRepository.save(bUnit3);
+        businessUnitRepository.save(bUnit4);
 	}
 }
