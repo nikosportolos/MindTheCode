@@ -3,9 +3,9 @@ package com.mindthecode.CompanyDirectory.models.responses;
 public class GenericResponse<T> {
 
     private T data;
-    private Error error;
+    private ErrorResponse error;
 
-    public GenericResponse(Error error) {
+    public GenericResponse(ErrorResponse error) {
         this.error = error;
     }
 
@@ -21,11 +21,11 @@ public class GenericResponse<T> {
         this.data = data;
     }
 
-    public Error getError() {
+    public ErrorResponse getError() {
         return error;
     }
 
-    public void setError(Error error) {
+    public void setError(ErrorResponse error) {
         this.error = error;
     }
 }

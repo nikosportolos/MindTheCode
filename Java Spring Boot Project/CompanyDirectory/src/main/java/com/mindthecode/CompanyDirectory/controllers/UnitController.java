@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.responses.AllUnitsResponse;
+import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +17,14 @@ public class UnitController {
 
     @GetMapping("/units")
     @ResponseBody
-    public AllUnitsResponse getUnits() {
+    public GenericResponse<AllUnitsResponse> getUnits() {
         System.out.println("###Loading all units...");
         return service.getAllUnits();
     }
 
     @GetMapping("/unit/{id}")
     @ResponseBody
-    public AllUnitsResponse getUnitById(@PathVariable("id") long id) {
+    public GenericResponse<AllUnitsResponse> getUnitById(@PathVariable("id") long id) {
         System.out.println("###Loading unit by id: " + id);
         return service.getUnitById(id);
     }
