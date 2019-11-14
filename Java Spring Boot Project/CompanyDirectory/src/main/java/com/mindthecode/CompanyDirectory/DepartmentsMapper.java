@@ -1,0 +1,27 @@
+package com.mindthecode.CompanyDirectory;
+
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class DepartmentsMapper {
+
+    public List<DepartmentResponse> mapDepartments(Iterable<Departments> all) {
+        List<DepartmentResponse> departments = new ArrayList<>();
+        for (Department department : all){
+            DepartmentResponse departmentResponse = mapDepartmentToDepartmentResponse(department);
+            departments.add(departmentResponse);
+        }
+        return departments;
+    }
+
+    public DepartmentResponse mapDepartmentToDepartmentResponse(Department department){
+        return new DepartmentResponse(
+                department.getId(),
+                department.getDepartmentName(),
+                department.getBusinessUnit()
+        );
+    }
+}
