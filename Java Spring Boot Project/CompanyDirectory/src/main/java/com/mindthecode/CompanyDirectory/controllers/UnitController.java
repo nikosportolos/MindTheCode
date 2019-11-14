@@ -4,6 +4,8 @@ import com.mindthecode.CompanyDirectory.models.responses.AllUnitsResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +19,15 @@ public class UnitController {
 
     @GetMapping("/units")
     @ResponseBody
-    public GenericResponse<AllUnitsResponse> getUnits() {
+    public ResponseEntity getUnits() {
         System.out.println("###Loading all units...");
-        return service.getAllUnits();
+        return new ResponseEntity(service.getAllUnits(), null, HttpStatus.OK);
     }
 
     @GetMapping("/unit/{id}")
     @ResponseBody
-    public GenericResponse<AllUnitsResponse> getUnitById(@PathVariable("id") long id) {
+    public ResponseEntity getUnitById(@PathVariable("id") long id) {
         System.out.println("###Loading unit by id: " + id);
-        return service.getUnitById(id);
+        return new ResponseEntity(service.getUnitById(id), null, HttpStatus.OK);
     }
 }
