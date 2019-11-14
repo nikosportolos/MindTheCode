@@ -6,22 +6,18 @@ import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.AllUnitsResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
-import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
 import com.mindthecode.CompanyDirectory.repositories.UnitRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UnitService {
 
     @Autowired
-    UnitRepo repo;
+    private UnitRepo repo;
 
     @Autowired
-    UnitMapper mapper;
+    private UnitMapper mapper;
 
     public GenericResponse<AllUnitsResponse> getAllUnits() {
         return new GenericResponse<>(new AllUnitsResponse(mapper.mapUnits(repo.findAll())));

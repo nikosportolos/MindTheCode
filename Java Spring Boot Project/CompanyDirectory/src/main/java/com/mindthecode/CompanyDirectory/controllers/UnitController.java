@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UnitController {
 
     @Autowired
-    UnitService service;
+    private UnitService service;
 
     @GetMapping("/units")
     @ResponseBody
