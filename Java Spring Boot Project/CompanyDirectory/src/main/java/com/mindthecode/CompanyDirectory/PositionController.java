@@ -21,7 +21,7 @@ public class PositionController {
             return new ResponseEntity(service.getAllPositions(), null, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return getError();
+            return getError(e);
         }
     }
 
@@ -31,7 +31,7 @@ public class PositionController {
             return new ResponseEntity(service.getPositionById(id), null, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return getError();
+            return getError(e);
         }
     }
 
@@ -42,13 +42,13 @@ public class PositionController {
             return new ResponseEntity(service.getPositionsByUnitId(unitid), null, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return getError();
+            return getError(e);
         }
     }*/
 
-    private ResponseEntity getError() {
+    private ResponseEntity getError(Exception e) {
         return new ResponseEntity(
-                new ErrorResponse(0, "Error", "Something went wrong please try again"),
+                new ErrorResponse(0, "Error", e.toString()),
                 null,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
