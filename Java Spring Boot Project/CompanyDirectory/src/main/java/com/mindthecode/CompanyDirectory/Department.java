@@ -10,15 +10,18 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String departmentName;
+
+    //@ManyToOne
+    //private BusinessUnit businessUnit;
 
 
     public Department() {
     }
 
-    public Department(String departmentName) {
+    public Department(String departmentName /*BusinessUnit businessUnit*/) {
         this.departmentName = departmentName;
+        //this.businessUnit = businessUnit;
     }
 
     public long getId() {
@@ -32,4 +35,12 @@ public class Department {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
+
+    /*public BusinessUnit getBusinessUnit() {
+        return businessUnit;
+    }
+
+    public void setBusinessUnit(BusinessUnit businessUnit) {
+        this.businessUnit = businessUnit;
+    }*/
 }
