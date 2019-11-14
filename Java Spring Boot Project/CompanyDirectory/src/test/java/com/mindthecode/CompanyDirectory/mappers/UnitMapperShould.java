@@ -3,11 +3,16 @@ package com.mindthecode.CompanyDirectory.mappers;
 import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UnitMapperShould {
 
@@ -19,7 +24,7 @@ public class UnitMapperShould {
     public void setup() {
         unitMapper = new UnitMapper();
 
-        Department dummyDept = new Department();
+        Department dummyDept = new Department(1);
         unitInput = new Unit(1, "Resource Management Solutions", dummyDept);
         expectedOutput = new UnitResponse(1, "Resource Management Solutions", dummyDept);
     }
@@ -40,12 +45,16 @@ public class UnitMapperShould {
     }
 
     @Test
-    @Ignore
     public void mapUnits() {
+        List<Unit> unitList = Arrays.asList(unitInput, new Unit(2, "International", new Department(1)));
 
-//        List<Integer> yourList = Arrays.asList(1,2,3,4)
-//        assertThat(yourList, CoreMatchers.hasItems(1,2,3,4,5));
+        List<UnitResponse> outputList = new ArrayList<>();
+        outputList.add(expectedOutput);
+        outputList.add(new UnitResponse(2, "International", new Department(1)));
 
+        List<UnitResponse> expectedList = unitMapper.mapUnits(unitList);
+
+        Assert.assertThat(expectedList, Matchers.samePropertyValuesAs(outputList));
     }
 
     @Test
