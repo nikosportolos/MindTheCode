@@ -4,7 +4,7 @@ import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-public interface UnitRepo extends CrudRepository<Unit, Long> {
+public interface UnitRepository extends CrudRepository<Unit, Long> {
 
     @Override
     @RestResource(exported = false)
