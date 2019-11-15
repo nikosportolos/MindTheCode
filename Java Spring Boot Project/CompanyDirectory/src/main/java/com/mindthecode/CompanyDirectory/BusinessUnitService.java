@@ -17,11 +17,15 @@ public class BusinessUnitService {
     private BusinessUnitRepository repository;
 
     public GenericResponse<AllBusinessUnitResponse> getAllBusinessUnits(){
-        /*Iterable<BusinessUnit> retrievedBusinessUnits = repository.findAll();
-        List<BusinessUnitResponse> businessUnits = new ArrayList<>();
-        for(BusinessUnit businessUnit : retrievedBusinessUnits){
-            businessUnits.add(mapper.mapBusinessinessUnitToResponse(businessUnit));
-        }*/
         return new GenericResponse<>(new AllBusinessUnitResponse(mapper.mapBusinessUnits(repository.findAll())));
+    }
+
+    public GenericResponse<AllBusinessUnitResponse> getBusinessUnitById(long id) {
+        Iterable<BusinessUnit> retrievedBusinessUnits = repository.findAll();
+        for(BusinessUnit businessUnit : retrievedBusinessUnits){
+            if(businessUnit.getId() == id)
+                return new GenericResponse(mapper.mapBusinessinessUnitToResponse(businessUnit));
+        }
+        return new GenericResponse(new Error(0,"Error","BusinessUnit with id "+ id +" does not exist"));
     }
 }

@@ -1,8 +1,11 @@
 package com.mindthecode.CompanyDirectory;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BusinessUnitMapper {
 
     public List<BusinessUnitResponse> mapBusinessUnits(Iterable<BusinessUnit> all){
