@@ -16,12 +16,12 @@ public class BusinessUnitService {
     @Autowired
     private BusinessUnitRepository repository;
 
-    public GenericResponse<List<BusinessUnitResponse>> getBusinessUnits(){
-        Iterable<BusinessUnit> retrievedBusinessUnits = repository.findAll();
+    public GenericResponse<AllBusinessUnitResponse> getAllBusinessUnits(){
+        /*Iterable<BusinessUnit> retrievedBusinessUnits = repository.findAll();
         List<BusinessUnitResponse> businessUnits = new ArrayList<>();
         for(BusinessUnit businessUnit : retrievedBusinessUnits){
-            businessUnits.add(mapper.mapBusinessinessUnitResponseFromBusinessUnit(businessUnit));
-        }
-        return new GenericResponse<>(businessUnits);
+            businessUnits.add(mapper.mapBusinessinessUnitToResponse(businessUnit));
+        }*/
+        return new GenericResponse<>(new AllBusinessUnitResponse(mapper.mapBusinessUnits(repository.findAll())));
     }
 }

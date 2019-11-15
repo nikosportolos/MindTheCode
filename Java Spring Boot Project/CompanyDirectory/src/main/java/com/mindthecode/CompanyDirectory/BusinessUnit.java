@@ -7,9 +7,9 @@ import javax.persistence.*;
 public class BusinessUnit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String NameOfBusinessUnit;
+    private String nameOfBusinessUnit;
 
     /*@ManyToOne
     private Company company;*/
@@ -18,7 +18,7 @@ public class BusinessUnit {
     }
 
     public BusinessUnit(String nameOfBusinessUnit) {
-        NameOfBusinessUnit = nameOfBusinessUnit;
+        this.nameOfBusinessUnit = nameOfBusinessUnit;
     }
 
     public long getId() {
@@ -30,14 +30,14 @@ public class BusinessUnit {
     }
 
     public String getNameOfBusinessUnit() {
-        return NameOfBusinessUnit;
+        return nameOfBusinessUnit;
     }
 
     public void setNameOfBusinessUnit(String nameOfBusinessUnit) {
-        NameOfBusinessUnit = nameOfBusinessUnit;
+        this.nameOfBusinessUnit = nameOfBusinessUnit;
     }
 
-   /* public Company getCompany() {
+    /* public Company getCompany() {
         return company;
     }
 

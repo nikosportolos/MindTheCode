@@ -13,7 +13,4 @@ public interface BusinessUnitRepository extends CrudRepository<BusinessUnit, Lon
     @RestResource(exported = false)
     void deleteAll();
 
-    @Override
-    @RestResource(exported = false)
-    BusinessUnit save(BusinessUnit entity);
 }

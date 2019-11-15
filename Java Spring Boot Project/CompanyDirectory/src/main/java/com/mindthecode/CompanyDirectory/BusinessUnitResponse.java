@@ -3,7 +3,7 @@ package com.mindthecode.CompanyDirectory;
 public class BusinessUnitResponse {
 
     private long id;
-    private String NameOfBusinessUnit;
+    private String nameOfBusinessUnit;
     //private Company company;
 
     public BusinessUnitResponse() {
@@ -11,8 +11,8 @@ public class BusinessUnitResponse {
 
     public BusinessUnitResponse(long id, String nameOfBusinessUnit/*, Company company*/) {
         this.id = id;
-        NameOfBusinessUnit = nameOfBusinessUnit;
-       // this.company = company;
+        this.nameOfBusinessUnit = nameOfBusinessUnit;
+        //this.company = company;
     }
 
     public long getId() {
@@ -24,11 +24,11 @@ public class BusinessUnitResponse {
     }
 
     public String getNameOfBusinessUnit() {
-        return NameOfBusinessUnit;
+        return nameOfBusinessUnit;
     }
 
     public void setNameOfBusinessUnit(String nameOfBusinessUnit) {
-        NameOfBusinessUnit = nameOfBusinessUnit;
+        this.nameOfBusinessUnit = nameOfBusinessUnit;
     }
 
     /*public Company getCompany() {

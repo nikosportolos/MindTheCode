@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
 public class BusinessUnitController {
 
     @Autowired
     private BusinessUnitService service;
 
-    @GetMapping("businessUnits")
+    @GetMapping("/businessUnits")
     public ResponseEntity getBusinessUnits(){
         try{
             return new ResponseEntity(
-                    service.getBusinessUnits(),
+                    service.getAllBusinessUnits(),
                     null,
                     HttpStatus.OK
             );

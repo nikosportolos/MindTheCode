@@ -6,15 +6,14 @@ import java.util.List;
 public class BusinessUnitMapper {
 
     public List<BusinessUnitResponse> mapBusinessUnits(Iterable<BusinessUnit> all){
-        List<BusinessUnitResponse> businessUnits = new ArrayList<>();
+        List<BusinessUnitResponse> response = new ArrayList<>();
         for(BusinessUnit businessUnit : all){
-            BusinessUnitResponse businessUnitResponse = mapBusinessinessUnitResponseFromBusinessUnit(businessUnit);
-            businessUnits.add(businessUnitResponse);
+            response.add(mapBusinessinessUnitToResponse(businessUnit));
         }
-        return businessUnits;
+        return response;
     }
 
-    public BusinessUnitResponse mapBusinessinessUnitResponseFromBusinessUnit(BusinessUnit businessUnit) {
+    public BusinessUnitResponse mapBusinessinessUnitToResponse(BusinessUnit businessUnit) {
         return new BusinessUnitResponse(
                 businessUnit.getId(),
                 businessUnit.getNameOfBusinessUnit()
