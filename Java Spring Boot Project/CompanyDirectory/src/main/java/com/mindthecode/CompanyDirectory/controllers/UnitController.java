@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.responses.AllUnitsResponse;
+import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,12 @@ public class UnitController {
     @GetMapping("/unit/{id}")
     @ResponseBody
     public ResponseEntity getUnitById(@PathVariable("id") long id) {
-        System.out.println("###Loading unit by id: " + id);
-        return new ResponseEntity(service.getUnitById(id), null, HttpStatus.OK);
+        try {
+            System.out.println("###Loading unit by id: " + id);
+            return new ResponseEntity(service.getUnitById(id), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

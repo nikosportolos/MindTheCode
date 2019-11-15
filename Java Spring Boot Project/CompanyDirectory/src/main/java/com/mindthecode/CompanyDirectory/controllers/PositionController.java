@@ -19,7 +19,7 @@ public class PositionController {
     public ResponseEntity getPositions() {
         try {
             return new ResponseEntity(service.getAllPositions(), null, HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return getError(e);
         }
@@ -29,28 +29,14 @@ public class PositionController {
     public ResponseEntity getPositionById(@PathVariable long id) {
         try {
             return new ResponseEntity(service.getPositionById(id), null, HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return getError(e);
         }
     }
 
-    /*
-    @GetMapping("/position/{unitid}")
-    public ResponseEntity getPositionsByUnitId(@PathVariable long unitid) {
-        try {
-            return new ResponseEntity(service.getPositionsByUnitId(unitid), null, HttpStatus.OK);
-        }catch (Exception e){
-            e.printStackTrace();
-            return getError(e);
-        }
-    }*/
-
     private ResponseEntity getError(Exception e) {
-        return new ResponseEntity(
-                new ErrorResponse(0, "Error", e.toString()),
-                null,
-                HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

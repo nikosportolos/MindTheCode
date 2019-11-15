@@ -12,9 +12,8 @@ public class Position {
 
     private AvailablePositions name;
 
-    /*uncomment when Unit is ready*/
-  //  @ManyToOne
-  //  private Unit unit;
+    @ManyToOne
+    private Unit unit;
 
     public Position() {
     }
@@ -39,14 +38,13 @@ public class Position {
         this.name = name;
     }
 
-    /*uncomment when Unit is ready*/
-    /*public Unit getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
     public void setUnit(Unit unit) {
         this.unit = unit;
-    }*/
+    }
 
     /*Needs to be in Enums file*/
     public enum AvailablePositions{

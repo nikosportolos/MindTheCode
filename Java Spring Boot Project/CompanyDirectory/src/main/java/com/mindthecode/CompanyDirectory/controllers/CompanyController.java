@@ -1,5 +1,4 @@
-package com.mindthecode.CompanyDirectory.Controllers;
-
+package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
@@ -22,28 +21,18 @@ public class CompanyController {
     CompanyService companyService;
 
     @GetMapping("/allCompanies")
-    public GetAllCompaniesResponse getAllCompanies()
-    {
+    public GetAllCompaniesResponse getAllCompanies() {
         return new GetAllCompaniesResponse(companyService.getAllCompanies());
     }
 
     @GetMapping("/getCompaniesByName")
-    public ResponseEntity getCompaniesById(@PathVariable Long companyId)
-    {
-        try{
-            return new ResponseEntity(
-                    new GetAllCompaniesResponse((List<CompanyResponse>) companyService.getCompaniesById(companyId)),
-                            null,
-                            HttpStatus.OK);
-        }catch (Exception e)
-        {
+    public ResponseEntity getCompaniesById(@PathVariable Long companyId) {
+        try {
+            return new ResponseEntity(new GetAllCompaniesResponse((List<CompanyResponse>) companyService.getCompaniesById(companyId)), null, HttpStatus.OK);
+        } catch (Exception e) {
             e.printStackTrace();
 
-            return new ResponseEntity(
-                    new ErrorResponse(0,"Error","Something went wrong"),
-                    null,
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

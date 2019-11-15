@@ -19,7 +19,7 @@ public class Department {
     public Department() {
     }
 
-    public Department(String departmentName , BusinessUnit businessUnit) {
+    public Department(String departmentName, BusinessUnit businessUnit) {
         this.departmentName = departmentName;
         this.businessUnit = businessUnit;
     }
@@ -36,7 +36,7 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-   public BusinessUnit getBusinessUnit() {
+    public BusinessUnit getBusinessUnit() {
         return businessUnit;
     }
 

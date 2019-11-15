@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.models.entities;
 
 import javax.persistence.*;
 
@@ -11,8 +11,8 @@ public class BusinessUnit {
     private long id;
     private String nameOfBusinessUnit;
 
-    /*@ManyToOne
-    private Company company;*/
+    @ManyToOne
+    private Company company;
 
     public BusinessUnit() {
     }
@@ -37,11 +37,11 @@ public class BusinessUnit {
         this.nameOfBusinessUnit = nameOfBusinessUnit;
     }
 
-    /* public Company getCompany() {
+    public Company getCompany() {
         return company;
     }
 
     public void setCompany(Company company) {
         this.company = company;
-    }*/
+    }
 }

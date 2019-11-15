@@ -17,7 +17,7 @@ public class DepartmentService {
     private DepartmentsMapper mapper;
 
     public GenericResponse<AllDepartmentsResponse> getAllDepartments() {
-        return mapper.mapDepartments(repository.findAll());
+        return new GenericResponse<>(new AllDepartmentsResponse(mapper.mapDepartments(repository.findAll())));
     }
 
 

@@ -1,5 +1,6 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.repositories;
 
+import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 

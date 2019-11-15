@@ -3,6 +3,7 @@ package com.mindthecode.CompanyDirectory.models.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Companies")
 public class Company
 {
     @Id

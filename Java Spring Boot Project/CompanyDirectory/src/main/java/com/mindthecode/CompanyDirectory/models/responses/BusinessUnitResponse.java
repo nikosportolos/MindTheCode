@@ -1,18 +1,20 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.models.responses;
+
+import com.mindthecode.CompanyDirectory.models.entities.Company;
 
 public class BusinessUnitResponse {
 
     private long id;
     private String nameOfBusinessUnit;
-    //private Company company;
+    private Company company;
 
     public BusinessUnitResponse() {
     }
 
-    public BusinessUnitResponse(long id, String nameOfBusinessUnit/*, Company company*/) {
+    public BusinessUnitResponse(long id, String nameOfBusinessUnit, Company company) {
         this.id = id;
         this.nameOfBusinessUnit = nameOfBusinessUnit;
-        //this.company = company;
+        this.company = company;
     }
 
     public long getId() {
@@ -31,11 +33,11 @@ public class BusinessUnitResponse {
         this.nameOfBusinessUnit = nameOfBusinessUnit;
     }
 
-    /*public Company getCompany() {
+    public Company getCompany() {
         return company;
     }
 
     public void setCompany(Company company) {
         this.company = company;
-    }*/
+    }
 }

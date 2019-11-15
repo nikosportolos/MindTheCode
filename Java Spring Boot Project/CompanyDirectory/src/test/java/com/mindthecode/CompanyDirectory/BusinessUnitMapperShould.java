@@ -1,5 +1,8 @@
 package com.mindthecode.CompanyDirectory;
 
+import com.mindthecode.CompanyDirectory.mappers.BusinessUnitMapper;
+import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
+import com.mindthecode.CompanyDirectory.models.responses.BusinessUnitResponse;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,7 +11,7 @@ import org.junit.Test;
 public class BusinessUnitMapperShould {
 
     private BusinessUnitMapper mapper;
-    private BusinessUnit  businessUnitInput;
+    private BusinessUnit businessUnitInput;
     private BusinessUnitResponse expectedOutput;
 
     @Before
