@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.models.responses;
 
 /*uncomment when Unit is ready*/
 public class PositionResponse {

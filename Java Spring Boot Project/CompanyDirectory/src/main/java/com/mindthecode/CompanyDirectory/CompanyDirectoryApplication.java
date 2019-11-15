@@ -1,5 +1,7 @@
 package com.mindthecode.CompanyDirectory;
 
+import com.mindthecode.CompanyDirectory.models.entities.Position;
+import com.mindthecode.CompanyDirectory.repositories.PositionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

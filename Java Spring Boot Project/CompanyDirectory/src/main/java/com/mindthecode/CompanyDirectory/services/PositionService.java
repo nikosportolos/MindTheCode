@@ -1,9 +1,15 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.services;
 
+import com.mindthecode.CompanyDirectory.mappers.PositionMapper;
+import com.mindthecode.CompanyDirectory.models.entities.Position;
+import com.mindthecode.CompanyDirectory.models.responses.AllPositionsResponse;
+import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
+import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
+import com.mindthecode.CompanyDirectory.models.responses.PositionResponse;
+import com.mindthecode.CompanyDirectory.repositories.PositionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
