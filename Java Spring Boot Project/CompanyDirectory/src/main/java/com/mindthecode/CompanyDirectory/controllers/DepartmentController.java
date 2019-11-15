@@ -1,5 +1,6 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.controllers;
 
+import com.mindthecode.CompanyDirectory.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

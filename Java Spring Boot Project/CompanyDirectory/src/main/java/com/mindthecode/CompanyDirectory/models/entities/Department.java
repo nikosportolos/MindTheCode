@@ -2,30 +2,45 @@ package com.mindthecode.CompanyDirectory.models.entities;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "Departments")
 public class Department {
 
-    /**
-     * Instance variables
-     **/
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String departmentName;
+
+    @ManyToOne
+    private BusinessUnit businessUnit;
+
 
     public Department() {
     }
 
-    public Department(long id) {
-        this.id = id;
+    public Department(String departmentName , BusinessUnit businessUnit) {
+        this.departmentName = departmentName;
+        this.businessUnit = businessUnit;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+   public BusinessUnit getBusinessUnit() {
+        return businessUnit;
+    }
+
+    public void setBusinessUnit(BusinessUnit businessUnit) {
+        this.businessUnit = businessUnit;
     }
 }

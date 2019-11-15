@@ -1,31 +1,23 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.models.responses;
 
-import javax.persistence.*;
+public class DepartmentResponse {
 
-
-@Entity
-@Table(name = "Departments")
-public class Department {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String departmentName;
+    private BusinessUnit businessUnit;
 
-    //@ManyToOne
-    //private BusinessUnit businessUnit;
-
-
-    public Department() {
-    }
-
-    public Department(String departmentName /*BusinessUnit businessUnit*/) {
+    public DepartmentResponse(long id, String departmentName, BusinessUnit businessUnit) {
+        this.id = id;
         this.departmentName = departmentName;
-        //this.businessUnit = businessUnit;
+        this.businessUnit = businessUnit;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDepartmentName() {
@@ -36,11 +28,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    /*public BusinessUnit getBusinessUnit() {
+    public BusinessUnit getBusinessUnit() {
         return businessUnit;
     }
 
     public void setBusinessUnit(BusinessUnit businessUnit) {
         this.businessUnit = businessUnit;
-    }*/
+    }
 }

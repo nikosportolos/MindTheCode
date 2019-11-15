@@ -1,5 +1,7 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.mappers;
 
+import com.mindthecode.CompanyDirectory.models.entities.Department;
+import com.mindthecode.CompanyDirectory.models.responses.DepartmentResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

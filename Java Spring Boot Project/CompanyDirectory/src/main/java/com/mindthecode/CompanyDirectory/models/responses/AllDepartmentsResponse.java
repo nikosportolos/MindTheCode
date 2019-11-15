@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.models.responses;
 
 import java.util.List;
 

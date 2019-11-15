@@ -1,9 +1,7 @@
 package com.mindthecode.CompanyDirectory.mappers;
 
-import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
