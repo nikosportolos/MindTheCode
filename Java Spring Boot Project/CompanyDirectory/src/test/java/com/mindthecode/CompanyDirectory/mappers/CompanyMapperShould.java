@@ -1,8 +1,8 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.mappers;
 
-import com.mindthecode.CompanyDirectory.Mappers.CompanyMapper;
-import com.mindthecode.CompanyDirectory.Pojo.Company;
-import com.mindthecode.CompanyDirectory.Pojo.CompanyResponse;
+
+import com.mindthecode.CompanyDirectory.models.entities.Company;
+import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
