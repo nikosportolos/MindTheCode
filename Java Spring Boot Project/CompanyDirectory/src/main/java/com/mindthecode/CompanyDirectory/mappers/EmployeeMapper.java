@@ -1,7 +1,7 @@
-package com.nikosportolos.MtCProject1.mappers;
+package com.mindthecode.CompanyDirectory.mappers;
 
-import com.nikosportolos.MtCProject1.models.Employee;
-import com.nikosportolos.MtCProject1.models.responses.EmployeeResponse;
+import com.mindthecode.CompanyDirectory.models.entities.Employee;
+import com.mindthecode.CompanyDirectory.models.responses.EmployeeResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

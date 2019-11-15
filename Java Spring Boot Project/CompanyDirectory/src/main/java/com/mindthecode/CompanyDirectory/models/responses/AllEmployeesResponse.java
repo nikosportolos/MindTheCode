@@ -1,7 +1,5 @@
 package com.mindthecode.CompanyDirectory.models.responses;
 
-import com.mindthecode.CompanyDirectory.models.responses.EmployeeResponse;
-
 import java.util.List;
 
 public class AllEmployeesResponse {

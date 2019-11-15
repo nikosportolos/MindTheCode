@@ -1,9 +1,13 @@
-package com.nikosportolos.MtCProject1.controllers;
+package com.mindthecode.CompanyDirectory.controllers;
 
-import com.nikosportolos.MtCProject1.common.Enums;
-import com.nikosportolos.MtCProject1.models.responses.AllEmployeesResponse;
+import com.mindthecode.CompanyDirectory.common.Enums;
+import com.mindthecode.CompanyDirectory.models.responses.AllEmployeesResponse;
+import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
+import com.mindthecode.CompanyDirectory.services.UnitService;
 import com.nikosportolos.MtCProject1.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,27 +21,50 @@ public class EmployeeController {
      * Get
      **/
 
+//    @GetMapping("/employees")
+//    @ResponseBody
+//    public AllEmployeesResponse getEmployees() {
+//        System.out.println("###Loading all employees...");
+//        return service.getAllEmployees();
+//    }
+//
+//    @GetMapping("/employee/{id}")
+//    @ResponseBody
+//    public AllEmployeesResponse getEmployeeById(@PathVariable("id") long id) {
+//        System.out.println("###Loading employee by id: " + id);
+//        return service.getEmployeeById(id);
+//    }
+//
+//    @GetMapping("/employee/{criteria}/{id}")
+//    @ResponseBody
+//    public AllEmployeesResponse getEmployeesByCriteria(@PathVariable("criteria") String criteria, @PathVariable("id") long id) {
+//        System.out.println("###Loading employee by criteria: [" + criteria + ": " + id + "]");
+//        return service.getEmployeeByCriteria(criteria, id);
+//    }
+
     @GetMapping("/employees")
     @ResponseBody
-    public AllEmployeesResponse getEmployees() {
-        System.out.println("###Loading all employees...");
-        return service.getAllEmployees();
+    public ResponseEntity getEmployees() {
+        try {
+            System.out.println("###Loading all employees...");
+            return new ResponseEntity(service.getAllEmployees(), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/unit/{id}")
     @ResponseBody
-    public AllEmployeesResponse getEmployeeById(@PathVariable("id") long id) {
-        System.out.println("###Loading employee by id: " + id);
-        return service.getEmployeeById(id);
+    public ResponseEntity getEmployeeById(@PathVariable("id") long id) {
+        try {
+            System.out.println("###Loading unit by id: " + id);
+            return new ResponseEntity(service.getEmployeeById(id), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
-    @GetMapping("/employee/{criteria}/{id}")
-    @ResponseBody
-    public AllEmployeesResponse getEmployeesByCriteria(@PathVariable("criteria") String criteria, @PathVariable("id") long id) {
-        System.out.println("###Loading employee by criteria: [" + criteria + ": " + id + "]");
-        return service.getEmployeeByCriteria(criteria, id);
-    }
-
 
 //    /**
 //     * Add

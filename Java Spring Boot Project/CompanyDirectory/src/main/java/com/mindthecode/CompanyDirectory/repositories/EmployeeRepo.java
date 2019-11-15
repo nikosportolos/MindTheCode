@@ -1,6 +1,6 @@
-package com.nikosportolos.MtCProject1.repos;
+package com.mindthecode.CompanyDirectory.repositories;
 
-import com.nikosportolos.MtCProject1.models.Employee;
+import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import org.springframework.data.repository.CrudRepository;
 
 public interface EmployeeRepo extends CrudRepository<Employee, Long> {

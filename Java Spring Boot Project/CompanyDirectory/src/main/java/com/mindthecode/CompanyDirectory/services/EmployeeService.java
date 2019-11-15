@@ -1,16 +1,12 @@
-package com.nikosportolos.MtCProject1.services;
+package com.mindthecode.CompanyDirectory.services;
 
-import com.nikosportolos.MtCProject1.common.Enums;
-import com.nikosportolos.MtCProject1.mappers.EmployeeMapper;
-import com.nikosportolos.MtCProject1.models.Department;
-import com.nikosportolos.MtCProject1.models.Employee;
-import com.nikosportolos.MtCProject1.models.responses.AllDepartmentResponse;
-import com.nikosportolos.MtCProject1.models.responses.AllEmployeesResponse;
-import com.nikosportolos.MtCProject1.models.responses.DepartmentResponse;
-import com.nikosportolos.MtCProject1.models.responses.EmployeeResponse;
-import com.nikosportolos.MtCProject1.repos.EmployeeRepo;
-import com.nikosportolos.MtCProject1.strategy.SearchEmployeeStrategy;
-import com.nikosportolos.MtCProject1.strategy.SearchEmployeeStrategyFactory;
+import com.mindthecode.CompanyDirectory.mappers.EmployeeMapper;
+import com.mindthecode.CompanyDirectory.models.responses.AllEmployeesResponse;
+import com.mindthecode.CompanyDirectory.models.entities.Employee;
+import com.mindthecode.CompanyDirectory.models.responses.EmployeeResponse;
+import com.mindthecode.CompanyDirectory.repositories.EmployeeRepo;
+import com.mindthecode.CompanyDirectory.strategy.SearchEmployeeStrategy;
+import com.mindthecode.CompanyDirectory.strategy.SearchEmployeeStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +86,7 @@ public class EmployeeService {
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
         Iterable<Employee> retrievedEmployees = repo.findAll();
         for (Employee employee : retrievedEmployees) {
-            if (employee.getPosition().getUnit().getDepartment().getBusinessUnit().getCompany().getId() == id)
+            if (employee.getPosition().getUnit().getDepartment().getBusinessUnit().getCompany().getCompanyId() == id)
                 employeeResponses.add(mapper.mapEmployeeToResponse(employee));
         }
         return new AllEmployeesResponse(employeeResponses);

@@ -1,6 +1,6 @@
-package com.nikosportolos.MtCProject1.strategy;
+package com.mindthecode.CompanyDirectory.strategy;
 
-import com.nikosportolos.MtCProject1.models.Employee;
+import com.mindthecode.CompanyDirectory.models.entities.Employee;
 
 import java.util.ArrayList;
 import java.util.List;

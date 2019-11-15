@@ -1,4 +1,4 @@
-package com.nikosportolos.MtCProject1.strategy;
+package com.mindthecode.CompanyDirectory.strategy;
 
 import org.springframework.stereotype.Component;
 
