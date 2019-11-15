@@ -1,5 +1,7 @@
 package com.mindthecode.CompanyDirectory.models.responses;
 
+import com.mindthecode.CompanyDirectory.models.entities.Department;
+
 public class UnitResponse {
     private long id;
     private String name;
