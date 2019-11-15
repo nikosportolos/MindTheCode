@@ -45,7 +45,8 @@ public class EmployeeService {
         SearchEmployeeStrategy strategy = factory.makeStrategyForCriteria(searchCriteria);
 
         // Fetch employees
-        List<EmployeeResponse> retrievedEmployees = mapper.mapEmployees(strategy.execute(repo.findAll(), id));
+        Iterable<Employee> employees = strategy.execute(repo.findAll(), id);
+        List<EmployeeResponse> retrievedEmployees = mapper.mapEmployees(employees);
 
         return new GenericResponse<>(new AllEmployeesResponse(retrievedEmployees));
     }
