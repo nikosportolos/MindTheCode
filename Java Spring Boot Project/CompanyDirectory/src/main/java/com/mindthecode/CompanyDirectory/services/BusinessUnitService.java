@@ -26,7 +26,7 @@ public class BusinessUnitService {
         Iterable<BusinessUnit> retrievedBusinessUnits = repository.findAll();
         for (BusinessUnit businessUnit : retrievedBusinessUnits) {
             if (businessUnit.getId() == id)
-                return new GenericResponse(mapper.mapBusinessinessUnitToResponse(businessUnit));
+                return new GenericResponse(mapper.mapBusinessUnitToResponse(businessUnit));
         }
         return new GenericResponse(new ErrorResponse(0, "Error", "BusinessUnit with id " + id + " does not exist"));
     }

@@ -15,7 +15,7 @@ public class BusinessUnitController {
     @Autowired
     private BusinessUnitService service;
 
-    @GetMapping("/allBusinessUnits")
+    @GetMapping("/businessUnits")
     public ResponseEntity getBusinessUnits() {
         try {
             return new ResponseEntity(service.getAllBusinessUnits(), null, HttpStatus.OK);

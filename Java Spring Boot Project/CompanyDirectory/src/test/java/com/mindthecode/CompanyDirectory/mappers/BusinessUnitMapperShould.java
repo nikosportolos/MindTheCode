@@ -1,12 +1,13 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.mappers;
 
-import com.mindthecode.CompanyDirectory.mappers.BusinessUnitMapper;
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
+import com.mindthecode.CompanyDirectory.models.entities.Company;
 import com.mindthecode.CompanyDirectory.models.responses.BusinessUnitResponse;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class BusinessUnitMapperShould {
 
@@ -19,7 +20,7 @@ public class BusinessUnitMapperShould {
         mapper = new BusinessUnitMapper();
         businessUnitInput = new BusinessUnit("Services");
         businessUnitInput.setId(1);
-        expectedOutput = new BusinessUnitResponse(1,"Services");
+        expectedOutput = new BusinessUnitResponse(1,"Services", new Company());
     }
 
     @Test
@@ -33,8 +34,8 @@ public class BusinessUnitMapperShould {
     }
 
     @Test
-    public void mapBusinessinessUnitToResponse(){
-        BusinessUnitResponse output = mapper.mapBusinessinessUnitToResponse(businessUnitInput);
+    public void mapBusinessUnitToResponse(){
+        BusinessUnitResponse output = mapper.mapBusinessUnitToResponse(businessUnitInput);
         Assert.assertThat(expectedOutput, Matchers.samePropertyValuesAs(output));
     }
 }

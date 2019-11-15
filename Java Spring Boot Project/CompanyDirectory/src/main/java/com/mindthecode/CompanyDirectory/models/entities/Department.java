@@ -24,6 +24,12 @@ public class Department {
         this.businessUnit = businessUnit;
     }
 
+    public Department(long id, String departmentName, BusinessUnit businessUnit) {
+        this.id = id;
+        this.departmentName = departmentName;
+        this.businessUnit = businessUnit;
+    }
+
     public long getId() {
         return id;
     }

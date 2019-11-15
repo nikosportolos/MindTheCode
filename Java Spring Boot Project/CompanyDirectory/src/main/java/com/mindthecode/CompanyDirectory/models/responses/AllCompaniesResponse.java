@@ -2,11 +2,11 @@ package com.mindthecode.CompanyDirectory.models.responses;
 
 import java.util.List;
 
-public class GetAllCompaniesResponse
+public class AllCompaniesResponse
 {
     private List<CompanyResponse> companyResponseList;
 
-    public GetAllCompaniesResponse(List<CompanyResponse> allCompanies)
+    public AllCompaniesResponse(List<CompanyResponse> allCompanies)
     {
 
     }

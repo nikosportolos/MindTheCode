@@ -13,12 +13,12 @@ public class BusinessUnitMapper {
     public List<BusinessUnitResponse> mapBusinessUnits(Iterable<BusinessUnit> all) {
         List<BusinessUnitResponse> response = new ArrayList<>();
         for (BusinessUnit businessUnit : all) {
-            response.add(mapBusinessinessUnitToResponse(businessUnit));
+            response.add(mapBusinessUnitToResponse(businessUnit));
         }
         return response;
     }
 
-    public BusinessUnitResponse mapBusinessinessUnitToResponse(BusinessUnit businessUnit) {
+    public BusinessUnitResponse mapBusinessUnitToResponse(BusinessUnit businessUnit) {
         return new BusinessUnitResponse(businessUnit.getId(), businessUnit.getNameOfBusinessUnit(), businessUnit.getCompany());
     }
 

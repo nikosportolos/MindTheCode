@@ -21,8 +21,13 @@ public class UnitController {
     @GetMapping("/units")
     @ResponseBody
     public ResponseEntity getUnits() {
-        System.out.println("###Loading all units...");
-        return new ResponseEntity(service.getAllUnits(), null, HttpStatus.OK);
+        try {
+            System.out.println("###Loading all units...");
+            return new ResponseEntity(service.getAllUnits(), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/unit/{id}")

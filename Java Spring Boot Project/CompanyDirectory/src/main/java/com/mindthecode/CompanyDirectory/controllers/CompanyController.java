@@ -2,7 +2,7 @@ package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
-import com.mindthecode.CompanyDirectory.models.responses.GetAllCompaniesResponse;
+import com.mindthecode.CompanyDirectory.models.responses.AllCompaniesResponse;
 import com.mindthecode.CompanyDirectory.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +21,21 @@ public class CompanyController {
     CompanyService companyService;
 
     @GetMapping("/allCompanies")
-    public GetAllCompaniesResponse getAllCompanies() {
-        return new GetAllCompaniesResponse(companyService.getAllCompanies());
-    }
-
-    @GetMapping("/getCompaniesByName")
-    public ResponseEntity getCompaniesById(@PathVariable Long companyId) {
+    public ResponseEntity getAllCompanies() {
         try {
-            return new ResponseEntity(new GetAllCompaniesResponse((List<CompanyResponse>) companyService.getCompaniesById(companyId)), null, HttpStatus.OK);
+            return new ResponseEntity(new AllCompaniesResponse(companyService.getAllCompanies()), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+    @GetMapping("/getCompaniesById")
+    public ResponseEntity getCompaniesById(@PathVariable Long companyId) {
+        try {
+            return new ResponseEntity(new AllCompaniesResponse((List<CompanyResponse>) companyService.getCompaniesById(companyId)), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
