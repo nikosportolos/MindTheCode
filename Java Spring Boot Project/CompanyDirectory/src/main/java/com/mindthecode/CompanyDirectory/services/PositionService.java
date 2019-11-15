@@ -6,7 +6,7 @@ import com.mindthecode.CompanyDirectory.models.responses.AllPositionsResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.models.responses.PositionResponse;
-import com.mindthecode.CompanyDirectory.repositories.PositionRepo;
+import com.mindthecode.CompanyDirectory.repositories.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class PositionService {
 
     @Autowired
-    PositionRepo repo;
+    PositionRepository repo;
 
     @Autowired
     PositionMapper mapper;

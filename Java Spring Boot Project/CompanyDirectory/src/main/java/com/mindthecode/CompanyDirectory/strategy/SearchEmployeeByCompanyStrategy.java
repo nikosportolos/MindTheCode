@@ -11,7 +11,7 @@ public class SearchEmployeeByCompanyStrategy implements SearchEmployeeStrategy {
 
         List<Employee> employees = new ArrayList<>();
         for (Employee employee : allEmployees) {
-            if (employee.getPosition().getUnit().getDepartment().getBusinessUnit().getCompany().getCompanyId() == criteriaId) {
+            if (employee.getPosition().getUnit().getDepartment().getBusinessUnit().getCompany().getId() == criteriaId) {
                 employees.add(employee);
             }
         }

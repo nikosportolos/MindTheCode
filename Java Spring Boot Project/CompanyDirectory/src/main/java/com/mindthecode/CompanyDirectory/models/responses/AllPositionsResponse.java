@@ -1,7 +1,5 @@
 package com.mindthecode.CompanyDirectory.models.responses;
 
-import com.mindthecode.CompanyDirectory.models.responses.PositionResponse;
-
 import java.util.List;
 
 public class AllPositionsResponse {

@@ -36,7 +36,7 @@ public class CompanyService {
             return new GenericResponse<>(new ErrorResponse(0, "Wrong Input", "Something went wrong"));
         }
         for (Company company : companies) {
-            if (company.getCompanyId() == companyId) {
+            if (company.getId() == companyId) {
                 companiesToReturn.add(companyMapper.mapCompanyResponseFromCompany(company));
             }
         }

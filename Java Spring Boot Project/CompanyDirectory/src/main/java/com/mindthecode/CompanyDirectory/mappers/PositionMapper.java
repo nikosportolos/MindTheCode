@@ -18,11 +18,7 @@ public class PositionMapper {
         return response;
     }
 
-    /*uncomment when Unit is ready*/
     public PositionResponse mapPositionToResponse(Position position) {
-        return new PositionResponse(
-                position.getId(),
-                position.getName().getText()/*,
-                position.getUnit()*/);
+        return new PositionResponse(position.getId(), position.getName(), position.getUnit());
     }
 }

@@ -1,18 +1,24 @@
 package com.mindthecode.CompanyDirectory.models.responses;
 
-/*uncomment when Unit is ready*/
+import com.mindthecode.CompanyDirectory.models.entities.Unit;
+
 public class PositionResponse {
     private long id;
     private String name;
-  //  private Unit unit;
+    private Unit unit;
 
-  public PositionResponse(long id, String name/*, Unit unit*/) {
-      this.id = id;
-      this.name = name;
-    //  this.unit = unit;
-  }
+    public PositionResponse(long id, String name, Unit unit) {
+        this.id = id;
+        this.name = name;
+        this.unit = unit;
+    }
 
     public PositionResponse() {
+    }
+
+    public PositionResponse(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public long getId() {
@@ -30,7 +36,7 @@ public class PositionResponse {
     public void setName(String name) {
         this.name = name;
     }
-    /*
+
     public Unit getUnit() {
         return unit;
     }
@@ -38,5 +44,4 @@ public class PositionResponse {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
-    */
 }

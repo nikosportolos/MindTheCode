@@ -13,7 +13,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService service;
 
-    @GetMapping("/allDepartments")
+    @GetMapping("/departments")
     public ResponseEntity getDepartments(){
         return new ResponseEntity(service.getAllDepartments(), null, HttpStatus.OK);
     }

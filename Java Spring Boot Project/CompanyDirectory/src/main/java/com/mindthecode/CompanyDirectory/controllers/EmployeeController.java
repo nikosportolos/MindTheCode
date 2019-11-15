@@ -1,10 +1,8 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
-import com.mindthecode.CompanyDirectory.common.Enums;
-import com.mindthecode.CompanyDirectory.models.responses.AllEmployeesResponse;
+import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
-import com.mindthecode.CompanyDirectory.services.UnitService;
-import com.nikosportolos.MtCProject1.services.EmployeeService;
+import com.mindthecode.CompanyDirectory.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,27 +19,6 @@ public class EmployeeController {
      * Get
      **/
 
-//    @GetMapping("/employees")
-//    @ResponseBody
-//    public AllEmployeesResponse getEmployees() {
-//        System.out.println("###Loading all employees...");
-//        return service.getAllEmployees();
-//    }
-//
-//    @GetMapping("/employee/{id}")
-//    @ResponseBody
-//    public AllEmployeesResponse getEmployeeById(@PathVariable("id") long id) {
-//        System.out.println("###Loading employee by id: " + id);
-//        return service.getEmployeeById(id);
-//    }
-//
-//    @GetMapping("/employee/{criteria}/{id}")
-//    @ResponseBody
-//    public AllEmployeesResponse getEmployeesByCriteria(@PathVariable("criteria") String criteria, @PathVariable("id") long id) {
-//        System.out.println("###Loading employee by criteria: [" + criteria + ": " + id + "]");
-//        return service.getEmployeeByCriteria(criteria, id);
-//    }
-
     @GetMapping("/employees")
     @ResponseBody
     public ResponseEntity getEmployees() {
@@ -54,7 +31,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/unit/{id}")
+    @GetMapping("/employee/{id}")
     @ResponseBody
     public ResponseEntity getEmployeeById(@PathVariable("id") long id) {
         try {
@@ -66,24 +43,46 @@ public class EmployeeController {
         }
     }
 
-//    /**
-//     * Add
-//     **/
-//
-//    @PostMapping("/addEmployee")
-//    public String addEmployee(@RequestBody Employee employee) {
-//        System.out.println("###Adding employee: " + employee.toString());
-//        repo.save(employee);
-//        return "";
-//    }
-//
-//    @PostMapping("/addEmployees")
-//    public String addEmployees(@RequestBody Iterable<Employee> employees) {
-//        System.out.println("###Adding multiple employees");
-//        repo.saveAll(employees);
-//        return "";
-//    }
-//
+    @GetMapping("/employee/{criteria}/{id}")
+    @ResponseBody
+    public ResponseEntity getEmployeesByCriteria(@PathVariable("criteria") String criteria, @PathVariable("id") long id) {
+        try {
+            System.out.println("###Loading employee by criteria: [" + criteria + ": " + id + "]");
+            return new ResponseEntity(service.getEmployeeByCriteria(criteria, id), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Add
+     **/
+
+    @PostMapping("/addEmployee")
+    @ResponseBody
+    public ResponseEntity addEmployee(@RequestBody Employee employee) {
+        try {
+            System.out.println("###Adding employee: " + employee.toString());
+            return new ResponseEntity(service.saveEmployee(employee), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/addEmployees")
+    @ResponseBody
+    public ResponseEntity addEmployees(@RequestBody Iterable<Employee> employees) {
+        try {
+            System.out.println("###Adding multiple employees");
+            return new ResponseEntity(service.saveEmployees(employees), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 //    /**
 //     * Update
 //     **/

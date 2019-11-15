@@ -1,5 +1,7 @@
 package com.mindthecode.CompanyDirectory.models.entities;
 
+import com.mindthecode.CompanyDirectory.common.Enums;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private AvailablePositions name;
+    private String name;
 
     @ManyToOne
     private Unit unit;
@@ -18,7 +20,7 @@ public class Position {
     public Position() {
     }
 
-    public Position(AvailablePositions name) {
+    public Position(String name) {
         this.name = name;
     }
 
@@ -30,11 +32,11 @@ public class Position {
         this.id = id;
     }
 
-    public AvailablePositions getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(AvailablePositions name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -46,32 +48,6 @@ public class Position {
         this.unit = unit;
     }
 
-    /*Needs to be in Enums file*/
-    public enum AvailablePositions{
-        JuniorAnalyst("Junior Analyst"),
-        SeniorAnalyst("Senior Analyst"),
-        JuniorDeveloper("Junior Developer"),
-        SeniorDeveloper("Senior Developer"),
-        Manager("Manager");
 
-        private String text;
-
-        AvailablePositions(String text) {
-            this.text = text;
-        }
-
-        public String getText() {
-            return this.text;
-        }
-
-        public static AvailablePositions fromString(String text) {
-            for (AvailablePositions b : AvailablePositions.values()) {
-                if (b.text.equalsIgnoreCase(text)) {
-                    return b;
-                }
-            }
-            return null;
-        }
-    }
 }
 
