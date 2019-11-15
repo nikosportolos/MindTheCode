@@ -1,4 +1,4 @@
-package com.nikosportolos.MtCProject1.common;
+package com.mindthecode.CompanyDirectory.common;
 
 public class Enums {
 
