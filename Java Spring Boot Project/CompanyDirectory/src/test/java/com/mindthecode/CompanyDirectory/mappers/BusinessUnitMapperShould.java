@@ -30,7 +30,7 @@ public class BusinessUnitMapperShould {
 
     @Test
     public void KeepSameNameOfBusinessUnit(){
-        Assert.assertEquals(businessUnitInput.getNameOfBusinessUnit(), expectedOutput.getNameOfBusinessUnit());
+        Assert.assertEquals(businessUnitInput.getNameOfBusinessUnit(), expectedOutput.getName());
     }
 
     @Test
