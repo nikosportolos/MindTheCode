@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "0a7a3a85-9d76-4771-a1af-6bbb7301542b",
+		"name": "Project #1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Get Employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employee/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Employee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Bill\",\r\n    \"lastName\": \"Jones\",\r\n    \"address\": \"Wall St.\",\r\n    \"phoneNumber\": \"+30 6944569782\",\r\n    \"hireDate\": \"2011-11-12T21:00:00.000+0000\",\r\n    \"departureDate\": \"1900-01-01\",\r\n    \"status\": \"Active\",\r\n    \"contractType\": \"UniSystems\",\r\n    \"position\":     \r\n    {\r\n        \"id\": 1,\r\n        \"name\": \"Software Engineer\",\r\n        \"unit\": {\r\n            \"id\": 1,\r\n            \"name\": \"Resource Management Solutions\",\r\n            \"department\": {\r\n                \"id\": 1,\r\n                \"name\": \"Resource Management Solutions & S/W Production Practices\",\r\n                \"businessUnit\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Software Technical Division\",\r\n                    \"company\": {\r\n                        \"id\": 1,\r\n                        \"name\": \"UniSystems\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/addEmployee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addEmployee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Employees",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n\t{\r\n\t    \"firstName\": \"Sarah\",\r\n\t    \"lastName\": \"Jones\",\r\n\t    \"address\": \"Java Avenue\",\r\n\t    \"phoneNumber\": \"+30 699991234\",\r\n\t    \"hireDate\": \"2015-07-12\",\r\n\t    \"departureDate\": \"1900-01-01\",\r\n\t    \"status\": \"Active\",\r\n\t    \"contractType\": \"External\",\r\n\t    \"company\": \"ACS\",\r\n\t    \"businessUnit\": \"\",\r\n\t    \"department\": \"Marketing\",\r\n\t    \"unit\": \"\",\r\n\t    \"position\": \"Junior Marketing Assistant\"\r\n\t},\r\n\t\r\n\t{\r\n\t    \"firstName\": \"Jim\",\r\n\t    \"lastName\": \"Jameson\",\r\n\t    \"address\": \"Wall St.\",\r\n\t    \"phoneNumber\": \"+30 6944569782\",\r\n\t    \"hireDate\": \"2011-11-12T21:00:00.000+0000\",\r\n\t    \"departureDate\": \"1900-01-01\",\r\n\t    \"status\": \"Active\",\r\n\t    \"contractType\": \"UniSystems\",\r\n\t    \"company\": \"UniSystems\",\r\n\t    \"businessUnit\": \"Software Technical Division\",\r\n\t    \"department\": \"Resource Management Solutions & S/W Production Practices\",\r\n\t    \"unit\": \"Resource Management Solutions\",\r\n\t    \"position\": \"Principal Software Engineer\"\r\n\t}\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/addEmployees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addEmployees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employees",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n\t{\r\n        \"id\": 4,\r\n\t    \"firstName\": \"aaaaaaa\",\r\n\t    \"lastName\": \"Jones\",\r\n\t    \"address\": \"Java Avenue\",\r\n\t    \"phoneNumber\": \"+30 699991234\",\r\n\t    \"hireDate\": \"2015-07-12\",\r\n\t    \"departureDate\": \"1900-01-01\",\r\n\t    \"status\": \"Active\",\r\n\t    \"contractType\": \"External\",\r\n\t    \"company\": \"ACS\",\r\n\t    \"businessUnit\": \"\",\r\n\t    \"department\": \"Marketing\",\r\n\t    \"unit\": \"\",\r\n\t    \"position\": \"Junior Marketing Assistant\"\r\n\t},\r\n\t\r\n\t{\r\n        \"id\": 5,\r\n\t    \"firstName\": \"bbbbbbbbbbbbb\",\r\n\t    \"lastName\": \"Jameson\",\r\n\t    \"address\": \"Wall St.\",\r\n\t    \"phoneNumber\": \"+30 6944569782\",\r\n\t    \"hireDate\": \"2011-11-12T21:00:00.000+0000\",\r\n\t    \"departureDate\": \"1900-01-01\",\r\n\t    \"status\": \"Active\",\r\n\t    \"contractType\": \"UniSystems\",\r\n\t    \"company\": \"UniSystems\",\r\n\t    \"businessUnit\": \"Software Technical Division\",\r\n\t    \"department\": \"Resource Management Solutions & S/W Production Practices\",\r\n\t    \"unit\": \"Resource Management Solutions\",\r\n\t    \"position\": \"Principal Software Engineer\"\r\n\t}\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/updateEmployees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"updateEmployees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"firstName\": \"aaaaaaa\",\r\n    \"lastName\": \"Jones\",\r\n    \"address\": \"Java Avenue\",\r\n    \"phoneNumber\": \"+30 699991234\",\r\n    \"hireDate\": \"2015-07-12\",\r\n    \"departureDate\": \"1900-01-01\",\r\n    \"status\": \"Active\",\r\n    \"contractType\": \"External\",\r\n    \"company\": \"ACS\",\r\n    \"businessUnit\": \"\",\r\n    \"department\": \"Marketing\",\r\n    \"unit\": \"\",\r\n    \"position\": \"Junior Marketing Assistant\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/updateEmployee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"updateEmployee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employe by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":2,\r\n    \"firstName\": \"bbbbbbbbb\",\r\n    \"lastName\": \"Jones\",\r\n    \"address\": \"Java Avenue\",\r\n    \"phoneNumber\": \"+30 699991234\",\r\n    \"hireDate\": \"2015-07-12\",\r\n    \"departureDate\": \"1900-01-01\",\r\n    \"status\": \"Active\",\r\n    \"contractType\": \"External\",\r\n    \"company\": \"ACS\",\r\n    \"businessUnit\": \"\",\r\n    \"department\": \"Marketing\",\r\n    \"unit\": \"\",\r\n    \"position\": \"Junior Marketing Assistant\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/updateEmployeeById/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"updateEmployeeById",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/deleteEmployeeById/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteEmployeeById",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Employees ",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/deleteAllEmployees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteAllEmployees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"firstName\": \"Jim\",\r\n    \"lastName\": \"Jameson\",\r\n    \"address\": \"Wall St.\",\r\n    \"phoneNumber\": \"+30 6944569782\",\r\n    \"hireDate\": \"2011-11-12T21:00:00.000+0000\",\r\n    \"departureDate\": \"1900-01-01T00:00:00.000+0000\",\r\n    \"status\": \"Active\",\r\n    \"contractType\": \"UniSystems\",\r\n    \"company\": \"UniSystems\",\r\n    \"businessUnit\": \"Software Technical Division\",\r\n    \"department\": \"Resource Management Solutions & S/W Production Practices\",\r\n    \"unit\": \"Resource Management Solutions\",\r\n    \"position\": \"Principal Software Engineer\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteEmployee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteEmployee"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get Companies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/companies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Company by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/companies/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Business Units",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/businessUnits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"businessUnits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Business Unit by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/businessUnits/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"businessUnits",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Departments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/departments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"departments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Department by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/departments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"departments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Units",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/units",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"units"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Unit by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/units/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"units",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Positions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/positions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"positions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Position by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/positions/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"positions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,6 +1,5 @@
 package com.mindthecode.CompanyDirectory.services;
 
-
 import com.mindthecode.CompanyDirectory.mappers.CompanyMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
@@ -14,37 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CompanyService
-{
+public class CompanyService {
     private CompanyMapper companyMapper = new CompanyMapper();
 
     @Autowired
     CompanyRepository companyRepository;
 
-    public List<CompanyResponse> getAllCompanies()
-    {
+    public List<CompanyResponse> getAllCompanies() {
         Iterable<Company> retrievedCompanies = companyRepository.findAll();
         List<CompanyResponse> companies = new ArrayList<>();
-        for(Company company: retrievedCompanies)
-        {
+        for (Company company : retrievedCompanies) {
             companies.add(companyMapper.mapCompanyResponseFromCompany(company));
         }
         return companies;
     }
 
-    public GenericResponse<List<CompanyResponse>> getCompaniesById(Long companyId)
-    {
+    public GenericResponse<List<CompanyResponse>> getCompaniesById(Long companyId) {
         Iterable<Company> companies = companyRepository.findAll();
         List<CompanyResponse> companiesToReturn = new ArrayList<>();
 
-        if(!companyRepository.findById(companyId).isPresent())
-        {
-            return new GenericResponse<>(new ErrorResponse(0,"Wrong Input","Something went wrong"));
+        if (!companyRepository.findById(companyId).isPresent()) {
+            return new GenericResponse<>(new ErrorResponse(0, "Wrong Input", "Something went wrong"));
         }
-        for(Company company:companies)
-        {
-            if(company.getCompanyId()==companyId)
-            {
+        for (Company company : companies) {
+            if (company.getId() == companyId) {
                 companiesToReturn.add(companyMapper.mapCompanyResponseFromCompany(company));
             }
         }

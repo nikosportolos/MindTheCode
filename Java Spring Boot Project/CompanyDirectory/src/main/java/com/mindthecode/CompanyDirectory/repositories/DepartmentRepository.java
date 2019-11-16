@@ -1,19 +1,19 @@
 package com.mindthecode.CompanyDirectory.repositories;
-import com.mindthecode.CompanyDirectory.models.entities.Company;
+
+import com.mindthecode.CompanyDirectory.models.entities.Department;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyRepository extends CrudRepository<Company,Long>
-{
+public interface DepartmentRepository extends CrudRepository<Department, Long> {
     @Override
     @RestResource(exported = false)
-    <S extends Company> S save(S entity);
+    <S extends Department> S save(S entity);
 
     @Override
     @RestResource(exported = false)
-    <S extends Company> Iterable<S> saveAll(Iterable<S> entities);
+    <S extends Department> Iterable<S> saveAll(Iterable<S> entities);
 
     @Override
     @RestResource(exported = false)
@@ -21,13 +21,14 @@ public interface CompanyRepository extends CrudRepository<Company,Long>
 
     @Override
     @RestResource(exported = false)
-    void delete(Company entity);
+    void delete(Department entity);
 
     @Override
     @RestResource(exported = false)
-    void deleteAll(Iterable<? extends Company> entities);
+    void deleteAll(Iterable<? extends Department> entities);
 
     @Override
     @RestResource(exported = false)
     void deleteAll();
+
 }

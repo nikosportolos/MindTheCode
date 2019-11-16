@@ -70,3 +70,16 @@ tests
 		* EmployeeMapperShould
 		* PositionMapperShould
 		* UnitMapperShould
+
+
+
+
+
+Entities Assignment
+---------------------------
+BusinessUnit - Δήμητρα
+Company - Φίλιππος
+Department - Μιχάλης
+Position - Νικολέττα
+Unit - Νίκος
+

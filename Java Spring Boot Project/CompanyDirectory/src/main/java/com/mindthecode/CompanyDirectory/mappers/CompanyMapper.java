@@ -5,10 +5,8 @@ import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CompanyMapper
-{
-    public CompanyResponse mapCompanyResponseFromCompany(Company company)
-    {
-        return new CompanyResponse(company.getCompanyId(),company.getCompanyName());
+public class CompanyMapper {
+    public CompanyResponse mapCompanyResponseFromCompany(Company company) {
+        return new CompanyResponse(company.getId(), company.getCompanyName());
     }
 }
