@@ -5,15 +5,15 @@ import com.mindthecode.CompanyDirectory.models.entities.Company;
 public class BusinessUnitResponse {
 
     private long id;
-    private String nameOfBusinessUnit;
+    private String name;
     private Company company;
 
     public BusinessUnitResponse() {
     }
 
-    public BusinessUnitResponse(long id, String nameOfBusinessUnit, Company company) {
+    public BusinessUnitResponse(long id, String name, Company company) {
         this.id = id;
-        this.nameOfBusinessUnit = nameOfBusinessUnit;
+        this.name = name;
         this.company = company;
     }
 
@@ -25,12 +25,12 @@ public class BusinessUnitResponse {
         this.id = id;
     }
 
-    public String getNameOfBusinessUnit() {
-        return nameOfBusinessUnit;
+    public String getName() {
+        return name;
     }
 
-    public void setNameOfBusinessUnit(String nameOfBusinessUnit) {
-        this.nameOfBusinessUnit = nameOfBusinessUnit;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Company getCompany() {

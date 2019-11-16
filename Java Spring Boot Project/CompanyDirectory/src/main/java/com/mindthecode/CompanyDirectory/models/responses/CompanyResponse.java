@@ -2,34 +2,34 @@ package com.mindthecode.CompanyDirectory.models.responses;
 
 public class CompanyResponse
 {
-    private long companyId;
-    private String companyName;
+    private long id;
+    private String name;
 
     public CompanyResponse() {
     }
 
-    public CompanyResponse(String companyName) {
-        this.companyName = companyName;
+    public CompanyResponse(String name) {
+        this.name = name;
     }
 
-    public CompanyResponse(long companyId, String companyName) {
-        this.companyId = companyId;
-        this.companyName = companyName;
+    public CompanyResponse(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public long getCompanyId() {
-        return companyId;
+    public long getId() {
+        return id;
     }
 
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

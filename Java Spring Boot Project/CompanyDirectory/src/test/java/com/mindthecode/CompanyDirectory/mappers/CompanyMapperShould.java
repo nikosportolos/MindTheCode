@@ -21,12 +21,12 @@ public class CompanyMapperShould {
 
     @Test
     public void keepSameId() {
-        Assert.assertEquals(100, companyResponseOutput.getCompanyId());
+        Assert.assertEquals(100, companyResponseOutput.getId());
     }
 
     @Test
     public void keepSameName() {
-        Assert.assertEquals("InfoQuest", companyResponseOutput.getCompanyName());
+        Assert.assertEquals("InfoQuest", companyResponseOutput.getName());
     }
 }
 
