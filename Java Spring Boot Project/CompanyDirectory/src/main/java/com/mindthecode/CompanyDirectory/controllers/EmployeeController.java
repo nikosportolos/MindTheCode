@@ -1,12 +1,5 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class EmployeeController
-{
-=======
 import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.services.EmployeeService;
@@ -158,5 +151,4 @@ public class EmployeeController {
 //        repo.deleteAll();
 //        return "";
 //    }
->>>>>>> 8e27805ded00c4357629bb52a354c69458047106
 }
