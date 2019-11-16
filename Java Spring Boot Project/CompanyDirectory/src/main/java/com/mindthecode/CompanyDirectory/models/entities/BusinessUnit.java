@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "BusinessUnits")
-public class BusinessUnit {
+public class BusinessUnit {                  //This is a comment
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
