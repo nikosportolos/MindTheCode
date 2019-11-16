@@ -8,7 +8,7 @@ import java.util.List;
 @Component
 public class DepartmentsMapper {
 
-    public List<DepartmentResponse> mapDepartments(Iterable<Departments> all) {
+    public List<DepartmentResponse> mapDepartments(Iterable<Department> all) {
         List<DepartmentResponse> departments = new ArrayList<>();
         for (Department department : all){
             DepartmentResponse departmentResponse = mapDepartmentToDepartmentResponse(department);
