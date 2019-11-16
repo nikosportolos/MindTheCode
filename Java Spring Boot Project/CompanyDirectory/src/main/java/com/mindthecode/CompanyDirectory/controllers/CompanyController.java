@@ -1,5 +1,4 @@
-package com.mindthecode.CompanyDirectory.Controllers;
-
+package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
