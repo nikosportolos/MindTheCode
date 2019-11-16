@@ -77,9 +77,74 @@ tests
 
 Entities Assignment
 ---------------------------
-BusinessUnit - Δήμητρα
-Company - Φίλιππος
-Department - Μιχάλης
-Position - Νικολέττα
-Unit - Νίκος
+BusinessUnit - Γ„ΓΓ¬Γ§Γ΄Γ±Γ΅
+Company - Γ–ΓΓ«Γ©Γ°Γ°Γ―Γ²
+Department - ΓΓ©Γ·ΓΓ«Γ§Γ²
+Position - ΓΓ©ΓªΓ―Γ«ΓΓ΄Γ΄Γ΅
+Unit - ΓΓΓªΓ―Γ²
 
+
+
+Create models
+	- models/entities/Task
+	- models/responses/TaskResponse
+	- models/responses/AllTasksResponse
+
+
+Endpoints
+	- getAllTasks
+	- getTaskById
+	- updateTask
+	- deleteTask
+	- getTasksByDifficulty
+	- getTasksByNumOfEmployees
+	- getTasksByDiffAndNumOfEmployees
+
+
+ΞΞ± Ο€ΟΞΏΟƒΟ„ΞµΞΈΞµΞ― List<Task> ΟƒΟ„Ξ± models Ο„ΞΏΟ… Employee
+
+
+Tests
+	- unit tests
+		- mappers
+		- services
+	- acceptance tests
+		- business unit
+		- employee
+		- unit
+		- department
+		- position
+		- company
+		- task
+
+
+MySQL
+Heroku deployment
+Role based authentication
+
+
+
+
+Task
+-----------
+id
+title
+desc
+estimationA 
+estimationB
+estimationC
+status
+List<Employee>
+List<String>
+
+
+TaskResponse
+------------
+
+id
+title
+desc
+difficulty
+status
+List<Employee>
+List<String>
