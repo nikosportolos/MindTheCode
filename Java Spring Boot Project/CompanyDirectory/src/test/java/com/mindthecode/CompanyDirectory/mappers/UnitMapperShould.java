@@ -1,15 +1,18 @@
 package com.mindthecode.CompanyDirectory.mappers;
 
+<<<<<<< HEAD
 import com.mindthecode.CompanyDirectory.mappers.UnitMapper;
+=======
+import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
+>>>>>>> 1af10283d742204f914dcbe71ac4512be73405ef
 import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +28,7 @@ public class UnitMapperShould {
     public void setup() {
         unitMapper = new UnitMapper();
 
-        Department dummyDept = new Department(1);
+        Department dummyDept = new Department(1, "Software Development Department", new BusinessUnit(("")));
         unitInput = new Unit(1, "Resource Management Solutions", dummyDept);
         expectedOutput = new UnitResponse(1, "Resource Management Solutions", dummyDept);
     }
@@ -47,14 +50,13 @@ public class UnitMapperShould {
 
     @Test
     public void mapUnits() {
-        List<Unit> unitList = Arrays.asList(unitInput, new Unit(2, "International", new Department(1)));
+        List<Unit> unitList = Arrays.asList(unitInput, new Unit(2, "International", new Department(1, "Software Development Department", new BusinessUnit(("")))));
 
         List<UnitResponse> outputList = new ArrayList<>();
         outputList.add(expectedOutput);
-        outputList.add(new UnitResponse(2, "International", new Department(1)));
+        outputList.add(new UnitResponse(2, "International", new Department(1, "Software Development Department", new BusinessUnit(("")))));
 
         List<UnitResponse> expectedList = unitMapper.mapUnits(unitList);
-
         Assert.assertThat(expectedList, Matchers.samePropertyValuesAs(outputList));
     }
 

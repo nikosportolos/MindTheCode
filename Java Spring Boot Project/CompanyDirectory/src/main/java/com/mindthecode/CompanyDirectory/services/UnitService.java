@@ -1,12 +1,11 @@
 package com.mindthecode.CompanyDirectory.services;
 
-
 import com.mindthecode.CompanyDirectory.mappers.UnitMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.AllUnitsResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
-import com.mindthecode.CompanyDirectory.repositories.UnitRepo;
+import com.mindthecode.CompanyDirectory.repositories.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UnitService {
 
     @Autowired
-    private UnitRepo repo;
+    private UnitRepository repo;
 
     @Autowired
     private UnitMapper mapper;
