@@ -16,47 +16,37 @@ import java.util.List;
 public class PositionService {
 
     @Autowired
-    PositionRepository repo;
+    PositionRepository repository;
 
     @Autowired
     PositionMapper mapper;
 
     public GenericResponse<AllPositionsResponse> getAllPositions() {
-        List<PositionResponse> positions = mapper.mapPositions(repo.findAll());
+        List<PositionResponse> positions = mapper.mapPositions(repository.findAll());
         if(positions != null && positions.size() > 0)
             return new GenericResponse<>(new AllPositionsResponse(positions));
 
-        return new GenericResponse(new ErrorResponse(0,"Error","No Positions were found"));
+        return new GenericResponse<>(new ErrorResponse(0,"Error","No Positions were found"));
     }
 
-    /*need to find one position only because id is primary key*/
     public GenericResponse<PositionResponse> getPositionById(long id) {
-        Iterable<Position> retrievedPositions = repo.findAll();
+        Iterable<Position> retrievedPositions = repository.findAll();
         for (Position position : retrievedPositions) {
             if (position.getId() == id)
                 return new GenericResponse<>(mapper.mapPositionToResponse(position));
         }
-        return new GenericResponse(new ErrorResponse(0,"Error","Positions with id "+ id +" was not found"));
+        return new GenericResponse<>(new ErrorResponse(0,"Error","Positions with id "+ id +" was not found"));
     }
 
-    /*uncomment when Unit is ready*/
-    /*Needs to be tested after creation of Unit*/
-    /*
-    public GenericResponse<AllPositionsResponse> getPositionsByUnitId(Long unitId) {
-        Iterable<Position> retrievedPositions = repo.findAll();
-        List<PositionResponse> positionResponses = new ArrayList<>();
-        for (Position position : retrievedPositions) {
-            if (position.getUnit() !=null && position.getUnit().getId() == unitId) {
-                positionResponses.add(mapper.mapPositionToResponse(position));
-            }
+
+    public GenericResponse<AllPositionsResponse> savePosition(Position position) {
+        try {
+            repository.save(position);
+            return getAllPositions();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));
         }
-
-        if(positionResponses != null && positionResponses.size() > 0)
-            return new GenericResponse<>(new AllPositionsResponse(positionResponses));
-
-        return new GenericResponse(new ErrorResponse(0,"Error","No Positions were found"));
     }
-    */
-
 
 }

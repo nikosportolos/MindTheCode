@@ -2,6 +2,7 @@ package com.mindthecode.CompanyDirectory.services;
 
 import com.mindthecode.CompanyDirectory.mappers.CompanyMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
+import com.mindthecode.CompanyDirectory.models.responses.AllCompaniesResponse;
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
@@ -17,22 +18,22 @@ public class CompanyService {
     private CompanyMapper companyMapper = new CompanyMapper();
 
     @Autowired
-    CompanyRepository companyRepository;
+    CompanyRepository repository;
 
-    public List<CompanyResponse> getAllCompanies() {
-        Iterable<Company> retrievedCompanies = companyRepository.findAll();
+    public GenericResponse<AllCompaniesResponse> getAllCompanies() {
+        Iterable<Company> retrievedCompanies = repository.findAll();
         List<CompanyResponse> companies = new ArrayList<>();
         for (Company company : retrievedCompanies) {
             companies.add(companyMapper.mapCompanyResponseFromCompany(company));
         }
-        return companies;
+        return new GenericResponse<>(new AllCompaniesResponse(companies));
     }
 
-    public GenericResponse<List<CompanyResponse>> getCompaniesById(Long companyId) {
-        Iterable<Company> companies = companyRepository.findAll();
+    public GenericResponse<AllCompaniesResponse> getCompaniesById(Long companyId) {
+        Iterable<Company> companies = repository.findAll();
         List<CompanyResponse> companiesToReturn = new ArrayList<>();
 
-        if (!companyRepository.findById(companyId).isPresent()) {
+        if (!repository.findById(companyId).isPresent()) {
             return new GenericResponse<>(new ErrorResponse(0, "Wrong Input", "Something went wrong"));
         }
         for (Company company : companies) {
@@ -40,6 +41,16 @@ public class CompanyService {
                 companiesToReturn.add(companyMapper.mapCompanyResponseFromCompany(company));
             }
         }
-        return new GenericResponse<>(companiesToReturn);
+        return new GenericResponse<>(new AllCompaniesResponse(companiesToReturn));
+    }
+
+    public GenericResponse<AllCompaniesResponse> saveCompany(Company company) {
+        try {
+            repository.save(company);
+            return getAllCompanies();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save company"));
+        }
     }
 }
