@@ -3,7 +3,7 @@ package com.mindthecode.CompanyDirectory.models.responses;
 import java.util.List;
 
 public class AllDepartmentsResponse {
-    List<DepartmentResponse> departments;
+    private List<DepartmentResponse> departments;
 
     public AllDepartmentsResponse(List<DepartmentResponse> departments) {
         this.departments = departments;

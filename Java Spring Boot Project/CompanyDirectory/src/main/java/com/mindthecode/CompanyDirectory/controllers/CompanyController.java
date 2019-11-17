@@ -31,7 +31,7 @@ public class CompanyController {
         }
     }
 
-    @GetMapping("/getCompanyById/{id}")
+    @GetMapping("/company/{id}")
     public ResponseEntity getCompanyById(@PathVariable("id") Long id) {
         try {
             System.out.println("###Loading company by id: " + id);

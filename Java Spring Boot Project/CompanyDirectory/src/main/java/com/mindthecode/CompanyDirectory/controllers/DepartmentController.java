@@ -26,7 +26,7 @@ public class DepartmentController {
         }
     }
 
-    @GetMapping("/getDepartmentById/{id}")
+    @GetMapping("/department/{id}")
     public ResponseEntity getDepartmentById(@PathVariable("id") long id) {
         try {
             System.out.println("###Loading department by id: " + id);

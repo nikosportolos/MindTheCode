@@ -16,17 +16,17 @@ import java.util.List;
 public class PositionService {
 
     @Autowired
-    PositionRepository repository;
+    private PositionRepository repository;
 
     @Autowired
-    PositionMapper mapper;
+    private PositionMapper mapper;
 
     public GenericResponse<AllPositionsResponse> getAllPositions() {
         List<PositionResponse> positions = mapper.mapPositions(repository.findAll());
-        if(positions != null && positions.size() > 0)
+        if (positions == null || positions.size() > 0)
             return new GenericResponse<>(new AllPositionsResponse(positions));
 
-        return new GenericResponse<>(new ErrorResponse(0,"Error","No Positions were found"));
+        return new GenericResponse<>(new ErrorResponse(0, "Error", "No positions were found"));
     }
 
     public GenericResponse<PositionResponse> getPositionById(long id) {
@@ -35,7 +35,7 @@ public class PositionService {
             if (position.getId() == id)
                 return new GenericResponse<>(mapper.mapPositionToResponse(position));
         }
-        return new GenericResponse<>(new ErrorResponse(0,"Error","Positions with id "+ id +" was not found"));
+        return new GenericResponse<>(new ErrorResponse(0, "Unknown position", "No position found with id " + id));
     }
 
 

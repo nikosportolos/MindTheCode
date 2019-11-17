@@ -26,7 +26,7 @@ public class BusinessUnitController {
         }
     }
 
-    @GetMapping("/businessUnitById/{id}")
+    @GetMapping("/businessUnit/{id}")
     public ResponseEntity getBusinessUnitById(@PathVariable("id") long id) {
         try {
             System.out.println("###Loading business unit by id: " + id);

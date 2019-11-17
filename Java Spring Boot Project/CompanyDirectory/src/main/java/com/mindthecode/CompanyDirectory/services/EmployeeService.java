@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
+
     @Autowired
     private EmployeeRepository repository;
 
@@ -28,16 +29,24 @@ public class EmployeeService {
     private SearchEmployeeStrategyFactory factory;
 
     public GenericResponse<AllEmployeesResponse> getAllEmployees() {
-        return new GenericResponse<>(new AllEmployeesResponse(mapper.mapEmployees(repository.findAll())));
+        List<EmployeeResponse> employees = mapper.mapEmployees(repository.findAll());
+        if (employees == null || employees.size() > 0)
+            return new GenericResponse<>(new AllEmployeesResponse(employees));
+
+        return new GenericResponse<>(new ErrorResponse(0, "Error", "No employees were found"));
     }
 
     public GenericResponse<AllEmployeesResponse> getEmployeeById(long id) {
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
         Iterable<Employee> retrievedEmployees = repository.findAll();
+
         for (Employee employee : retrievedEmployees) {
             if (employee.getId() == id)
                 employeeResponses.add(mapper.mapEmployeeToResponse(employee));
         }
+
+        if (employeeResponses.size() == 0)
+            return new GenericResponse<>(new ErrorResponse(0, "Unknown employee", "No employee found with id " + id));
 
         return new GenericResponse<>(new AllEmployeesResponse(employeeResponses));
     }

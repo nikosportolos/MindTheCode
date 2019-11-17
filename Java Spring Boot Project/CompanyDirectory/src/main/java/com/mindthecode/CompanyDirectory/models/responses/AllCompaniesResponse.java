@@ -5,7 +5,8 @@ import java.util.List;
 public class AllCompaniesResponse {
     private List<CompanyResponse> companies;
 
-    public AllCompaniesResponse(List<CompanyResponse> allCompanies) {
+    public AllCompaniesResponse(List<CompanyResponse> companies) {
+        this.companies = companies;
     }
 
     public List<CompanyResponse> getCompanies() {

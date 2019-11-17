@@ -25,8 +25,8 @@ public class UnitService {
         List<UnitResponse> units = mapper.mapUnits(repository.findAll());
         if (units == null || units.size() == 0)
             return new GenericResponse<>(new ErrorResponse(0, "Error", "No units found"));
-        else
-            return new GenericResponse<>(new AllUnitsResponse(units));
+
+        return new GenericResponse<>(new AllUnitsResponse(units));
     }
 
     public GenericResponse<AllUnitsResponse> getUnitById(long id) {
@@ -38,7 +38,7 @@ public class UnitService {
             Unit retrievedUnit = repository.findById(id).get();
             return new GenericResponse<>(new AllUnitsResponse(mapper.mapUnitToResponse(retrievedUnit)));
         } else {
-            return new GenericResponse<>(new ErrorResponse(0, "Unknown Unit", "There is no unit with id " + id));
+            return new GenericResponse<>(new ErrorResponse(0, "Unknown unit", "No unit found with id " + id));
         }
     }
 

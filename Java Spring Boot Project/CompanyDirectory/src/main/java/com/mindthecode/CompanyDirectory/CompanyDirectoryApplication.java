@@ -2,6 +2,7 @@ package com.mindthecode.CompanyDirectory;
 
 import com.mindthecode.CompanyDirectory.common.Enums;
 import com.mindthecode.CompanyDirectory.models.entities.*;
+import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -43,26 +44,30 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
     }
 
     private void addMockData() throws ParseException {
+        GenericResponse<String> response;
+
         // Add companies
-        Company company1 = new Company("MindTheCode");
-        Company company2 = new Company("UniSystems");
-        companyService.saveCompany(company1);
-        companyService.saveCompany(company2);
+        Company company1 = new Company(1,"MindTheCode");
+        Company company2 = new Company(2,"UniSystems");
+        response = companyService.saveCompany(company1);
+        System.out.println(response.toString());
+        response = companyService.saveCompany(company2);
+        System.out.println(response.toString());
 
         // Add business units
-        BusinessUnit businessUnit1 = new BusinessUnit("Software Technical Division", company1);
-        BusinessUnit businessUnit2 = new BusinessUnit("Financial Division", company1);
-        BusinessUnit businessUnit3 = new BusinessUnit("Academic Division", company2);
+        BusinessUnit businessUnit1 = new BusinessUnit(3,"Software Technical Division", company1);
+        BusinessUnit businessUnit2 = new BusinessUnit(4,"Financial Division", company1);
+        BusinessUnit businessUnit3 = new BusinessUnit(5,"Academic Division", company2);
         businessUnitService.saveBusinessUnit(businessUnit1);
         businessUnitService.saveBusinessUnit(businessUnit2);
         businessUnitService.saveBusinessUnit(businessUnit3);
 
         // Add departments
-        Department department1 = new Department("Application Management", businessUnit1);
-        Department department2 = new Department("Credit Control Department", businessUnit2);
-        Department department3 = new Department("Resource Management Solutions & S/W Production Practices", businessUnit1);
-        Department department4 = new Department("Application Management", businessUnit3);
-        Department department5 = new Department("IT ", businessUnit3);
+        Department department1 = new Department(6,"Application Management", businessUnit1);
+        Department department2 = new Department(7,"Credit Control Department", businessUnit2);
+        Department department3 = new Department(8,"Resource Management Solutions & S/W Production Practices", businessUnit1);
+        Department department4 = new Department(9,"Application Management", businessUnit3);
+        Department department5 = new Department(10,"IT ", businessUnit3);
         departmentService.saveDepartment(department1);
         departmentService.saveDepartment(department2);
         departmentService.saveDepartment(department3);
@@ -70,11 +75,11 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
         departmentService.saveDepartment(department5);
 
         // Add units
-        Unit unit1 = new Unit("Resource Management Solutions", department3);
-        Unit unit2 = new Unit("Accounting", department2);
-        Unit unit3 = new Unit("System Engineering Unit", department1);
-        Unit unit4 = new Unit("Academic Faculty", department1);
-        Unit unit5 = new Unit("Support", department1);
+        Unit unit1 = new Unit(11,"Resource Management Solutions", department3);
+        Unit unit2 = new Unit(12,"Accounting", department2);
+        Unit unit3 = new Unit(13,"System Engineering Unit", department1);
+        Unit unit4 = new Unit(14,"Academic Faculty", department1);
+        Unit unit5 = new Unit(15,"Support", department1);
         unitService.saveUnit(unit1);
         unitService.saveUnit(unit2);
         unitService.saveUnit(unit3);
@@ -82,13 +87,13 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
         unitService.saveUnit(unit5);
 
         // Add positions
-        Position position1 = new Position("Software Engineer", unit1);
-        Position position2 = new Position("Data Analyst", unit1);
-        Position position3 = new Position("Senior Consultant", unit1);
-        Position position4 = new Position("First level Support", unit5);
-        Position position5 = new Position("Field Engineer", unit3);
-        Position position6 = new Position("Instructor", unit4);
-        Position position7 = new Position("Academic Director", unit4);
+        Position position1 = new Position(16,"Software Engineer", unit1);
+        Position position2 = new Position(17,"Data Analyst", unit1);
+        Position position3 = new Position(18,"Senior Consultant", unit1);
+        Position position4 = new Position(19,"First level Support", unit5);
+        Position position5 = new Position(20,"Field Engineer", unit3);
+        Position position6 = new Position(21,"Instructor", unit4);
+        Position position7 = new Position(22,"Academic Director", unit4);
         positionService.savePosition(position1);
         positionService.savePosition(position2);
         positionService.savePosition(position3);
@@ -100,12 +105,12 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
         // Add employees
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        Employee employee1 = new Employee( "John", "Doe", "Wall St", "0123456789",
-                formatter.parse("2010-05-20"),formatter.parse("2010-05-20"),
+        Employee employee1 = new Employee(23,"John", "Doe", "Wall St", "0123456789",
+                formatter.parse("2010-05-20"), formatter.parse("2010-05-20"),
                 Enums.EmployeeStatus.Active, Enums.ContractType.External, position5);
 
-        Employee employee2 = new Employee( "Sarah", "James", "Wall St", "6947368142",
-                formatter.parse("2014-05-20"),formatter.parse("2018-02-20"),
+        Employee employee2 = new Employee(24,"Sarah", "James", "Wall St", "6947368142",
+                formatter.parse("2014-05-20"), formatter.parse("2018-02-20"),
                 Enums.EmployeeStatus.Inactive, Enums.ContractType.External, position3);
 
         employeeService.saveEmployee(employee1);
