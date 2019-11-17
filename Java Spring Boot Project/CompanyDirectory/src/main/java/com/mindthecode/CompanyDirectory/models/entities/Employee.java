@@ -56,7 +56,7 @@ public class Employee {
         this.position = new Position();
     }
 
-    public Employee(String firstName, String lastName, String address, String phoneNumber, Date hireDate, Date departureDate, Enums.EmployeeStatus status, Enums.ContractType contractType, String company, String businessUnit, String department, String unit, Position position) {
+    public Employee(String firstName, String lastName, String address, String phoneNumber, Date hireDate, Date departureDate, Enums.EmployeeStatus status, Enums.ContractType contractType, Position position) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

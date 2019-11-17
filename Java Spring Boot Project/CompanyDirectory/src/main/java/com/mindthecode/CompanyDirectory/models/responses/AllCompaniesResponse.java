@@ -3,16 +3,16 @@ package com.mindthecode.CompanyDirectory.models.responses;
 import java.util.List;
 
 public class AllCompaniesResponse {
-    private List<CompanyResponse> companyResponseList;
+    private List<CompanyResponse> companies;
 
     public AllCompaniesResponse(List<CompanyResponse> allCompanies) {
     }
 
-    public List<CompanyResponse> getCompanyResponseList() {
-        return companyResponseList;
+    public List<CompanyResponse> getCompanies() {
+        return companies;
     }
 
-    public void setCompanyResponseList(List<CompanyResponse> companyResponseList) {
-        this.companyResponseList = companyResponseList;
+    public void setCompanies(List<CompanyResponse> companies) {
+        this.companies = companies;
     }
 }

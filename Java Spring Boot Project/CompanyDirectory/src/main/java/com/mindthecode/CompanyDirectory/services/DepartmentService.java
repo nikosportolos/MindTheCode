@@ -38,10 +38,10 @@ public class DepartmentService {
         return new GenericResponse<>(new ErrorResponse(0, "Error", "Department with id " + id + " does not exist"));
     }
 
-    public GenericResponse<AllDepartmentsResponse> saveDepartment(Department department) {
+    public GenericResponse<String> saveDepartment(Department department) {
         try {
             repository.save(department);
-            return getAllDepartments();
+            return new GenericResponse<>("company department #" + department.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save department"));
