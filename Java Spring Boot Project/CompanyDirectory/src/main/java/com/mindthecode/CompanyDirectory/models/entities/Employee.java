@@ -68,6 +68,19 @@ public class Employee {
         this.position = position;
     }
 
+    public Employee(long id, String firstName, String lastName, String address, String phoneNumber, Date hireDate, Date departureDate, Enums.EmployeeStatus status, Enums.ContractType contractType, Position position) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.departureDate = departureDate;
+        this.status = status;
+        this.contractType = contractType;
+        this.position = position;
+    }
+
     /**
      * Getters / Setters
      **/

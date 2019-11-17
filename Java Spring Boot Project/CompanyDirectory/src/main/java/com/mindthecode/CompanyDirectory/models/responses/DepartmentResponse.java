@@ -5,12 +5,12 @@ import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 public class DepartmentResponse {
 
     private long id;
-    private String departmentName;
+    private String name;
     private BusinessUnit businessUnit;
 
-    public DepartmentResponse(long id, String departmentName, BusinessUnit businessUnit) {
+    public DepartmentResponse(long id, String name, BusinessUnit businessUnit) {
         this.id = id;
-        this.departmentName = departmentName;
+        this.name = name;
         this.businessUnit = businessUnit;
     }
 
@@ -22,12 +22,12 @@ public class DepartmentResponse {
         this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BusinessUnit getBusinessUnit() {

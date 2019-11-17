@@ -9,18 +9,18 @@ public class Company
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String companyName;
+    private String name;
 
     public Company() {
     }
 
-    public Company(String companyName) {
-        this.companyName = companyName;
+    public Company(String name) {
+        this.name = name;
     }
 
-    public Company(long id, String companyName) {
+    public Company(long id, String name) {
         this.id = id;
-        this.companyName = companyName;
+        this.name = name;
     }
 
     public long getId() {
@@ -31,12 +31,12 @@ public class Company
         this.id = id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
 

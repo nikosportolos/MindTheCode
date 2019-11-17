@@ -11,13 +11,18 @@ public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String name;
 
     @ManyToOne
     private Unit unit;
 
     public Position() {
+    }
+
+    public Position(long id, String name, Unit unit) {
+        this.id = id;
+        this.name = name;
+        this.unit = unit;
     }
 
     public Position(String name) {

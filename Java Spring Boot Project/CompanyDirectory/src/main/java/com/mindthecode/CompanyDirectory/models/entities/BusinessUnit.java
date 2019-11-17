@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "BusinessUnits")
-public class BusinessUnit {                  //This is a comment
+public class BusinessUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String nameOfBusinessUnit;
+    private String name;
 
     @ManyToOne
     private Company company;
@@ -17,8 +17,14 @@ public class BusinessUnit {                  //This is a comment
     public BusinessUnit() {
     }
 
-    public BusinessUnit(String nameOfBusinessUnit) {
-        this.nameOfBusinessUnit = nameOfBusinessUnit;
+    public BusinessUnit(long id, String name, Company company) {
+        this.id = id;
+        this.name = name;
+        this.company = company;
+    }
+
+    public BusinessUnit(String name) {
+        this.name = name;
     }
 
     public long getId() {
@@ -29,12 +35,12 @@ public class BusinessUnit {                  //This is a comment
         this.id = id;
     }
 
-    public String getNameOfBusinessUnit() {
-        return nameOfBusinessUnit;
+    public String getName() {
+        return name;
     }
 
-    public void setNameOfBusinessUnit(String nameOfBusinessUnit) {
-        this.nameOfBusinessUnit = nameOfBusinessUnit;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Company getCompany() {
