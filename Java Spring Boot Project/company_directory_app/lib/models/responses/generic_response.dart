@@ -5,4 +5,11 @@ class GenericResponse<T> {
   ErrorResponse error;
 
   GenericResponse({this.data, this.error});
+
+  factory GenericResponse.fromJson(Map<String, dynamic> json) {
+    return GenericResponse(
+      data: json['data'],
+      error: json['error'],
+    );
+  }
 }

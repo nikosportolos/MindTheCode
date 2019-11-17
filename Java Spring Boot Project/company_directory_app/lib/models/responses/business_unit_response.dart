@@ -6,4 +6,12 @@ class BusinessUnitResponse {
   Company company;
 
   BusinessUnitResponse({this.id, this.name, this.company});
+
+  factory BusinessUnitResponse.fromJson(Map<String, dynamic> json) {
+    return BusinessUnitResponse(
+      id: json['id'],
+      name: json['name'],
+      company: json['company'],
+    );
+  }
 }
