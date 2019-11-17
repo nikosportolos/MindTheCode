@@ -21,10 +21,10 @@ public class UnitController {
     public ResponseEntity getUnits() {
         try {
             System.out.println("###Loading all units...");
-            return new ResponseEntity(service.getAllUnits(), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.getAllUnits(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -33,10 +33,10 @@ public class UnitController {
     public ResponseEntity getUnitById(@PathVariable("id") long id) {
         try {
             System.out.println("###Loading unit by id: " + id);
-            return new ResponseEntity(service.getUnitById(id), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.getUnitById(id), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

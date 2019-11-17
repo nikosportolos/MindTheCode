@@ -24,10 +24,10 @@ public class EmployeeController {
     public ResponseEntity getEmployees() {
         try {
             System.out.println("###Loading all employees...");
-            return new ResponseEntity(service.getAllEmployees(), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.getAllEmployees(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -36,10 +36,10 @@ public class EmployeeController {
     public ResponseEntity getEmployeeById(@PathVariable("id") long id) {
         try {
             System.out.println("###Loading unit by id: " + id);
-            return new ResponseEntity(service.getEmployeeById(id), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.getEmployeeById(id), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -48,10 +48,10 @@ public class EmployeeController {
     public ResponseEntity getEmployeesByCriteria(@PathVariable("criteria") String criteria, @PathVariable("id") long id) {
         try {
             System.out.println("###Loading employee by criteria: [" + criteria + ": " + id + "]");
-            return new ResponseEntity(service.getEmployeeByCriteria(criteria, id), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.getEmployeeByCriteria(criteria, id), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -64,10 +64,10 @@ public class EmployeeController {
     public ResponseEntity addEmployee(@RequestBody Employee employee) {
         try {
             System.out.println("###Adding employee: " + employee.toString());
-            return new ResponseEntity(service.saveEmployee(employee), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.saveEmployee(employee), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -76,10 +76,10 @@ public class EmployeeController {
     public ResponseEntity addEmployees(@RequestBody Iterable<Employee> employees) {
         try {
             System.out.println("###Adding multiple employees");
-            return new ResponseEntity(service.saveEmployees(employees), null, HttpStatus.OK);
+            return new ResponseEntity<>(service.saveEmployees(employees), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", e.toString()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

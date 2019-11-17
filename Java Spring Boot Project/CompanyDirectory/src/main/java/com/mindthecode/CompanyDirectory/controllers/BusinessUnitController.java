@@ -18,20 +18,22 @@ public class BusinessUnitController {
     @GetMapping("/businessUnits")
     public ResponseEntity getBusinessUnits() {
         try {
-            return new ResponseEntity(service.getAllBusinessUnits(), null, HttpStatus.OK);
+            System.out.println("###Loading all business units...");
+            return new ResponseEntity<>(service.getAllBusinessUnits(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong please try again"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/businessUnitById/{id}")
-    public ResponseEntity getBusinessUnitById(@PathVariable long id) {
+    public ResponseEntity getBusinessUnitById(@PathVariable("id") long id) {
         try {
-            return new ResponseEntity(service.getBusinessUnitById(id), null, HttpStatus.OK);
+            System.out.println("###Loading business unit by id: " + id);
+            return new ResponseEntity<>(service.getBusinessUnitById(id), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong please try again"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

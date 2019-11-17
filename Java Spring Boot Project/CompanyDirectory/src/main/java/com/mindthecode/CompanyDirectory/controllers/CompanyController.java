@@ -18,25 +18,27 @@ import java.util.List;
 @RestController
 public class CompanyController {
     @Autowired
-    CompanyService companyService;
+    private CompanyService service;
 
-    @GetMapping("/allCompanies")
+    @GetMapping("/companies")
     public ResponseEntity getAllCompanies() {
         try {
-            return new ResponseEntity(new AllCompaniesResponse(companyService.getAllCompanies()), null, HttpStatus.OK);
+            System.out.println("###Loading all companies...");
+            return new ResponseEntity<>(service.getAllCompanies(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/getCompaniesById")
-    public ResponseEntity getCompaniesById(@PathVariable Long companyId) {
+    @GetMapping("/getCompanyById/{id}")
+    public ResponseEntity getCompanyById(@PathVariable("id") Long id) {
         try {
-            return new ResponseEntity(new AllCompaniesResponse((List<CompanyResponse>) companyService.getCompaniesById(companyId)), null, HttpStatus.OK);
+            System.out.println("###Loading company by id: " + id);
+            return new ResponseEntity<>(service.getCompaniesById(id), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
