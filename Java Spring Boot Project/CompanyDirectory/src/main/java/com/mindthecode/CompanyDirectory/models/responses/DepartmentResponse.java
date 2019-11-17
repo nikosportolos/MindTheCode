@@ -37,4 +37,13 @@ public class DepartmentResponse {
     public void setBusinessUnit(BusinessUnit businessUnit) {
         this.businessUnit = businessUnit;
     }
+
+    @Override
+    public String toString() {
+        return "DepartmentResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", businessUnit=" + businessUnit +
+                '}';
+    }
 }

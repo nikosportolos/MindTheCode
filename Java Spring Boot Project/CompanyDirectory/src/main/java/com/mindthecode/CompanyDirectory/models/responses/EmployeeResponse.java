@@ -147,5 +147,19 @@ public class EmployeeResponse {
         this.position = position;
     }
 
-
+    @Override
+    public String toString() {
+        return "EmployeeResponse{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", hireDate=" + hireDate +
+                ", departureDate=" + departureDate +
+                ", status=" + status +
+                ", contractType=" + contractType +
+                ", position=" + position +
+                '}';
+    }
 }

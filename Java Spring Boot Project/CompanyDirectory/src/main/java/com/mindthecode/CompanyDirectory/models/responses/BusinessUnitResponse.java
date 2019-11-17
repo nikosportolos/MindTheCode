@@ -40,4 +40,13 @@ public class BusinessUnitResponse {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    @Override
+    public String toString() {
+        return "BusinessUnitResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", company=" + company +
+                '}';
+    }
 }

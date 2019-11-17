@@ -17,4 +17,11 @@ public class AllBusinessUnitResponse {
     public void setBusinessUnits(List<BusinessUnitResponse> businessUnits) {
         this.businessUnits = businessUnits;
     }
+
+    @Override
+    public String toString() {
+        return "AllBusinessUnitResponse{" +
+                "businessUnits=" + businessUnits +
+                '}';
+    }
 }

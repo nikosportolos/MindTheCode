@@ -16,4 +16,11 @@ public class AllDepartmentsResponse {
     public void setDepartments(List<DepartmentResponse> departments) {
         this.departments = departments;
     }
+
+    @Override
+    public String toString() {
+        return "AllDepartmentsResponse{" +
+                "departments=" + departments +
+                '}';
+    }
 }

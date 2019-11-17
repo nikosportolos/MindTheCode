@@ -17,4 +17,11 @@ public class AllEmployeesResponse {
     public void setEmployees(List<EmployeeResponse> employees) {
         this.employees = employees;
     }
+
+    @Override
+    public String toString() {
+        return "AllEmployeesResponse{" +
+                "employees=" + employees +
+                '}';
+    }
 }

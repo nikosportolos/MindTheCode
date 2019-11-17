@@ -15,4 +15,11 @@ public class AllCompaniesResponse {
     public void setCompanies(List<CompanyResponse> companies) {
         this.companies = companies;
     }
+
+    @Override
+    public String toString() {
+        return "AllCompaniesResponse{" +
+                "companies=" + companies +
+                '}';
+    }
 }

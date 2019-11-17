@@ -24,4 +24,11 @@ public class AllUnitsResponse {
     public void setUnits(List<UnitResponse> units) {
         this.units = units;
     }
+
+    @Override
+    public String toString() {
+        return "AllUnitsResponse{" +
+                "units=" + units +
+                '}';
+    }
 }

@@ -28,4 +28,12 @@ public class GenericResponse<T> {
     public void setError(ErrorResponse error) {
         this.error = error;
     }
+
+    @Override
+    public String toString() {
+        return "GenericResponse{" +
+                "data=" + data +
+                ", error=" + error +
+                '}';
+    }
 }

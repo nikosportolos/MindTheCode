@@ -39,4 +39,13 @@ public class UnitResponse {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    @Override
+    public String toString() {
+        return "UnitResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", department=" + department +
+                '}';
+    }
 }
