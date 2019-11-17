@@ -27,6 +27,11 @@ public class BusinessUnit {
         this.name = name;
     }
 
+    public BusinessUnit(String name, Company company) {
+        this.name = name;
+        this.company = company;
+    }
+
     public long getId() {
         return id;
     }

@@ -24,7 +24,7 @@ public class UnitService {
     public GenericResponse<AllUnitsResponse> getAllUnits() {
         List<UnitResponse> units = mapper.mapUnits(repository.findAll());
         if (units == null || units.size() == 0)
-            return new GenericResponse(new ErrorResponse(0, "Error", "No units found"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "No units found"));
         else
             return new GenericResponse<>(new AllUnitsResponse(units));
     }
@@ -42,10 +42,10 @@ public class UnitService {
         }
     }
 
-    public GenericResponse<AllUnitsResponse> saveUnit(Unit unit) {
+    public GenericResponse<String> saveUnit(Unit unit) {
         try {
             repository.save(unit);
-            return getAllUnits();
+            return new GenericResponse<>("company unit #" + unit.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save unit"));

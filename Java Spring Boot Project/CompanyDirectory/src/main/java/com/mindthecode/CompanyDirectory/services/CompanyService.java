@@ -44,10 +44,10 @@ public class CompanyService {
         return new GenericResponse<>(new AllCompaniesResponse(companiesToReturn));
     }
 
-    public GenericResponse<AllCompaniesResponse> saveCompany(Company company) {
+    public GenericResponse<String> saveCompany(Company company) {
         try {
             repository.save(company);
-            return getAllCompanies();
+            return new GenericResponse<>("company employee #" + company.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save company"));

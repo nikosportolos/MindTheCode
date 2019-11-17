@@ -38,10 +38,10 @@ public class BusinessUnitService {
         return new GenericResponse<>(new ErrorResponse(0, "Error", "BusinessUnit with id " + id + " does not exist"));
     }
 
-    public GenericResponse<AllBusinessUnitResponse> saveBusinessUnit(BusinessUnit businessUnit) {
+    public GenericResponse<String> saveBusinessUnit(BusinessUnit businessUnit) {
         try {
             repository.save(businessUnit);
-            return getAllBusinessUnits();
+            return new GenericResponse<>("Saved business unit #" + businessUnit.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save business unit"));
