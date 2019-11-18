@@ -1,7 +1,7 @@
 class ErrorResponse {
-  int code;
-  String title;
-  String description;
+  final int code;
+  final String title;
+  final String description;
 
   ErrorResponse({this.code, this.title, this.description});
 }
