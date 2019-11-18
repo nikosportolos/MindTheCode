@@ -22,10 +22,10 @@ class EmployeeResponse {
         lastName: json['lastName'],
         phoneNumber: json['phoneNumber'],
         address: json['address'],
-        hireDate: json['hireDate'],
-        departureDate: json['departureDate'],
-        status: json['status'],
-        contractType: json['contractType'],
+        hireDate: DateTime.parse(json['hireDate']),
+        departureDate: DateTime.parse(json['departureDate']),
+        status: EmployeeStatus.values.firstWhere((e) => e.toString() == 'EmployeeStatus.' + json['status']),
+        contractType: ContractType.values.firstWhere((e) => e.toString() == 'ContractType.' + json['contractType']),
         position: PositionResponse.fromJson(json['position']));
   }
 }

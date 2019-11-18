@@ -94,7 +94,7 @@ class _DepartmentsState extends State<DepartmentsScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Seach Business Units'),
+            title: Text('Search Departments'),
             content: TextField(
               controller: _textFieldController,
               keyboardType: TextInputType.number,
