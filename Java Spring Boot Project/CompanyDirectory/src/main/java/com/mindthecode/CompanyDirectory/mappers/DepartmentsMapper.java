@@ -20,6 +20,6 @@ public class DepartmentsMapper {
     }
 
     public DepartmentResponse mapDepartmentToDepartmentResponse(Department department) {
-        return new DepartmentResponse(department.getId(), department.getDepartmentName(), department.getBusinessUnit());
+        return new DepartmentResponse(department.getId(), department.getName(), department.getBusinessUnit());
     }
 }

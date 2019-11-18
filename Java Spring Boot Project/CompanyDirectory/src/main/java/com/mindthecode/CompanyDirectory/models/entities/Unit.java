@@ -26,7 +26,6 @@ public class Unit {
     }
 
     public Unit(String name) {
-        this.id = id;
         this.name = name;
     }
 
