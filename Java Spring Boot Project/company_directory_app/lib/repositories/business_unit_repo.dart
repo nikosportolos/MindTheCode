@@ -1,30 +1,29 @@
 import 'dart:core';
-
+import 'package:company_directory_app/models/responses/all_business_units_response.dart';
 import 'package:company_directory_app/models/responses/business_unit_response.dart';
 import 'package:company_directory_app/models/responses/generic_response.dart';
 import 'package:company_directory_app/utils/rest_helper_util.dart';
 
 class BusinessUnitRepo {
-  RestHelperUtil rest = new RestHelperUtil();
+  RestHelperUtil restHelper = new RestHelperUtil();
 
   Future<List<BusinessUnitResponse>> getAllBusinessUnits() async {
-    List<BusinessUnitResponse> businessUnitsList = new List<BusinessUnitResponse>();
-    GenericResponse genericResponse = await rest.getRequest("businessUnits");
+    print('Loading all business untis ');
+    GenericResponse genericResponse = await restHelper.getRequest("businessUnits");
+
+    print(genericResponse);
 
     if (genericResponse.error != null) {
-      return businessUnitsList;
+      return new List<BusinessUnitResponse>();
     }
 
-    final items = (genericResponse.data as List).map((i) => new BusinessUnitResponse.fromJson(i));
-    for (final item in items) {
-      businessUnitsList.add(item);
-    }
+    AllBusinessUnitsResponse allResponse = AllBusinessUnitsResponse.fromJson(genericResponse.data);
 
-    return businessUnitsList;
+    return allResponse.businessUnits;
   }
 
   Future<BusinessUnitResponse> getBusinessUnitById(int id) async {
-    GenericResponse genericResponse = await rest.getRequest("businessUnit/$id");
+    GenericResponse genericResponse = await restHelper.getRequest("businessUnit/$id");
     if (genericResponse.error != null) {
       return new BusinessUnitResponse();
     } else {
