@@ -1,8 +1,7 @@
-import 'package:company_directory_app/models/responses/generic_response.dart';
 import 'package:company_directory_app/repositories/business_unit_repo.dart';
+import 'package:company_directory_app/widgets/business_unit_info_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../models/responses/business_unit_response.dart';
+import 'package:company_directory_app/models/responses/business_unit_response.dart';
 
 class BusinessUnitsScreen extends StatefulWidget {
   @override
@@ -35,25 +34,39 @@ class _BusinessUnitsState extends State<BusinessUnitsScreen> {
   }
 
   Widget businessUnitsListWidget() {
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null) {
-          //print('project snapshot data is: ${projectSnap.data}');
-          return Center(child: CircularProgressIndicator());
-        }
-        return ListView.builder(
-          itemCount: snapshot.data.length,
-          itemBuilder: (context, index) {
-            GenericResponse project = snapshot.data[index];
-            return businessUnitsList.isEmpty
-                ? Text('No business units found')
-                : Column(
-                    children: <Widget>[Text(project.data)],
-                  );
-          },
-        );
-      },
-      future: getAllBusinessUnits(),
+    return Flex(
+      direction: Axis.vertical,
+      children: <Widget>[
+        Expanded(
+          child: FutureBuilder(
+            future: businessUnitsList.isEmpty ? getAllBusinessUnits() : null,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              // Show loading animation while fetching data
+              if (businessUnitsList.isEmpty) return Center(child: CircularProgressIndicator());
+
+              // Show error if any
+              if (snapshot.hasError) return new Text('${snapshot.error}');
+
+              return ListView.builder(
+                  itemCount: businessUnitsList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      child: Card(
+                        child: ListTile(
+                          leading: Text(
+                            '${businessUnitsList[index].id}',
+                          ),
+                          title: Text('${businessUnitsList[index].name}'),
+                          subtitle: Text('${businessUnitsList[index].company.name}'),
+                        ),
+                      ),
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusinessUnitInfoWidget(businessUnitsList[index]))),
+                    );
+                  });
+            },
+          ),
+        )
+      ],
     );
   }
 
