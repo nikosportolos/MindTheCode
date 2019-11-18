@@ -49,5 +49,9 @@ public class Position {
     }
 
 
+    public class AvailablePositions {
+        public class JuniorAnalyst {
+        }
+    }
 }
 

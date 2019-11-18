@@ -24,6 +24,4 @@ test {
 	useJUnitPlatform()
 }
 
-plugins {
-	id "com.heroku.sdk.heroku-gradle" version "1.0.4"
-}
+

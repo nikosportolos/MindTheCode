@@ -1,10 +1,9 @@
 package com.mindthecode.CompanyDirectory.mappers;
 
-<<<<<<< HEAD
+
 import com.mindthecode.CompanyDirectory.mappers.UnitMapper;
-=======
+
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
->>>>>>> 1af10283d742204f914dcbe71ac4512be73405ef
 import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
