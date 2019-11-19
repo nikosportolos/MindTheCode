@@ -1,2 +1,3 @@
-# MindTheCode
-MindTheCode 2019
+# Mind The Code
+
+## CompanyDirectory Project
