@@ -87,35 +87,41 @@ class _HomePageState extends State<MyHomePage> {
           body: ListView(
             children: <Widget>[
               HomeTileWidget(
-                title: 'Companies',
-                icon: Icon(Icons.account_balance),
-                onTapCallback: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompaniesScreen())),
-              ),
+                  title: 'Companies',
+                  icon: Icon(Icons.account_balance),
+                  onTapCallback: (() {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompaniesScreen()));
+                  })),
               HomeTileWidget(
-                title: 'Business Units',
-                icon: Icon(Icons.business),
-                onTapCallback: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusinessUnitsScreen())),
-              ),
+                  title: 'Business Units',
+                  icon: Icon(Icons.business),
+                  onTapCallback: (() {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusinessUnitsScreen()));
+                  })),
               HomeTileWidget(
-                title: 'Departments',
-                icon: Icon(Icons.store_mall_directory),
-                onTapCallback: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => DepartmentsScreen())),
-              ),
+                  title: 'Departments',
+                  icon: Icon(Icons.store_mall_directory),
+                  onTapCallback: (() {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => DepartmentsScreen()));
+                  })),
               HomeTileWidget(
-                title: 'Units',
-                icon: Icon(Icons.streetview),
-                onTapCallback: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => UnitsScreen())),
-              ),
+                  title: 'Units',
+                  icon: Icon(Icons.streetview),
+                  onTapCallback: (() {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => UnitsScreen()));
+                  })),
               HomeTileWidget(
-                title: 'Positions',
-                icon: Icon(Icons.label),
-                onTapCallback: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => PositionsScreen())),
-              ),
+                  title: 'Positions',
+                  icon: Icon(Icons.label),
+                  onTapCallback: (() {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PositionsScreen()));
+                  })),
               HomeTileWidget(
-                title: 'Employees',
-                icon: Icon(Icons.people),
-                onTapCallback: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeesScreen())),
-              ),
+                  title: 'Employees',
+                  icon: Icon(Icons.people),
+                  onTapCallback: (() {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeesScreen()));
+                  })),
             ],
           )),
     );

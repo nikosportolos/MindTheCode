@@ -71,7 +71,6 @@ public class EmployeeService {
         }
     }
 
-
     public GenericResponse<String> saveEmployees(Iterable<Employee> employees) {
         try {
             repository.saveAll(employees);
@@ -89,6 +88,26 @@ public class EmployeeService {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete employee"));
+        }
+    }
+
+    public GenericResponse<String> deleteEmployees(Iterable<Employee> employees) {
+        try {
+            repository.deleteAll(employees);
+            return new GenericResponse<>("Deleted employees");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete employees"));
+        }
+    }
+
+    public GenericResponse<String> deleteAllEmployees() {
+        try {
+            repository.deleteAll();
+            return new GenericResponse<>("Deleted all employees");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all employee"));
         }
     }
 

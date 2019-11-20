@@ -42,7 +42,7 @@ public class PositionService {
     public GenericResponse<String> savePosition(Position position) {
         try {
             repository.save(position);
-            return new GenericResponse<>("company position #" + position.getId());
+            return new GenericResponse<>("saved position #" + position.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));

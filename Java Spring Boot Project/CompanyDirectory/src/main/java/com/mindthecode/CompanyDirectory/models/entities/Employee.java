@@ -4,11 +4,11 @@ import com.mindthecode.CompanyDirectory.common.Enums;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Employees")
 public class Employee {
-
 
     /**
      * Instance variables
@@ -26,7 +26,10 @@ public class Employee {
     private Enums.ContractType contractType;
 
     @ManyToOne
-    Position position;
+    private Position position;
+
+    @ManyToMany
+    private List<Task> tasks;
 
     /**
      * Constructors
@@ -163,6 +166,14 @@ public class Employee {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
