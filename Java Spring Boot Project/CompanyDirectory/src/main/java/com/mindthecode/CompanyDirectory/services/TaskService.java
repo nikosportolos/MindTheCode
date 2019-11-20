@@ -1,8 +1,7 @@
 package com.mindthecode.CompanyDirectory.services;
 
 import com.mindthecode.CompanyDirectory.models.entities.Task;
-import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
-import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
+import com.mindthecode.CompanyDirectory.models.responses.*;
 import com.mindthecode.CompanyDirectory.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,4 +21,5 @@ public class TaskService {
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save task"));
         }
     }
+
 }
