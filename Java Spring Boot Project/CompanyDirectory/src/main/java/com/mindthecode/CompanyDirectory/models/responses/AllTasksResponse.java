@@ -3,8 +3,10 @@ package com.mindthecode.CompanyDirectory.models.responses;
 import java.util.List;
 
 public class AllTasksResponse {
-
     private List<TaskResponse> tasks;
+
+    public AllTasksResponse() {
+    }
 
     public AllTasksResponse(List<TaskResponse> tasks) {
         this.tasks = tasks;
