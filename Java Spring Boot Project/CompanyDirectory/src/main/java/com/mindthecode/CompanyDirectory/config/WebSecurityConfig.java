@@ -33,10 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
                 inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("adm1n")).roles("ADMIN", "COMPANY_MANAGER", "BUSINESS_UNIT_MANAGER", "DEPARTMENT_MANAGER", "UNIT_MANAGER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("adm1n")).roles("ADMIN", "COMPANY_MANAGER", "BUSINESS_UNIT_MANAGER", "DEPARTMENT_MANAGER", "UNIT_MANAGER")
-        ;
+                .withUser("admin").password(passwordEncoder().encode("adm1n")).roles("ADMIN", "COMPANY_MANAGER", "BUSINESS_UNIT_MANAGER", "DEPARTMENT_MANAGER", "UNIT_MANAGER");
     }
 
     @Override
@@ -44,10 +41,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .headers()
                 .frameOptions().sameOrigin()
-
                 .and()
                 .authorizeRequests()
+
                 .antMatchers("/").permitAll()
+                .antMatchers("/h2-console").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+
+                // Select entities
                 .antMatchers("/companies").permitAll()
                 .antMatchers("/businessUnits").permitAll()
                 .antMatchers("/departments").permitAll()
@@ -123,7 +124,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/updateEmployees/").hasRole("")
                 .antMatchers("/updateTasks/").hasRole("")
 
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
@@ -145,6 +147,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeCookieName("my-remember-me-cookie")
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(24 * 60 * 60)
+
+                .and().csrf().ignoringAntMatchers("/h2-console/**")
 
                 .and()
                 .exceptionHandling()

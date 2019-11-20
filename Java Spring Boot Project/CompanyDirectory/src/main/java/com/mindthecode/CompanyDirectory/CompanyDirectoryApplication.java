@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class CompanyDirectoryApplication implements CommandLineRunner {
@@ -32,6 +34,9 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private TaskService taskService;
 
     public static void main(String[] args) {
         SpringApplication.run(CompanyDirectoryApplication.class, args);
@@ -114,5 +119,20 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
 
         employeeService.saveEmployee(employee1);
         employeeService.saveEmployee(employee2);
+
+        // Add tasks
+        List<String> updates = new ArrayList<>();
+        updates.add("Create models");
+        updates.add("Create controllers");
+        updates.add("Create services");
+        updates.add("Create repositories");
+        updates.add("Create controllers");
+        updates.add("Create documentation");
+        updates.add("Create tests");
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee1);
+        employees.add(employee2);
+        Task task1 = new Task(1, "", "", 10, 15, 23, Enums.TaskStatus.DONE, updates, employees);
+        taskService.saveTask(task1);
     }
 }

@@ -8,6 +8,8 @@ public class Enums {
 
     public enum SearchCriteria {UNIT, BUSINESSUNIT, COMPANY, DEPARTMENT}
 
+    public enum TaskStatus {NEW, STARTED, DONE}
+
     public enum AvailablePositions {
         JuniorAnalyst("Junior Analyst"),
         SeniorAnalyst("Senior Analyst"),

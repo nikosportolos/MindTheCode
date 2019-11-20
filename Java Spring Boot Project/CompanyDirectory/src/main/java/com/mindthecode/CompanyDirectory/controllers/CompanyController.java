@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping
 @RestController
-public class CompanyController {
+public class CompanyController { //this is a comment
     @Autowired
     private CompanyService service;
 
