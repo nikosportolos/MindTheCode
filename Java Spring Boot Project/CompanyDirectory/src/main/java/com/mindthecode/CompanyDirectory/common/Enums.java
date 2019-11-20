@@ -10,6 +10,8 @@ public class Enums {
 
     public enum TaskStatus {NEW, STARTED, DONE}
 
+    public enum TaskDifficulty {EASY, MEDIUM, HARD}
+
     public enum AvailablePositions {
         JuniorAnalyst("Junior Analyst"),
         SeniorAnalyst("Senior Analyst"),

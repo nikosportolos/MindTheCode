@@ -6,13 +6,13 @@ public class TaskResponse {
     private long id;
     private String title;
     private String description;
-    private int difficulty;
+    private Enums.TaskDifficulty difficulty;
     private Enums.TaskStatus status;
 
     public TaskResponse() {
     }
 
-    public TaskResponse(long id, String title, String description, int difficulty, Enums.TaskStatus status) {
+    public TaskResponse(long id, String title, String description, Enums.TaskDifficulty difficulty, Enums.TaskStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -20,7 +20,7 @@ public class TaskResponse {
         this.status = status;
     }
 
-    public TaskResponse(String title, String description, int difficulty, Enums.TaskStatus status) {
+    public TaskResponse(String title, String description, Enums.TaskDifficulty difficulty, Enums.TaskStatus status) {
         this.title = title;
         this.description = description;
         this.difficulty = difficulty;
@@ -51,11 +51,11 @@ public class TaskResponse {
         this.description = description;
     }
 
-    public int getDifficulty() {
+    public Enums.TaskDifficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public void setDifficulty(Enums.TaskDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
