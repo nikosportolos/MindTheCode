@@ -21,26 +21,27 @@ class RestHelperUtil {
 
   // Returns base endpoint URI
   String _getBaseURI() {
+//    return "http://localhost:8080/";
     return "https://mtc-company-directory.herokuapp.com/";
   }
 
   Future<GenericResponse> getRequest(String endpoint) async {
-    String endpointURI = _getBaseURI() + endpoint;
+    try {
+      String endpointURI = _getBaseURI() + endpoint;
 
-    print('> Sending GET request to endpoint: [$endpointURI] with $timeout seconds timeout ');
-    http.Response response = await http.get(endpointURI, headers: _getHeaders()).timeout(Duration(seconds: timeout)).catchError((error) {
-      print('${error.toString()}');
+      print('> Sending GET request to endpoint: [$endpointURI] with $timeout seconds timeout ');
+      http.Response response = await http.get(endpointURI, headers: _getHeaders()).timeout(Duration(seconds: timeout)).catchError((error) {
+        print('${error.toString()}');
+        return GenericResponse(error: new ErrorResponse(code: 0, title: 'Error sending get request', description: '$error'));
+      });
+
+      print('> Status code: ${response.statusCode}');
+      print('> Headers: ${response.headers}');
+      print('> Response: ${response.body}');
+
+      return GenericResponse.fromJson(json.decode(response.body));
+    } catch (error) {
       return GenericResponse(error: new ErrorResponse(code: 0, title: 'Error sending get request', description: '$error'));
-    });
-
-    print('> Status code: ${response.statusCode}');
-    print('> Response: ${response.body}');
-
-    return GenericResponse.fromJson(json.decode(response.body));
-  }
-
-  GenericResponse _handleErrors(String error) {
-    print('Handling error: [$error]');
-    return GenericResponse(error: new ErrorResponse(code: 0, title: 'Error sending get request', description: '$error'));
+    }
   }
 }
