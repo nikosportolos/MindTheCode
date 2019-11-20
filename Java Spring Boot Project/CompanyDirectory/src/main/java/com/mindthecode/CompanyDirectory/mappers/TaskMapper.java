@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.mappers;
 
 import com.mindthecode.CompanyDirectory.common.Enums;
 import com.mindthecode.CompanyDirectory.models.entities.Task;
@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public class TaskMapper {
 
-    public List<TaskResponse> mapTask(Iterable<Task> all){
+    public List<TaskResponse> mapTasks(Iterable<Task> all) {
         List<TaskResponse> response = new ArrayList<>();
-        for(Task task : all){
+        for (Task task : all) {
             response.add(mapTaskToResponse(task));
         }
         return response;
@@ -30,16 +30,14 @@ public class TaskMapper {
     }
 
     public Enums.TaskDifficulty mapTaskDifficulty(Task task) {
-        int avg = (task.getEstimationA() + task.getEstimationB() + task.getEstimationC())/3;
-         if(avg<2) {
-             return Enums.TaskDifficulty.EASY;
-         }
-         else if(avg<=4){
-             return Enums.TaskDifficulty.MEDIUM;
-         }
-         else if(avg>5) {
-             return Enums.TaskDifficulty.HARD;
-         }
+        int avg = (task.getEstimationA() + task.getEstimationB() + task.getEstimationC()) / 3;
+        if (avg < 2) {
+            return Enums.TaskDifficulty.EASY;
+        } else if (avg <= 4) {
+            return Enums.TaskDifficulty.MEDIUM;
+        } else if (avg > 5) {
+            return Enums.TaskDifficulty.HARD;
+        }
         return null;
     }
 }
