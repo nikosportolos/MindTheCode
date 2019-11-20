@@ -31,19 +31,13 @@ public class TaskService {
         return new GenericResponse<>(new ErrorResponse(0, "Error", "No tasks were found"));
     }
 
-    public GenericResponse<AllTasksResponse> getTaskById(long id) {
-        List<TaskResponse> taskResponses = new ArrayList<>();
+    public GenericResponse<TaskResponse> getTaskById(long id) {
         Iterable<Task> retrievedTasks = repository.findAll();
-
         for (Task task : retrievedTasks) {
             if (task.getId() == id)
-                taskResponses.add(mapper.mapTaskToResponse(task));
+                return new GenericResponse<>(mapper.mapTaskToResponse(task));
         }
-
-        if (taskResponses.size() == 0)
-            return new GenericResponse<>(new ErrorResponse(0, "Unknown task", "No task found with id " + id));
-
-        return new GenericResponse<>(new AllTasksResponse(taskResponses));
+        return new GenericResponse<>(new ErrorResponse(0, "Unknown task", "No task found with id " + id));
     }
 
     public GenericResponse<String> saveTask(Task task) {
