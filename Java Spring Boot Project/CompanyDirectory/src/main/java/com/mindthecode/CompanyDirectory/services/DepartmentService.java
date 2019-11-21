@@ -27,6 +27,7 @@ public class DepartmentService {
         return new GenericResponse<>(new ErrorResponse(0, "Error", "No departments were found"));
     }
 
+
     public GenericResponse<AllDepartmentsResponse> getDepartmentById(long id) {
         Iterable<Department> retrievedDepartments = repository.findAll();
         for (Department department : retrievedDepartments) {
@@ -42,10 +43,22 @@ public class DepartmentService {
     public GenericResponse<String> saveDepartment(Department department) {
         try {
             repository.save(department);
-            return new GenericResponse<>("company department #" + department.getId());
+            return new GenericResponse<>("Company department #" + department.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save department"));
         }
     }
+
+    public GenericResponse<String> saveDepartments(Iterable<Department> departments){
+        try {
+            repository.save(departments);
+            return new GenericResponse<>("Company Departments");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save departments"));
+        }
+    }
+
+
 }
