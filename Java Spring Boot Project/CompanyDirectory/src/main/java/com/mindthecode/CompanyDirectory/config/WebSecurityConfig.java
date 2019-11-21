@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Delete single entity
                 .antMatchers("/deleteCompany/").hasRole("")
-                .antMatchers("/deleteBusinessUnit/").hasRole("")
+                .antMatchers("/deleteBusinessUnit/").permitAll()
                 .antMatchers("/deleteDepartment/").hasRole("")
                 .antMatchers("/deleteUnit/").hasRole("")
                 .antMatchers("/deletePosition/").hasRole("")
@@ -81,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Delete multiple entities
                 .antMatchers("/deleteCompanies/").hasRole("")
-                .antMatchers("/deleteBusinessUnits/").hasRole("")
+                .antMatchers("/deleteBusinessUnits/").permitAll()
                 .antMatchers("/deleteDepartments/").hasRole("")
                 .antMatchers("/deleteUnits/").hasRole("")
                 .antMatchers("/deletePositions/").hasRole("")
@@ -90,7 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Add single entity
                 .antMatchers("/addCompany/").hasRole("")
-                .antMatchers("/addBusinessUnit/").hasRole("")
+                .antMatchers("/addBusinessUnit/").permitAll()
                 .antMatchers("/addDepartment/").hasRole("")
                 .antMatchers("/addUnit/").hasRole("")
                 .antMatchers("/addPosition/").hasRole("")
@@ -99,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Add multiple entities
                 .antMatchers("/addCompanies/").hasRole("")
-                .antMatchers("/addBusinessUnits/").hasRole("")
+                .antMatchers("/addBusinessUnits/").permitAll()
                 .antMatchers("/addDepartments/").hasRole("")
                 .antMatchers("/addUnits/").hasRole("")
                 .antMatchers("/addPositions/").hasRole("")
@@ -108,7 +108,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Update single entity
                 .antMatchers("/updateCompany/").hasRole("")
-                .antMatchers("/updateBusinessUnit/").hasRole("")
+                .antMatchers("/updateBusinessUnit/").permitAll()
                 .antMatchers("/updateDepartment/").hasRole("")
                 .antMatchers("/updateUnit/").hasRole("")
                 .antMatchers("/updatePosition/").hasRole("")
@@ -117,7 +117,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Update multiple entities
                 .antMatchers("/updateCompanies/").hasRole("")
-                .antMatchers("/updateBusinessUnits/").hasRole("")
+                .antMatchers("/updateBusinessUnits/").permitAll()
                 .antMatchers("/updateDepartments/").hasRole("")
                 .antMatchers("/updateUnits/").hasRole("")
                 .antMatchers("/updatePositions/").hasRole("")
