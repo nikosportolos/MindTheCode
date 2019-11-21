@@ -28,7 +28,16 @@ public class TaskController {
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/task/{id}")
+    public ResponseEntity getTaskById(@PathVariable("id") long id) {
+        try {
+            System.out.println("###Loading task by id: " + id);
+            return new ResponseEntity<>(service.getTaskById(id), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     /**
      * Update
      **/
