@@ -44,7 +44,7 @@ public class TaskService {
 
         //filter taskresponses to equal difficulty
         for (TaskResponse tk : taskResponses) {
-            if(tk.getDifficulty().equals(difficulty)){
+            if(tk.getDifficulty().toString().equals(difficulty)){
                 taskResponsesResult.add(tk);
             }
         }

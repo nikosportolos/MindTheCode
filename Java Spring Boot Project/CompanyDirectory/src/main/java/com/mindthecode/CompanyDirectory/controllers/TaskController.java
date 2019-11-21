@@ -18,8 +18,8 @@ public class TaskController {
     @Autowired
     private TaskService service;
 
-    @GetMapping("/tasks/{difficulty}/{numberOfEmployees")
-    public ResponseEntity getTasksByDiffAndNumOfEmployees(@PathVariable String difficulty,@PathVariable int numberOfEmployees) {
+    @GetMapping("/tasks/{difficulty}/{numberOfEmployees}")
+    public ResponseEntity getTasksByDiffAndNumOfEmployees(@PathVariable String difficulty, @PathVariable int numberOfEmployees) {
         try {
             System.out.println("###Loading tasks...");
             return new ResponseEntity<>(service.getTasksByDiffAndNumOfEmployees(difficulty, numberOfEmployees), null, HttpStatus.OK);
@@ -28,6 +28,7 @@ public class TaskController {
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/task/{id}")
     public ResponseEntity getTaskById(@PathVariable("id") long id) {
         try {
@@ -38,6 +39,7 @@ public class TaskController {
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     /**
      * Update
      **/
