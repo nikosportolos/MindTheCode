@@ -3,7 +3,7 @@ package com.mindthecode.CompanyDirectory.services;
 import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.responses.*;
 import com.mindthecode.CompanyDirectory.repositories.DepartmentRepository;
-import com.mindthecode.CompanyDirectory.mappers.DepartmentsMapper;
+import com.mindthecode.CompanyDirectory.mappers.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class DepartmentService {
     private DepartmentRepository repository;
 
     @Autowired
-    private DepartmentsMapper mapper;
+    private DepartmentMapper mapper;
 
     public GenericResponse<AllDepartmentsResponse> getAllDepartments() {
         List<DepartmentResponse> departments = mapper.mapDepartments(repository.findAll());
