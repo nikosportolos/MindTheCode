@@ -25,7 +25,9 @@ public class TaskMapper {
                 task.getTitle(),
                 task.getDescription(),
                 mapTaskDifficulty(task),
-                task.getTaskStatus()
+                task.getTaskStatus(),
+                task.getUpdates(),
+                task.getEmployees()
         );
     }
 
