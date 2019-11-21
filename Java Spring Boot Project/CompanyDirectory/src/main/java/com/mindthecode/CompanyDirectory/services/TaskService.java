@@ -46,6 +46,18 @@ public class TaskService {
         return new GenericResponse<>(new AllTasksResponse(taskResponses));
     }
 
+    public GenericResponse<AllTasksResponse> getTasksByNumOfEmployees(long employeeNum){
+        List<TaskResponse> tasks = new ArrayList<>();
+        Iterable<Task> retrievedTasks = repository.findAll();
+
+        for (Task task : retrievedTasks) {
+            if (task.getEmployees().size() == employeeNum)
+                tasks.add(mapper.mapTaskToResponse(task));
+        }
+
+        return new GenericResponse<>(new AllTasksResponse(tasks));
+    }
+
     public GenericResponse<String> saveTask(Task task) {
         try {
             repository.save(task);
