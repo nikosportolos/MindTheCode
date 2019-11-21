@@ -1,7 +1,5 @@
 package com.mindthecode.CompanyDirectory.models.entities;
 
-import com.mindthecode.CompanyDirectory.common.Enums;
-
 import javax.persistence.*;
 
 @Entity
@@ -57,7 +55,6 @@ public class Position {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
-
 
 }
 

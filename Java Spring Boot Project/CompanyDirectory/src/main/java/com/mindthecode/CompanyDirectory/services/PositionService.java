@@ -42,10 +42,50 @@ public class PositionService {
     public GenericResponse<String> savePosition(Position position) {
         try {
             repository.save(position);
-            return new GenericResponse<>("company position #" + position.getId());
+            return new GenericResponse<>("saved position #" + position.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));
+        }
+    }
+
+    public GenericResponse<String> savePositions(Iterable<Position> positions) {
+        try {
+            repository.saveAll(positions);
+            return new GenericResponse<>("Saved positions");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));
+        }
+    }
+
+    public GenericResponse<String> deletePosition(Position position) {
+        try {
+            repository.delete(position);
+            return new GenericResponse<>("Deleted position #" + position.getId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete position"));
+        }
+    }
+
+    public GenericResponse<String> deletePositions(Iterable<Position> positions) {
+        try {
+            repository.deleteAll(positions);
+            return new GenericResponse<>("Deleted positions");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete positions"));
+        }
+    }
+
+    public GenericResponse<String> deleteAllPositions() {
+        try {
+            repository.deleteAll();
+            return new GenericResponse<>("Deleted all positions");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all positions"));
         }
     }
 

@@ -48,4 +48,14 @@ public class BusinessUnitService {
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save business unit"));
         }
     }
+
+    public GenericResponse<String> saveBusinessUnits(Iterable<BusinessUnit> businessUnits) {
+        try {
+            repository.saveAll(businessUnits);
+            return new GenericResponse<>("Saved businessUnits");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save business units"));
+        }
+    }
 }
