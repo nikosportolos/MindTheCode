@@ -49,7 +49,7 @@ public class BusinessUnitController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while adding business unit #" + newBusinessUnit.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -65,7 +65,7 @@ public class BusinessUnitController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while adding business units"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.mindthecode.CompanyDirectory.services.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -54,7 +53,7 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while adding position #" + newPosition.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,7 +70,7 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while adding positions"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -80,10 +79,10 @@ public class PositionController {
      **/
 
     @PutMapping("/updatePosition")
-    public ResponseEntity updateEmployee(@RequestBody Position employee) {
+    public ResponseEntity updateEmployee(@RequestBody Position position) {
         try {
-            System.out.println("###Updating position: " + employee.toString());
-            var response = service.savePosition(employee);
+            System.out.println("###Updating position: " + position.toString());
+            var response = service.savePosition(position);
 
             if (response.getError() == null)
                 return new ResponseEntity<>(response, null, HttpStatus.OK);
@@ -91,7 +90,7 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating employee #" + employee.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating position #" + position.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -107,7 +106,7 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating employees"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating positions"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -118,7 +117,7 @@ public class PositionController {
     @DeleteMapping("/deletePosition")
     public ResponseEntity deleteEmployee(@RequestBody Position position) {
         try {
-            System.out.println("###Deleting employee: " + position.toString());
+            System.out.println("###Deleting position: " + position.toString());
             var response = service.deletePosition(position);
 
             if (response.getError() == null)
@@ -127,14 +126,14 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting employees"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting position #" + position.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/deletePositions")
     public ResponseEntity deleteEmployees(@RequestBody Iterable<Position> positions) {
         try {
-            System.out.println("###Deleting multiple employees");
+            System.out.println("###Deleting multiple positions");
             var response = service.deletePositions(positions);
 
             if (response.getError() == null)
@@ -143,7 +142,7 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting employees"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting positions"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -159,7 +158,7 @@ public class PositionController {
                 return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting employees"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting positions"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
