@@ -52,7 +52,7 @@ public class DepartmentService {
 
     public GenericResponse<String> saveDepartments(Iterable<Department> departments){
         try {
-            repository.save(departments);
+            repository.saveAll(departments);
             return new GenericResponse<>("Company Departments");
         } catch (Exception ex) {
             ex.printStackTrace();
