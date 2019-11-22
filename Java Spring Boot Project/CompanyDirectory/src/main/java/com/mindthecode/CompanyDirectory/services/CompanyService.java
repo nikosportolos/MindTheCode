@@ -52,9 +52,17 @@ public class CompanyService {
         return new GenericResponse<>(new AllCompaniesResponse(retrievedCompany));
     }
 
-   /* public GenericResponse<AllCompaniesResponse> saveCompanies(Iterable<Company> companies)
+    public GenericResponse<AllCompaniesResponse> saveCompanies(Iterable<Company> companies)
     {
         companyRepository.saveAll(companies);
-        return new GenericResponse<>(new AllCompaniesResponse(companyMapper.mapCompanyResponseFromCompany(companies)));
-    } */
+        return new GenericResponse<>(new AllCompaniesResponse(companyMapper.mapCompany(companies)));
+    }
+
+    public GenericResponse<AllCompaniesResponse> deleteCompany(Company company)
+    {
+        companyRepository.delete(company);
+        List<CompanyResponse> retrievedCompanies = new ArrayList<>();
+        retrievedCompanies.add(companyMapper.mapCompanyResponseFromCompany(company));
+        return new GenericResponse<>(new AllCompaniesResponse(retrievedCompanies));
+    }
 }

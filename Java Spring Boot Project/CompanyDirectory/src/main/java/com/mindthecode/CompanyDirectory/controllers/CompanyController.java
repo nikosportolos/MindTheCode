@@ -52,4 +52,18 @@ public class CompanyController { //this is a comment
             return new ResponseEntity(new ErrorResponse(0,"Error","You did not add any company"),null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/addCompanies")
+    @ResponseBody
+    public ResponseEntity addCompanies(@RequestBody Iterable<Company> companies)
+    {
+        try {
+            System.out.println("Adding more than one companies");
+            return new ResponseEntity(companyService.saveCompanies(companies), null, HttpStatus.OK);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return new ResponseEntity(new ErrorResponse(0,"Error","You did not add more than one companies"),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
