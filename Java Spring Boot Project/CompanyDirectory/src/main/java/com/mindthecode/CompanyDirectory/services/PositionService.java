@@ -42,7 +42,7 @@ public class PositionService {
     public GenericResponse<String> savePosition(Position position) {
         try {
             repository.save(position);
-            return new GenericResponse<>("saved position #" + position.getId());
+            return new GenericResponse<>("Saved position #" + position.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));
@@ -65,7 +65,7 @@ public class PositionService {
             return new GenericResponse<>("Deleted position #" + position.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete position"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete position #" + position.getId()));
         }
     }
 

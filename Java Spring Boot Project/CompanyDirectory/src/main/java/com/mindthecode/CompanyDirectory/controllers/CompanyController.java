@@ -18,15 +18,7 @@ public class CompanyController { //this is a comment
     public ResponseEntity getAllCompanies() {
         try {
             System.out.println("###Loading all companies...");
-
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add("Access-Control-Allow-Origin", "*");
-            httpHeaders.add("Access-Control-Allow-Headers", "Origin, Content-Type, Cookie, X-CSRF-TOKEN, Accept, Authorization, X-XSRF-TOKEN, Access-Control-Allow-Origin");
-            httpHeaders.add("Access-Control-Expose-Headers", "Authorization, authenticated");
-            httpHeaders.add("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, OPTIONS");
-            httpHeaders.add("Access-Control-Allow-Credentials", "true");
-
-            return new ResponseEntity<>(service.getAllCompanies(), httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(service.getAllCompanies(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
