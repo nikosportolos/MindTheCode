@@ -65,7 +65,7 @@ public class BusinessUnitService {
             return new GenericResponse<>("Deleted business unit #" + businessUnit.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete business unit"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete business unit#" + businessUnit.getId()));
         }
     }
 

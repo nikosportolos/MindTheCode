@@ -1,7 +1,6 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
-import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.services.BusinessUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
