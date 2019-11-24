@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory.strategy;
+package com.mindthecode.CompanyDirectory.strategy.search_employee;
 
 import com.mindthecode.CompanyDirectory.models.entities.Employee;
 

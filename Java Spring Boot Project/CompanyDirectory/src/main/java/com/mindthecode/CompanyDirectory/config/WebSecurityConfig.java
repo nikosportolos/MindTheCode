@@ -2,12 +2,11 @@ package com.mindthecode.CompanyDirectory.config;
 
 import javax.sql.DataSource;
 
+import com.mindthecode.CompanyDirectory.common.Enums;
+import com.mindthecode.CompanyDirectory.strategy.user_roles.GetUserRoleStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    GetUserRoleStrategyFactory factory;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -36,7 +38,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
                 inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("adm1n")).roles("ADMIN", "COMPANY_MANAGER", "BUSINESS_UNIT_MANAGER", "DEPARTMENT_MANAGER", "UNIT_MANAGER");
+                .withUser("admin").password(passwordEncoder().encode("adm1n")).roles(factory.makeStrategyForCriteria(Enums.UserRole.ADMIN).execute())
+                .and()
+                .withUser("companyManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.BUSINESS_UNIT_MANAGER.toString())
+                .and()
+                .withUser("buManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.BUSINESS_UNIT_MANAGER.toString())
+                .and()
+                .withUser("deptManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.DEPARTMENT_MANAGER.toString())
+                .and()
+                .withUser("unitManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.UNIT_MANAGER.toString())
+        ;
+
     }
 
     @Override
@@ -76,58 +88,58 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/getTasksByDiffAndNumOfEmployees  ").permitAll()
 
                 // Delete single entity
-                .antMatchers("/deleteCompany/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteBusinessUnit/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteDepartment/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteUnit/").hasAnyRole("ADMIN")
-                .antMatchers("/deletePosition/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteEmployee/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteTask/").hasAnyRole("ADMIN")
+                .antMatchers("/deleteCompany/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.COMPANY_MANAGER).execute())
+                .antMatchers("/deleteBusinessUnit/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/deleteDepartment/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/deleteUnit/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deletePosition/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteEmployee/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteTask/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 // Delete multiple entities
-                .antMatchers("/deleteCompanies/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteBusinessUnits/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteDepartments/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteUnits/").hasAnyRole("ADMIN")
-                .antMatchers("/deletePositions/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteEmployees/").hasAnyRole("ADMIN")
-                .antMatchers("/deleteTasks/").hasAnyRole("ADMIN")
+                .antMatchers("/deleteCompanies/").hasAnyRole(Enums.UserRole.ADMIN.toString(), Enums.UserRole.COMPANY_MANAGER.toString())
+                .antMatchers("/deleteBusinessUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/deleteDepartments/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/deleteUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deletePositions/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteEmployees/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteTasks/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 // Add single entity
-                .antMatchers("/addCompany/").hasAnyRole("ADMIN")
-                .antMatchers("/addBusinessUnit").hasAnyRole("ADMIN")
-                .antMatchers("/addDepartment/").hasAnyRole("ADMIN")
-                .antMatchers("/addUnit/").hasAnyRole("ADMIN")
-                .antMatchers("/addPosition/").hasAnyRole("ADMIN")
-                .antMatchers("/addEmployee/").hasAnyRole("ADMIN")
-                .antMatchers("/addTask/").hasAnyRole("ADMIN")
+                .antMatchers("/addCompany/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.COMPANY_MANAGER).execute())
+                .antMatchers("/addBusinessUnit").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/addDepartment/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/addUnit/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/addPosition/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/addEmployee/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/addTask/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 // Add multiple entities
-                .antMatchers("/addCompanies/").hasAnyRole("ADMIN")
-                .antMatchers("/addBusinessUnits").hasAnyRole("ADMIN")
-                .antMatchers("/addDepartments/").hasAnyRole("ADMIN")
-                .antMatchers("/addUnits/").hasAnyRole("ADMIN")
-                .antMatchers("/addPositions/").hasAnyRole("ADMIN")
-                .antMatchers("/addEmployees/").hasAnyRole("ADMIN")
-                .antMatchers("/addTasks/").hasAnyRole("ADMIN")
+                .antMatchers("/addCompanies/").hasAnyRole(Enums.UserRole.ADMIN.toString(), Enums.UserRole.COMPANY_MANAGER.toString())
+                .antMatchers("/addBusinessUnits").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/addDepartments/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/addUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/addPositions/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/addEmployees/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/addTasks/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 // Update single entity
-                .antMatchers("/updateCompany/").hasAnyRole("ADMIN")
-                .antMatchers("/updateBusinessUnit/").hasAnyRole("ADMIN")
-                .antMatchers("/updateDepartment/").hasAnyRole("ADMIN")
-                .antMatchers("/updateUnit/").hasAnyRole("ADMIN")
-                .antMatchers("/updatePosition/").hasAnyRole("ADMIN")
-                .antMatchers("/updateEmployee/").hasAnyRole("ADMIN")
-                .antMatchers("/updateTask/").hasAnyRole("ADMIN")
+                .antMatchers("/updateCompany/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.COMPANY_MANAGER).execute())
+                .antMatchers("/updateBusinessUnit/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/updateDepartment/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/updateUnit/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/updatePosition/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/updateEmployee/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/updateTask/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 // Update multiple entities
-                .antMatchers("/updateCompanies/").hasAnyRole("ADMIN")
-                .antMatchers("/updateBusinessUnits/").hasAnyRole("ADMIN")
-                .antMatchers("/updateDepartments/").hasAnyRole("ADMIN")
-                .antMatchers("/updateUnits/").hasAnyRole("ADMIN")
-                .antMatchers("/updatePositions/").hasAnyRole("ADMIN")
-                .antMatchers("/updateEmployees/").hasAnyRole("ADMIN")
-                .antMatchers("/updateTasks/").hasAnyRole("ADMIN")
+                .antMatchers("/updateCompanies/").hasAnyRole(Enums.UserRole.ADMIN.toString(), Enums.UserRole.COMPANY_MANAGER.toString())
+                .antMatchers("/updateBusinessUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/updateDepartments/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/updateUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/updatePositions/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/updateEmployees/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/updateTasks/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 .anyRequest().authenticated()
 
