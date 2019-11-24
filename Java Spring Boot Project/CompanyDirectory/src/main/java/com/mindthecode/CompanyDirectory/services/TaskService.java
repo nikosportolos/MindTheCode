@@ -31,6 +31,28 @@ public class TaskService {
         return new GenericResponse<>(new ErrorResponse(0, "Error", "No tasks were found"));
     }
 
+    public GenericResponse<AllTasksResponse> getTasksByDiffAndNumOfEmployees(String difficulty, int numberOfEmployees) {
+        List<TaskResponse> taskResponsesResult = new ArrayList<>();
+        Iterable<Task> retrievedTasks = repository.findAll();
+
+        //filter original list to show tasks with specific number of employees
+        for (Task task : retrievedTasks) {
+            if (task.getEmployees().size() == numberOfEmployees) {
+                TaskResponse tk = mapper.mapTaskToResponse(task);
+                //filter taskresponses to equal difficulty
+                if (tk.getDifficulty().toString().equals(difficulty)) {
+                    taskResponsesResult.add(tk);
+                }
+            }
+        }
+
+        if (taskResponsesResult.size() == 0)
+            return new GenericResponse<>(new ErrorResponse(0, "Unknown task", "No task found with difficulty " + difficulty
+                    + " and number of Employees " + numberOfEmployees));
+
+        return new GenericResponse<>(new AllTasksResponse(taskResponsesResult));
+    }
+
     public GenericResponse<AllTasksResponse> getTaskById(long id) {
         List<TaskResponse> taskResponses = new ArrayList<>();
         Iterable<Task> retrievedTasks = repository.findAll();

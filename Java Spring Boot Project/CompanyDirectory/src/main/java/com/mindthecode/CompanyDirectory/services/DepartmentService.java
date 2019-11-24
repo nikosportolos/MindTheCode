@@ -42,10 +42,10 @@ public class DepartmentService {
     public GenericResponse<String> saveDepartment(Department department) {
         try {
             repository.save(department);
-            return new GenericResponse<>("company department #" + department.getId());
+            return new GenericResponse<>("Saved department #" + department.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save department"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save department#" + department.getId()));
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
-import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.services.BusinessUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +65,81 @@ public class BusinessUnitController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while adding business units"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/updateBusinessUnit")
+    public ResponseEntity updateBusinessUnit(@RequestBody BusinessUnit BusinessUnit) {
+        try {
+            System.out.println("###Updating businessUnit: " + BusinessUnit.toString());
+            var response = service.saveBusinessUnit(BusinessUnit);
+            if(response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating business unit #" + BusinessUnit.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/updateBusinessUnits")
+    public ResponseEntity updateBusinessUnits(@RequestBody Iterable<BusinessUnit> newBusinessUnits) {
+        try {
+            System.out.println("###Updating multiple businessUnits");
+            var response = service.saveBusinessUnits(newBusinessUnits);
+            if(response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating business units"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/deleteBusinessUnit")
+    public ResponseEntity deleteBusinessUnit(@RequestBody BusinessUnit BusinessUnit) {
+        try {
+            System.out.println("###Deleting businessUnit: " + BusinessUnit.toString());
+            var response = service.deleteBusinessUnit(BusinessUnit);
+            if(response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating business unit #" + BusinessUnit.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/deleteBusinessUnits")
+    public ResponseEntity deleteBusinessUnits(@RequestBody Iterable<BusinessUnit> BusinessUnits) {
+        try {
+            System.out.println("###Deleting multiple Business Units");
+            var response = service.deleteBusinessUnits(BusinessUnits);
+            if(response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting business units" ), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/deleteAllBusinessUnits")
+    public ResponseEntity deleteAllBusinessUnits() {
+        try {
+            System.out.println("###Deleting all Business Units");
+            var response = service.deleteAllBusinessUnits();
+            if(response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting all business units" ), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
