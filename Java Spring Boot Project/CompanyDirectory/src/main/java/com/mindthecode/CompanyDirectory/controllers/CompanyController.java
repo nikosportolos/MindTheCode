@@ -141,9 +141,7 @@ public class CompanyController { //this is a comment
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting companies"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
      */
-
     @DeleteMapping("/deleteAllCompanies")
     public ResponseEntity deleteAllCompanies() {
         try {

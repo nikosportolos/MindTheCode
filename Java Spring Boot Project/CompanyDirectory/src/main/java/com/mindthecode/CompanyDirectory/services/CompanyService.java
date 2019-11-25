@@ -66,6 +66,18 @@ public class CompanyService {
         return new GenericResponse<>(new AllCompaniesResponse(retrievedCompanies));
     }
 
+    public GenericResponse<String> deleteCompanies(Iterable<Company> companies) {
+        try {
+            companyRepository.deleteAll(companies);
+            return new GenericResponse<>("Deleted companies");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete companies"));
+        }
+    }
+
+
+
     public GenericResponse<String> deleteAllCompanies()
     {
         try{
