@@ -7,8 +7,8 @@ import com.mindthecode.CompanyDirectory.models.responses.EmployeeResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.repositories.EmployeeRepository;
-import com.mindthecode.CompanyDirectory.strategy.SearchEmployeeStrategy;
-import com.mindthecode.CompanyDirectory.strategy.SearchEmployeeStrategyFactory;
+import com.mindthecode.CompanyDirectory.strategy.search_employee.SearchEmployeeStrategy;
+import com.mindthecode.CompanyDirectory.strategy.search_employee.SearchEmployeeStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

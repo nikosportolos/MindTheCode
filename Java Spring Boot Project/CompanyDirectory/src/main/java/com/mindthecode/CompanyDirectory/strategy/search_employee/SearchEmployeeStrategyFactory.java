@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory.strategy;
+package com.mindthecode.CompanyDirectory.strategy.search_employee;
 
 import org.springframework.stereotype.Component;
 
