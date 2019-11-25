@@ -65,4 +65,16 @@ public class CompanyService {
         retrievedCompanies.add(companyMapper.mapCompanyResponseFromCompany(company));
         return new GenericResponse<>(new AllCompaniesResponse(retrievedCompanies));
     }
+
+    public GenericResponse<String> deleteAllCompanies()
+    {
+        try{
+            companyRepository.deleteAll();
+            return  new GenericResponse<>("All companies are deleted");
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0,"Error","Could not delete all companies"));
+        }
+    }
 }
