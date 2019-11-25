@@ -66,4 +66,98 @@ public class CompanyController { //this is a comment
             return new ResponseEntity(new ErrorResponse(0,"Error","You did not add more than one companies"),null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/updateCompany")
+    public ResponseEntity updateCompany(@RequestBody Company company)
+    {
+        try
+        {
+            System.out.println("###Updating company : " + company.toString());
+            var response = companyService.saveCompany(company);
+
+            if(response.getError()==null)
+                return new ResponseEntity<>(response,null,HttpStatus.OK);
+            else
+                return  new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0,"Error","Something went wrong while updating company #" + company.getId()),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/updateCompanies")
+    public ResponseEntity updateCompanies(@RequestBody Iterable<Company> newCompanies)
+    {
+        try
+        {
+            System.out.println("###Updating multiple companies");
+            var response = companyService.saveCompanies(newCompanies);
+
+            if(response.getError()==null)
+                return new ResponseEntity<>(response,null,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0,"Error","Something went wrong while updating companies"),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("deleteCompany")
+    public ResponseEntity deleteCompanies(@RequestBody Company company)
+    {
+        try
+        {
+            System.out.println("###Deleting  company : " + company.toString());
+            var response = companyService.deleteCompany(company);
+
+            if(response.getError()==null)
+                return new ResponseEntity<>(response,null,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0,"Error","Something went wrong while deleting company #" + company.getId()),null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /*
+    @DeleteMapping("/deleteCompanies")
+    public ResponseEntity deleteCompanies(@RequestBody Iterable<Company> companies) {
+        try {
+            System.out.println("###Deleting multiple companies");
+            var response = companyService.deleteCompany(companies);
+
+            if (response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting companies"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+     */
+
+    @DeleteMapping("/deleteAllCompanies")
+    public ResponseEntity deleteAllCompanies() {
+        try {
+            System.out.println("###Deleting all positions");
+            var response = companyService.deleteAllCompanies();
+
+            if (response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting companies"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
