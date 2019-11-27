@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DepartmentsMapper {
+public class DepartmentMapper {
 
     public List<DepartmentResponse> mapDepartments(Iterable<Department> all) {
         List<DepartmentResponse> departments = new ArrayList<>();

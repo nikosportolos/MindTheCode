@@ -45,6 +45,17 @@ public class TaskController {
      * Update
      **/
 
+    @GetMapping("/getTasksByEmployeeNum/{employeeNum}")
+    public ResponseEntity getTasksByNumOfEmployees(@PathVariable("employeeNum") long employeeNum){
+        try {
+            System.out.println("###Loading taks by number of employees");
+            return new ResponseEntity<>(service.getTasksByNumOfEmployees(employeeNum), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/updateTask")
     public ResponseEntity updateTask(@RequestBody Task task) {
         try {

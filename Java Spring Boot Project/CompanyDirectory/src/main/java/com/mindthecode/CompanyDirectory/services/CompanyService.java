@@ -2,11 +2,16 @@ package com.mindthecode.CompanyDirectory.services;
 
 import com.mindthecode.CompanyDirectory.mappers.CompanyMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
-import com.mindthecode.CompanyDirectory.models.responses.*;
+import com.mindthecode.CompanyDirectory.models.responses.AllCompaniesResponse;
+import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
+import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
+import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +33,7 @@ public class CompanyService {
         return new GenericResponse<>(new ErrorResponse(0, "Error", "No companies were found"));
     }
 
-    public GenericResponse<AllCompaniesResponse> getCompaniesById(Long id) {
+    public GenericResponse<AllCompaniesResponse> getCompanyById(Long id) {
         Iterable<Company> companies = repository.findAll();
         List<CompanyResponse> companiesToReturn = new ArrayList<>();
 
@@ -47,10 +52,59 @@ public class CompanyService {
     public GenericResponse<String> saveCompany(Company company) {
         try {
             repository.save(company);
-            return new GenericResponse<>("company employee #" + company.getId());
+            return new GenericResponse<>("Saved company #" + company.getId());
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save company"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not add company"));
+        }
+    }
+
+    public GenericResponse<String> saveCompanies(Iterable<Company> companies) {
+        try {
+            repository.saveAll(companies);
+            return new GenericResponse<>("Saved companies");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not add companies"));
+        }
+    }
+
+    public GenericResponse<String> deleteCompany(Company company) {
+        try {
+            repository.delete(company);
+            return new GenericResponse<>("Deleted company #" + company.getId());
+        } catch (DataIntegrityViolationException dex) {
+            dex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete company (Referential integrity constraint violation)"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete company"));
+        }
+    }
+
+    public GenericResponse<String> deleteCompanies(Iterable<Company> companies) {
+        try {
+            repository.deleteAll(companies);
+            return new GenericResponse<>("Deleted companies");
+        } catch (DataIntegrityViolationException dex) {
+            dex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete companies (Referential integrity constraint violation)"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete companies"));
+        }
+    }
+
+    public GenericResponse<String> deleteAllCompanies() {
+        try {
+            repository.deleteAll();
+            return new GenericResponse<>("All companies are deleted");
+        } catch (DataIntegrityViolationException dex) {
+            dex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete companies (Referential integrity constraint violation)"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all companies"));
         }
     }
 }
