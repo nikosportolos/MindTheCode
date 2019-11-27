@@ -19,6 +19,11 @@ public class BusinessUnitService {
     @Autowired
     private BusinessUnitRepository repository;
 
+    public BusinessUnitService(BusinessUnitMapper mapper, BusinessUnitRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
+
     public GenericResponse<AllBusinessUnitResponse> getAllBusinessUnits() {
         List<BusinessUnitResponse> businessUnits = mapper.mapBusinessUnits(repository.findAll());
         if (businessUnits == null || businessUnits.size() > 0)

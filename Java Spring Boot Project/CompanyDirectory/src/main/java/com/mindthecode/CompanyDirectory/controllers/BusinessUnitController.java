@@ -14,8 +14,12 @@ public class BusinessUnitController {
     @Autowired
     private BusinessUnitService service;
 
+    public BusinessUnitController(BusinessUnitService service) {
+        this.service = service;
+    }
+
     @GetMapping("/businessUnits")
-    public ResponseEntity getBusinessUnits() {
+    public ResponseEntity getAllBusinessUnits() {
         try {
             System.out.println("###Loading all business units...");
             return new ResponseEntity<>(service.getAllBusinessUnits(), null, HttpStatus.OK);
