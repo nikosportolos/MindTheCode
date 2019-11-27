@@ -11,6 +11,9 @@
 				{
 					"name": "Get all Companies",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -50,6 +53,9 @@
 				{
 					"name": "Add Company",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -190,6 +196,9 @@
 				{
 					"name": "Delete Company",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -201,7 +210,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 32\r\n}",
+							"raw": "{\r\n    \"id\": 3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2034,6 +2043,50 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Home",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4bb23674-6775-4d50-8e0b-ea0e2efa645d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "16fb9e35-c5f9-4f26-9a2c-0dcf83ebe988",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}
