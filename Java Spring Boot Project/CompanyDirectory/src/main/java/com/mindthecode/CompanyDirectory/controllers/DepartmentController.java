@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.entities.Department;
+import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,24 @@ public class DepartmentController {
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/updateDepartment")
+    public ResponseEntity updateDepartment(@RequestBody Department department) {
+        try {
+            System.out.println("###Updating department: " + department.toString());
+            var response = service.saveDepartment(department);
+
+            if (response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while updating unit #" + department.getId()), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 
