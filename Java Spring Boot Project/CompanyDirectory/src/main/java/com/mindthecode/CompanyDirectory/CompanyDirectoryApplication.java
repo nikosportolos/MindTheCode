@@ -134,5 +134,9 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
         employees.add(employee2);
         Task task1 = new Task(1, "", "", 10, 15, 23, Enums.TaskStatus.DONE, updates, employees);
         taskService.saveTask(task1);
+
+
+        Company company3 = new Company(3, "Microsoft");
+        companyService.saveCompany(company3);
     }
 }

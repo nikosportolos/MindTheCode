@@ -48,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("unitManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.UNIT_MANAGER.toString())
         ;
-
     }
 
     @Override
@@ -84,8 +83,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/task/**").permitAll()
 
                 .antMatchers("/getTasksByNumOfEmployees").permitAll()
-                .antMatchers("/getTasksByDifficulty ").permitAll()
-                .antMatchers("/getTasksByDiffAndNumOfEmployees  ").permitAll()
+                .antMatchers("/getTasksByDifficulty").permitAll()
+                .antMatchers("/getTasksByDiffAndNumOfEmployees").permitAll()
 
                 // Delete single entity
                 .antMatchers("/deleteCompany/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.COMPANY_MANAGER).execute())
@@ -104,6 +103,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/deletePositions/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
                 .antMatchers("/deleteEmployees/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
                 .antMatchers("/deleteTasks/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+
+                // Delete all entities
+                .antMatchers("/deleteAllCompanies/").hasAnyRole(Enums.UserRole.ADMIN.toString(), Enums.UserRole.COMPANY_MANAGER.toString())
+                .antMatchers("/deleteAllBusinessUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.BUSINESS_UNIT_MANAGER).execute())
+                .antMatchers("/deleteAllDepartments/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.DEPARTMENT_MANAGER).execute())
+                .antMatchers("/deleteAllUnits/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteAllPositions/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteAllEmployees/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
+                .antMatchers("/deleteAllTasks/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.UNIT_MANAGER).execute())
 
                 // Add single entity
                 .antMatchers("/addCompany/").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.COMPANY_MANAGER).execute())
