@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.services;
 
 import com.mindthecode.CompanyDirectory.models.entities.Department;
+import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.*;
 import com.mindthecode.CompanyDirectory.repositories.DepartmentRepository;
 import com.mindthecode.CompanyDirectory.mappers.DepartmentMapper;
@@ -57,6 +58,36 @@ public class DepartmentService {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save departments"));
+        }
+    }
+
+    public GenericResponse<String> deleteDepartment(Department department) {
+        try {
+            repository.delete(department);
+            return new GenericResponse<>("Deleted department #" + department.getId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete the department"));
+        }
+    }
+
+    public GenericResponse<String> deleteDepartments(Iterable<Department> departments) {
+        try {
+            repository.deleteAll(departments);
+            return new GenericResponse<>("Deleted departments");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete departments"));
+        }
+    }
+
+    public GenericResponse<String> deleteAllDepartments() {
+        try {
+            repository.deleteAll();
+            return new GenericResponse<>("Deleted all departments");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all departments"));
         }
     }
 
