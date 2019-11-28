@@ -125,12 +125,12 @@ public class CompanyController { //this is a comment
         }
     }
 
-    /*
+
     @DeleteMapping("/deleteCompanies")
     public ResponseEntity deleteCompanies(@RequestBody Iterable<Company> companies) {
         try {
             System.out.println("###Deleting multiple companies");
-            var response = companyService.deleteCompany(companies);
+            var response = companyService.deleteCompanies(companies);
 
             if (response.getError() == null)
                 return new ResponseEntity<>(response, null, HttpStatus.OK);
@@ -141,7 +141,7 @@ public class CompanyController { //this is a comment
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong while deleting companies"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-     */
+
     @DeleteMapping("/deleteAllCompanies")
     public ResponseEntity deleteAllCompanies() {
         try {
