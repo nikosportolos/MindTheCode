@@ -16,4 +16,11 @@ public class AllPositionsResponse {
     public void setPositions(List<PositionResponse> positions) {
         this.positions = positions;
     }
+
+    @Override
+    public String toString() {
+        return "AllPositionsResponse{" +
+                "positions=" + positions +
+                '}';
+    }
 }

@@ -21,6 +21,15 @@ public class CompanyMapper {
     }
 
     public CompanyResponse mapCompanyResponseFromCompany(Company company) {
-        return new CompanyResponse(company.getId(), company.getCompanyName());
+        return new CompanyResponse(company.getId(), company.getName());
+    }
+
+    public List<CompanyResponse> mapCompanies(Iterable<Company> all) {
+        List<CompanyResponse> departments = new ArrayList<>();
+        for (Company company : all) {
+            CompanyResponse departmentResponse = mapCompanyResponseFromCompany(company);
+            departments.add(departmentResponse);
+        }
+        return departments;
     }
 }

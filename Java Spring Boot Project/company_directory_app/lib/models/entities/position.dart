@@ -1,9 +1,13 @@
 import 'package:company_directory_app/models/entities/unit.dart';
 
 class Position {
-  double id;
-  String name;
-  Unit unit;
+  final int id;
+  final String name;
+  final Unit unit;
 
   Position({this.id, this.name, this.unit});
+
+  factory Position.fromJson(Map<String, dynamic> json) {
+    return Position(id: json['id'], name: json['name'], unit: Unit.fromJson(json['unit']));
+  }
 }

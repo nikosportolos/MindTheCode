@@ -1,8 +1,5 @@
 package com.mindthecode.CompanyDirectory.mappers;
 
-
-import com.mindthecode.CompanyDirectory.mappers.UnitMapper;
-
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
@@ -10,7 +7,6 @@ import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,9 +1,13 @@
-import 'package:company_directory_app/models/entities/business_unit.dart';
+import 'package:company_directory_app/models/responses/business_unit_response.dart';
 
 class DepartmentResponse {
-  double id;
-  String departmentName;
-  BusinessUnit businessUnit;
+  final int id;
+  final String name;
+  final BusinessUnitResponse businessUnit;
 
-  DepartmentResponse({this.id, this.departmentName, this.businessUnit});
+  DepartmentResponse({this.id, this.name, this.businessUnit});
+
+  factory DepartmentResponse.fromJson(Map<String, dynamic> json) {
+    return DepartmentResponse(id: json['id'], name: json['name'], businessUnit: BusinessUnitResponse.fromJson(json['businessUnit']));
+  }
 }

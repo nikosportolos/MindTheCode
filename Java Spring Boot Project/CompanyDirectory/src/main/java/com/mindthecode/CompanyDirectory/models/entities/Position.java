@@ -1,7 +1,5 @@
 package com.mindthecode.CompanyDirectory.models.entities;
 
-import com.mindthecode.CompanyDirectory.common.Enums;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,15 +7,25 @@ import javax.persistence.*;
 public class Position {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String name;
 
     @ManyToOne
     private Unit unit;
 
     public Position() {
+    }
+
+    public Position(long id, String name, Unit unit) {
+        this.id = id;
+        this.name = name;
+        this.unit = unit;
+    }
+
+    public Position(String name, Unit unit) {
+        this.name = name;
+        this.unit = unit;
     }
 
     public Position(String name) {
@@ -48,10 +56,5 @@ public class Position {
         this.unit = unit;
     }
 
-
-    public class AvailablePositions {
-        public class JuniorAnalyst {
-        }
-    }
 }
 

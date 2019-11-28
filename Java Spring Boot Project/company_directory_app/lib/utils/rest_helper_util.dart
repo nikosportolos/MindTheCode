@@ -1,54 +1,47 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:company_directory_app/models/responses/error_response.dart';
+import 'package:company_directory_app/models/responses/generic_response.dart';
 import 'package:http/http.dart' as http;
 
 class RestHelperUtil {
+  final int timeout = 30;
+
   // Returns required http headers
-  static Map<String, String> _getHeaders() {
-    return {'content-type': "application/json", 'accept': "application/json"};
+  Map<String, String> _getHeaders() {
+    return {
+      'content-type': "application/json",
+      'Content-Length': "0",
+      'accept': "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,GET,DELETE,PUT,OPTIONS",
+      "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+    };
   }
 
-  // Returns endpoint URI
-  static String _getURI() {
+  // Returns base endpoint URI
+  String _getBaseURI() {
+//    return "http://localhost:8080/";
     return "https://mtc-company-directory.herokuapp.com/";
   }
 
-// Returns request object
-//  static String _buildRequest(String searchText) {
-//    RequestData _data = RequestData(search: searchText);
-//    Request req = Request(key: "free", id: "9m9c8U4f", data: _data);
-//
-//    // Encode request to json
-//    var request = json.encode(req.toJson());
-//    print('$request');
-//    return request;
-//  }
-//
-//  static Future<T> searchForSong(String searchText) async {
-//    print('Sending post request...');
-//
-//    try {
-//      http.Response response = await http.post(
-//        _getURI(),
-//        headers: _getHeaders(),
-//        body: _buildRequest(searchText),
-//      );
-//
-//      print('Status code: ${response.statusCode}');
-//      print('${response.body}');
-//
-//      if (response.statusCode == 200) {
-//        if (response.body.contains('"result":["off"]')) {
-//          throw Exception('Song not found');
-//        }
-//
-//        return Response.fromJson(json.decode(response.body));
-//      } else {
-//        throw Exception('Failed to load song info');
-//      }
-//    } catch (error) {
-//      print('#searchForSong: ${error.toString()}');
-//      throw Exception(error.toString());
-//    }
-//  }
+  Future<GenericResponse> getRequest(String endpoint) async {
+    try {
+      String endpointURI = _getBaseURI() + endpoint;
+
+      print('> Sending GET request to endpoint: [$endpointURI] with $timeout seconds timeout ');
+      http.Response response = await http.get(endpointURI, headers: _getHeaders()).timeout(Duration(seconds: timeout)).catchError((error) {
+        print('${error.toString()}');
+        return GenericResponse(error: new ErrorResponse(code: 0, title: 'Error sending get request', description: '$error'));
+      });
+
+      print('> Status code: ${response.statusCode}');
+      print('> Headers: ${response.headers}');
+      print('> Response: ${response.body}');
+
+      return GenericResponse.fromJson(json.decode(response.body));
+    } catch (error) {
+      return GenericResponse(error: new ErrorResponse(code: 0, title: 'Error sending get request', description: '$error'));
+    }
+  }
 }

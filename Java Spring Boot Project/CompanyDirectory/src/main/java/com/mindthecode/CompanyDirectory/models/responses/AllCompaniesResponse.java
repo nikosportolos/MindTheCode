@@ -5,7 +5,8 @@ import java.util.List;
 public class AllCompaniesResponse {
     private List<CompanyResponse> companies;
 
-    public AllCompaniesResponse(List<CompanyResponse> allCompanies) {
+    public AllCompaniesResponse(List<CompanyResponse> companies) {
+        this.companies = companies;
     }
 
     public List<CompanyResponse> getCompanies() {
@@ -14,5 +15,12 @@ public class AllCompaniesResponse {
 
     public void setCompanies(List<CompanyResponse> companies) {
         this.companies = companies;
+    }
+
+    @Override
+    public String toString() {
+        return "AllCompaniesResponse{" +
+                "companies=" + companies +
+                '}';
     }
 }

@@ -4,17 +4,24 @@ import java.util.List;
 
 public class AllBusinessUnitResponse {
 
-    private List<BusinessUnitResponse> businessUnitResponses;
+    private List<BusinessUnitResponse> businessUnits;
 
-    public AllBusinessUnitResponse(List<BusinessUnitResponse> businessUnitResponses) {
-        this.businessUnitResponses = businessUnitResponses;
+    public AllBusinessUnitResponse(List<BusinessUnitResponse> businessUnits) {
+        this.businessUnits = businessUnits;
     }
 
-    public List<BusinessUnitResponse> getBusinessUnitResponses() {
-        return businessUnitResponses;
+    public List<BusinessUnitResponse> getBusinessUnits() {
+        return businessUnits;
     }
 
-    public void setBusinessUnitResponses(List<BusinessUnitResponse> businessUnitResponses) {
-        this.businessUnitResponses = businessUnitResponses;
+    public void setBusinessUnits(List<BusinessUnitResponse> businessUnits) {
+        this.businessUnits = businessUnits;
+    }
+
+    @Override
+    public String toString() {
+        return "AllBusinessUnitResponse{" +
+                "businessUnits=" + businessUnits +
+                '}';
     }
 }

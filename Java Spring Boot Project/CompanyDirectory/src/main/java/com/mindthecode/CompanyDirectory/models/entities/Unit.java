@@ -26,12 +26,16 @@ public class Unit {
     }
 
     public Unit(String name) {
-        this.id = id;
         this.name = name;
     }
 
     public Unit(long id, String name, Department department) {
         this.id = id;
+        this.name = name;
+        this.department = department;
+    }
+
+    public Unit(String name, Department department) {
         this.name = name;
         this.department = department;
     }

@@ -19,7 +19,7 @@ public class BusinessUnitMapper {
     }
 
     public BusinessUnitResponse mapBusinessUnitToResponse(BusinessUnit businessUnit) {
-        return new BusinessUnitResponse(businessUnit.getId(), businessUnit.getNameOfBusinessUnit(), businessUnit.getCompany());
+        return new BusinessUnitResponse(businessUnit.getId(), businessUnit.getName(), businessUnit.getCompany());
     }
 
 

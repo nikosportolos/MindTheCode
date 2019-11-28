@@ -36,4 +36,12 @@ public class ErrorResponse {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "ErrorResponse{" +
+                "code=" + code +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

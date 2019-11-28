@@ -4,11 +4,11 @@ import com.mindthecode.CompanyDirectory.common.Enums;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Employees")
 public class Employee {
-
 
     /**
      * Instance variables
@@ -26,7 +26,10 @@ public class Employee {
     private Enums.ContractType contractType;
 
     @ManyToOne
-    Position position;
+    private Position position;
+
+    @ManyToMany
+    private List<Task> tasks;
 
     /**
      * Constructors
@@ -56,7 +59,20 @@ public class Employee {
         this.position = new Position();
     }
 
-    public Employee(String firstName, String lastName, String address, String phoneNumber, Date hireDate, Date departureDate, Enums.EmployeeStatus status, Enums.ContractType contractType, String company, String businessUnit, String department, String unit, Position position) {
+    public Employee(String firstName, String lastName, String address, String phoneNumber, Date hireDate, Date departureDate, Enums.EmployeeStatus status, Enums.ContractType contractType, Position position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.departureDate = departureDate;
+        this.status = status;
+        this.contractType = contractType;
+        this.position = position;
+    }
+
+    public Employee(long id, String firstName, String lastName, String address, String phoneNumber, Date hireDate, Date departureDate, Enums.EmployeeStatus status, Enums.ContractType contractType, Position position) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -150,6 +166,14 @@ public class Employee {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**

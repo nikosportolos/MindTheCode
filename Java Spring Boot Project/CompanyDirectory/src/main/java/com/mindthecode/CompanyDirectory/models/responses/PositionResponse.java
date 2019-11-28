@@ -44,4 +44,13 @@ public class PositionResponse {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
+
+    @Override
+    public String toString() {
+        return "PositionResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", unit=" + unit +
+                '}';
+    }
 }

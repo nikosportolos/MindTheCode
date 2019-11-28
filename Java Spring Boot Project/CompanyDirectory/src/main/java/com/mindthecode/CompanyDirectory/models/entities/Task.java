@@ -1,26 +1,31 @@
 package com.mindthecode.CompanyDirectory.models.entities;
 
+import com.mindthecode.CompanyDirectory.common.Enums;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Task
-{
+@Table(name = "Tasks")
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long taskId;
+    private long id;
     private String title;
     private String description;
     private int estimationA;
     private int estimationB;
     private int estimationC;
-    private TaskStatus taskStatus;
-    private List updates;
+    private Enums.TaskStatus taskStatus;
+
+    @Column
+    @ElementCollection(targetClass=String.class)
+    private List<String> updates;
 
     @ManyToMany
-    private Employee employees;
+    private List<Employee> employees;
 
-    public Task(String title, String description, int estimationA, int estimationB, int estimationC, TaskStatus taskStatus) {
+    public Task(String title, String description, int estimationA, int estimationB, int estimationC, Enums.TaskStatus taskStatus) {
         this.title = title;
         this.description = description;
         this.estimationA = estimationA;
@@ -29,7 +34,7 @@ public class Task
         this.taskStatus = taskStatus;
     }
 
-    public Task(String title, String description, int estimationA, int estimationB, int estimationC, TaskStatus taskStatus, List updates, Employee employees) {
+    public Task(String title, String description, int estimationA, int estimationB, int estimationC, Enums.TaskStatus taskStatus, List<String> updates, List<Employee> employees) {
         this.title = title;
         this.description = description;
         this.estimationA = estimationA;
@@ -43,8 +48,8 @@ public class Task
     public Task() {
     }
 
-    public Task(long taskId, String title, String description, int estimationA, int estimationB, int estimationC, TaskStatus taskStatus, List updates, Employee employees) {
-        this.taskId = taskId;
+    public Task(long id, String title, String description, int estimationA, int estimationB, int estimationC, Enums.TaskStatus taskStatus, List<String> updates, List<Employee> employees) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.estimationA = estimationA;
@@ -55,12 +60,12 @@ public class Task
         this.employees = employees;
     }
 
-    public long getTaskId() {
-        return taskId;
+    public long getId() {
+        return id;
     }
 
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -103,27 +108,27 @@ public class Task
         this.estimationC = estimationC;
     }
 
-    public TaskStatus getTaskStatus() {
+    public Enums.TaskStatus getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(TaskStatus taskStatus) {
+    public void setTaskStatus(Enums.TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
     }
 
-    public List getUpdates() {
+    public List<String> getUpdates() {
         return updates;
     }
 
-    public void setUpdates(List updates) {
+    public void setUpdates(List<String> updates) {
         this.updates = updates;
     }
 
-    public Employee getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Employee employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }

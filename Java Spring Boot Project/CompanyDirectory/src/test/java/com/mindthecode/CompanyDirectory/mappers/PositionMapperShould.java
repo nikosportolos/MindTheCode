@@ -17,7 +17,7 @@ public class PositionMapperShould {
     @Before
     public void setup() {
         mapper = new PositionMapper();
-        positionInput = new Position(Position.AvailablePositions.JuniorAnalyst);
+        positionInput = new Position(1, "Software Engineer", unitInput);
         positionInput.setId(10);
         unitInput = new Unit("");
         unitInput.setId(20);
@@ -32,7 +32,7 @@ public class PositionMapperShould {
 
     @Test
     public void keepSamePositionName() {
-        Assert.assertEquals(positionInput.getName().getText(), output.getName());
+        Assert.assertEquals(positionInput.getName(), output.getName());
     }
 
     @Test

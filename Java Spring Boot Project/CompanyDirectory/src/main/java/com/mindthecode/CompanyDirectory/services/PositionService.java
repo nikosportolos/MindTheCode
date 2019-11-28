@@ -16,47 +16,77 @@ import java.util.List;
 public class PositionService {
 
     @Autowired
-    PositionRepository repo;
+    private PositionRepository repository;
 
     @Autowired
-    PositionMapper mapper;
+    private PositionMapper mapper;
 
     public GenericResponse<AllPositionsResponse> getAllPositions() {
-        List<PositionResponse> positions = mapper.mapPositions(repo.findAll());
-        if(positions != null && positions.size() > 0)
+        List<PositionResponse> positions = mapper.mapPositions(repository.findAll());
+        if (positions == null || positions.size() > 0)
             return new GenericResponse<>(new AllPositionsResponse(positions));
 
-        return new GenericResponse(new ErrorResponse(0,"Error","No Positions were found"));
+        return new GenericResponse<>(new ErrorResponse(0, "Error", "No positions were found"));
     }
 
-    /*need to find one position only because id is primary key*/
     public GenericResponse<PositionResponse> getPositionById(long id) {
-        Iterable<Position> retrievedPositions = repo.findAll();
+        Iterable<Position> retrievedPositions = repository.findAll();
         for (Position position : retrievedPositions) {
             if (position.getId() == id)
                 return new GenericResponse<>(mapper.mapPositionToResponse(position));
         }
-        return new GenericResponse(new ErrorResponse(0,"Error","Positions with id "+ id +" was not found"));
+        return new GenericResponse<>(new ErrorResponse(0, "Unknown position", "No position found with id " + id));
     }
 
-    /*uncomment when Unit is ready*/
-    /*Needs to be tested after creation of Unit*/
-    /*
-    public GenericResponse<AllPositionsResponse> getPositionsByUnitId(Long unitId) {
-        Iterable<Position> retrievedPositions = repo.findAll();
-        List<PositionResponse> positionResponses = new ArrayList<>();
-        for (Position position : retrievedPositions) {
-            if (position.getUnit() !=null && position.getUnit().getId() == unitId) {
-                positionResponses.add(mapper.mapPositionToResponse(position));
-            }
+
+    public GenericResponse<String> savePosition(Position position) {
+        try {
+            repository.save(position);
+            return new GenericResponse<>("Saved position #" + position.getId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));
         }
-
-        if(positionResponses != null && positionResponses.size() > 0)
-            return new GenericResponse<>(new AllPositionsResponse(positionResponses));
-
-        return new GenericResponse(new ErrorResponse(0,"Error","No Positions were found"));
     }
-    */
 
+    public GenericResponse<String> savePositions(Iterable<Position> positions) {
+        try {
+            repository.saveAll(positions);
+            return new GenericResponse<>("Saved positions");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save position"));
+        }
+    }
+
+    public GenericResponse<String> deletePosition(Position position) {
+        try {
+            repository.delete(position);
+            return new GenericResponse<>("Deleted position #" + position.getId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete position #" + position.getId()));
+        }
+    }
+
+    public GenericResponse<String> deletePositions(Iterable<Position> positions) {
+        try {
+            repository.deleteAll(positions);
+            return new GenericResponse<>("Deleted positions");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete positions"));
+        }
+    }
+
+    public GenericResponse<String> deleteAllPositions() {
+        try {
+            repository.deleteAll();
+            return new GenericResponse<>("Deleted all positions");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all positions"));
+        }
+    }
 
 }

@@ -1,39 +1,53 @@
 package com.mindthecode.CompanyDirectory.models.responses;
 
-import com.mindthecode.CompanyDirectory.models.entities.TaskStatus;
+import com.mindthecode.CompanyDirectory.common.Enums;
+import com.mindthecode.CompanyDirectory.models.entities.Employee;
 
-public class TaskResponse
-{
-    private long taskId;
+import java.util.List;
+
+public class TaskResponse {
+    private long id;
     private String title;
     private String description;
-    private int difficulty;
-    private TaskStatus status;
+    private Enums.TaskDifficulty difficulty;
+    private Enums.TaskStatus status;
+    private List<String> updates;
+    private List<Employee> employees;
 
     public TaskResponse() {
     }
 
-    public TaskResponse(long taskId, String title, String description, int difficulty, TaskStatus status) {
-        this.taskId = taskId;
+    public TaskResponse(long id, String title, String description, Enums.TaskDifficulty difficulty, Enums.TaskStatus status, List<String> updates, List<Employee> employees) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.difficulty = difficulty;
+        this.status = status;
+        this.updates = updates;
+        this.employees = employees;
+    }
+
+    public TaskResponse(long id, String title, String description, Enums.TaskDifficulty difficulty, Enums.TaskStatus status) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.difficulty = difficulty;
         this.status = status;
     }
 
-    public TaskResponse(String title, String description, int difficulty, TaskStatus status) {
+    public TaskResponse(String title, String description, Enums.TaskDifficulty difficulty, Enums.TaskStatus status) {
         this.title = title;
         this.description = description;
         this.difficulty = difficulty;
         this.status = status;
     }
 
-    public long getTaskId() {
-        return taskId;
+    public long getId() {
+        return id;
     }
 
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -52,19 +66,34 @@ public class TaskResponse
         this.description = description;
     }
 
-    public int getDifficulty() {
+    public Enums.TaskDifficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public void setDifficulty(Enums.TaskDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
-    public TaskStatus getStatus() {
+    public Enums.TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(TaskStatus status) {
+    public void setStatus(Enums.TaskStatus status) {
         this.status = status;
+    }
+    public List<String> getUpdates() {
+        return updates;
+    }
+
+    public void setUpdates(List<String> updates) {
+        this.updates = updates;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
