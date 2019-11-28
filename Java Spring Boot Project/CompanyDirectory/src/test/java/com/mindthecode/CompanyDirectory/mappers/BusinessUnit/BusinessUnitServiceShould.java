@@ -7,7 +7,6 @@ import com.mindthecode.CompanyDirectory.models.responses.BusinessUnitResponse;
 import com.mindthecode.CompanyDirectory.repositories.BusinessUnitRepository;
 import com.mindthecode.CompanyDirectory.repositories.CompanyRepository;
 import com.mindthecode.CompanyDirectory.services.BusinessUnitService;
-import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class BusinessUnitServiceShould {
 
     private BusinessUnitService service;
 
-    private  BusinessUnitResponse businessUnitResponseFromMapper;
+    BusinessUnitResponse businessUnitResponseFromMapper;
 
     @Mock
     private BusinessUnitRepository businessUnitRepository;
@@ -54,17 +53,17 @@ public class BusinessUnitServiceShould {
         when(businessUnitRepository.findAll()).thenReturn(mockedBusinessUnits);
         businessUnitResponseFromMapper = new BusinessUnitResponse(1,"name", new Company("Info Quest"));
         when(mapper.mapBusinessUnitToResponse(any())).thenReturn(businessUnitResponseFromMapper);
-        service = new BusinessUnitService(mapper, businessUnitRepository);
+        service = new BusinessUnitService(mapper, businessUnitRepository, companyRepository);
     }
 
     @Test
-    public void retrieveToursFromRepository() {
+    public void retrieveBusinessUnitsFromRepository() {
         service.getAllBusinessUnits();
         Mockito.verify(businessUnitRepository).findAll();
     }
 
     @Test
-    public void useBusinessUnitMapper() {
+    public void usesBusinessUnitMapper() {
         service.getAllBusinessUnits();
         Mockito.verify(mapper, times(2)).mapBusinessUnitToResponse(any());
     }
@@ -72,7 +71,7 @@ public class BusinessUnitServiceShould {
     @Test
     @Ignore
     public void returnsListOfBusinessUnitResponse() {
-        List<BusinessUnitResponse> output = (List<BusinessUnitResponse>) service.getAllBusinessUnits().getData();
+        List<BusinessUnitResponse> output = service.getAllBusinessUnits().getData();
         Assert.assertEquals(2, output.size());
         List<BusinessUnitResponse> expectedList = new ArrayList<>();
         expectedList.add(businessUnitResponseFromMapper);

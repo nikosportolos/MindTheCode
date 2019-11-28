@@ -39,7 +39,7 @@ public class BusinessUnitControllerShould {
         mockedBusinessUnits.add(bUnit1);
         mockedBusinessUnits.add(bUnit2);
         GenericResponse<List<BusinessUnitResponse>> mockedResponse = new GenericResponse(mockedBusinessUnits);
-        when(service.getAllBusinessUnits()).thenAnswer(invocationOnMock -> mockedResponse);
+        when(service.getAllBusinessUnits()).thenReturn(mockedResponse);
         controller = new BusinessUnitController(service);
     }
 
@@ -52,7 +52,7 @@ public class BusinessUnitControllerShould {
 
     @Test
     public void returnsErrorWhenServiceFails(){
-        ErrorResponse error = (ErrorResponse) mockServiceFailure();
+        Error error = mockServiceFailure();
         ResponseEntity<List<BusinessUnitResponse>> actual = controller.getAllBusinessUnits();
         Assert.assertEquals(error, actual.getBody());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actual.getStatusCode());
