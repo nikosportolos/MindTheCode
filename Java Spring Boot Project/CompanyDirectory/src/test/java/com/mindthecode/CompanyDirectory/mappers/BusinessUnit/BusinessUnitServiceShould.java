@@ -52,7 +52,7 @@ public class BusinessUnitServiceShould {
     public void setup(){
         MockitoAnnotations.initMocks(this);
         when(businessUnitRepository.findAll()).thenReturn(mockedBusinessUnits);
-        businessUnitResponseFromMapper = new BusinessUnitResponse(1,"name", new Company(""));
+        businessUnitResponseFromMapper = new BusinessUnitResponse(1,"name", new Company("Info Quest"));
         when(mapper.mapBusinessUnitToResponse(any())).thenReturn(businessUnitResponseFromMapper);
         service = new BusinessUnitService(mapper, businessUnitRepository);
     }
