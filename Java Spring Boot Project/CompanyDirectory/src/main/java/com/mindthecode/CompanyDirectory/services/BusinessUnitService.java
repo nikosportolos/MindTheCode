@@ -52,10 +52,40 @@ public class BusinessUnitService {
     public GenericResponse<String> saveBusinessUnits(Iterable<BusinessUnit> businessUnits) {
         try {
             repository.saveAll(businessUnits);
-            return new GenericResponse<>("Saved businessUnits");
+            return new GenericResponse<>("Saved business units");
         } catch (Exception ex) {
             ex.printStackTrace();
             return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save business units"));
+        }
+    }
+
+    public GenericResponse<String> deleteBusinessUnit(BusinessUnit businessUnit) {
+        try {
+            repository.delete(businessUnit);
+            return new GenericResponse<>("Deleted business unit #" + businessUnit.getId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete business unit#" + businessUnit.getId()));
+        }
+    }
+
+    public GenericResponse<String> deleteBusinessUnits(Iterable<BusinessUnit> businessUnits) {
+        try {
+            repository.deleteAll(businessUnits);
+            return new GenericResponse<>("Deleted business units");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete business units"));
+        }
+    }
+
+    public GenericResponse<String> deleteAllBusinessUnits() {
+        try {
+            repository.deleteAll();
+            return new GenericResponse<>("Deleted all business units");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all business units"));
         }
     }
 }
