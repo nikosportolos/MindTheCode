@@ -42,7 +42,7 @@ public class TaskController {
         }
     }
 
-    @GetMapping("/tasks/{difficulty}/{numberOfEmployees}")
+    @GetMapping("/getTasksByDiffAndNumOfEmployees/{difficulty}/{numberOfEmployees}")
     public ResponseEntity getTasksByDiffAndNumOfEmployees(@PathVariable String difficulty, @PathVariable int numberOfEmployees) {
         try {
             System.out.println("###Loading tasks...");
@@ -67,8 +67,47 @@ public class TaskController {
     @GetMapping("/getTasksByDifficulty/{taskDifficulty}")
     public ResponseEntity getTasksByDifficulty(@PathVariable("taskDifficulty") String taskDifficulty) {
         try {
-            System.out.println("###Loading taks by difficulty");
+            System.out.println("###Loading tasks by difficulty");
             return new ResponseEntity<>(service.getTasksByDifficulty(taskDifficulty), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    /**
+     * Add
+     **/
+
+    @PostMapping("/addTask")
+    @ResponseBody
+    public ResponseEntity addTask(@RequestBody Task newTask) {
+        try {
+            System.out.println("###Adding task: " + newTask.toString());
+            var response = service.saveTask(newTask);
+
+            if (response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/addTasks")
+    @ResponseBody
+    public ResponseEntity addTasks(@RequestBody Iterable<Task> newTasks) {
+        try {
+            System.out.println("###Adding multiple tasks");
+            var response = service.saveTasks(newTasks);
+
+            if (response.getError() == null)
+                return new ResponseEntity<>(response, null, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(response.getError(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);

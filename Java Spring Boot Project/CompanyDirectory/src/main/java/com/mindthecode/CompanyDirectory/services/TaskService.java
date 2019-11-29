@@ -71,6 +71,8 @@ public class TaskService {
             if (taskResponses.size() == 0)
                 return new GenericResponse<>(new ErrorResponse(0, "Unknown task", "No task found with id " + id));
 
+            System.out.println("Found " + taskResponses.size());
+
             return new GenericResponse<>(new AllTasksResponse(taskResponses));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -87,6 +89,8 @@ public class TaskService {
                 if (task.getEmployees().size() == employeeNum)
                     tasks.add(mapper.mapTaskToResponse(task));
             }
+
+            System.out.println("Found " + tasks.size());
 
             return new GenericResponse<>(new AllTasksResponse(tasks));
         } catch (Exception ex) {
@@ -109,6 +113,8 @@ public class TaskService {
                     taskResponsesResult.add(tk);
                 }
             }
+
+            System.out.println("Found " + taskResponsesResult.size());
 
             if (taskResponsesResult.size() == 0)
                 return new GenericResponse<>(new ErrorResponse(0, "Unknown task", "No task found with difficulty " + difficulty));
