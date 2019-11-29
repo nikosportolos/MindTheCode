@@ -3,7 +3,9 @@ package com.mindthecode.CompanyDirectory.mappers.BusinessUnit;
 import com.mindthecode.CompanyDirectory.mappers.BusinessUnitMapper;
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
+import com.mindthecode.CompanyDirectory.models.responses.AllBusinessUnitResponse;
 import com.mindthecode.CompanyDirectory.models.responses.BusinessUnitResponse;
+import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.repositories.BusinessUnitRepository;
 import com.mindthecode.CompanyDirectory.repositories.CompanyRepository;
 import com.mindthecode.CompanyDirectory.services.BusinessUnitService;
@@ -41,17 +43,17 @@ public class BusinessUnitServiceShould {
 
     private Iterable<BusinessUnit> mockedBusinessUnits = new ArrayList<BusinessUnit>() {
         {
-        add(new BusinessUnit(1,"Financial Division",new Company("Unisystems")));
+            add(new BusinessUnit(1, "Financial Division", new Company("Unisystems")));
 
-        add(new BusinessUnit(2,"Sales",new Company("Info Quest")));
-      }
+            add(new BusinessUnit(2, "Sales", new Company("Info Quest")));
+        }
     };
 
     @Before
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this);
         when(businessUnitRepository.findAll()).thenReturn(mockedBusinessUnits);
-        businessUnitResponseFromMapper = new BusinessUnitResponse(1,"name", new Company("Info Quest"));
+        businessUnitResponseFromMapper = new BusinessUnitResponse(1, "name", new Company("Info Quest"));
         when(mapper.mapBusinessUnitToResponse(any())).thenReturn(businessUnitResponseFromMapper);
         service = new BusinessUnitService(mapper, businessUnitRepository, companyRepository);
     }
@@ -71,12 +73,12 @@ public class BusinessUnitServiceShould {
     @Test
     @Ignore
     public void returnsListOfBusinessUnitResponse() {
-        List<BusinessUnitResponse> output = service.getAllBusinessUnits().getData();
-        Assert.assertEquals(2, output.size());
+        GenericResponse<AllBusinessUnitResponse> output = service.getAllBusinessUnits();
+        Assert.assertEquals(2, output.getData().getBusinessUnits().size());
         List<BusinessUnitResponse> expectedList = new ArrayList<>();
         expectedList.add(businessUnitResponseFromMapper);
         expectedList.add(businessUnitResponseFromMapper);
-        Assert.assertThat(output, CoreMatchers.hasItems(businessUnitResponseFromMapper, businessUnitResponseFromMapper));
+        Assert.assertThat(output.getData().getBusinessUnits(), CoreMatchers.hasItems(businessUnitResponseFromMapper, businessUnitResponseFromMapper));
     }
 
 
