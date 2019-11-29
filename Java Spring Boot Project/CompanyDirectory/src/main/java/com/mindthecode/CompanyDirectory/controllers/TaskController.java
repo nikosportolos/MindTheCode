@@ -1,5 +1,6 @@
 package com.mindthecode.CompanyDirectory.controllers;
 
+import com.mindthecode.CompanyDirectory.common.Enums;
 import com.mindthecode.CompanyDirectory.models.entities.Task;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.services.TaskService;
@@ -15,11 +16,15 @@ public class TaskController {
     @Autowired
     private TaskService service;
 
-    @GetMapping("/tasks/{difficulty}/{numberOfEmployees}")
-    public ResponseEntity getTasksByDiffAndNumOfEmployees(@PathVariable String difficulty, @PathVariable int numberOfEmployees) {
+    /**
+     * Get
+     **/
+
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity getTasks() {
         try {
-            System.out.println("###Loading tasks...");
-            return new ResponseEntity<>(service.getTasksByDiffAndNumOfEmployees(difficulty, numberOfEmployees), null, HttpStatus.OK);
+            System.out.println("###Loading all tasks");
+            return new ResponseEntity<>(service.getAllTasks(), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -37,20 +42,43 @@ public class TaskController {
         }
     }
 
-    /**
-     * Update
-     **/
+    @GetMapping("/tasks/{difficulty}/{numberOfEmployees}")
+    public ResponseEntity getTasksByDiffAndNumOfEmployees(@PathVariable String difficulty, @PathVariable int numberOfEmployees) {
+        try {
+            System.out.println("###Loading tasks...");
+            return new ResponseEntity<>(service.getTasksByDiffAndNumOfEmployees(difficulty, numberOfEmployees), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping("/getTasksByEmployeeNum/{employeeNum}")
-    public ResponseEntity getTasksByNumOfEmployees(@PathVariable("employeeNum") long employeeNum){
+    public ResponseEntity getTasksByNumOfEmployees(@PathVariable("employeeNum") long employeeNum) {
         try {
-            System.out.println("###Loading taks by number of employees");
+            System.out.println("###Loading tasks by number of employees");
             return new ResponseEntity<>(service.getTasksByNumOfEmployees(employeeNum), null, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/getTasksByDifficulty/{taskDifficulty}")
+    public ResponseEntity getTasksByDifficulty(@PathVariable("taskDifficulty") String taskDifficulty) {
+        try {
+            System.out.println("###Loading taks by difficulty");
+            return new ResponseEntity<>(service.getTasksByDifficulty(taskDifficulty), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(0, "Error", "Something went wrong"), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    /**
+     * Update
+     **/
 
     @PutMapping("/updateTask")
     public ResponseEntity updateTask(@RequestBody Task task) {

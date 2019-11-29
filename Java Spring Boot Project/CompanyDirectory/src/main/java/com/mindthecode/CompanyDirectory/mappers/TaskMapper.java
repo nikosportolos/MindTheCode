@@ -31,15 +31,15 @@ public class TaskMapper {
         );
     }
 
-    public Enums.TaskDifficulty mapTaskDifficulty(Task task) {
+    private Enums.TaskDifficulty mapTaskDifficulty(Task task) {
         int avg = (task.getEstimationA() + task.getEstimationB() + task.getEstimationC()) / 3;
+
         if (avg < 2) {
             return Enums.TaskDifficulty.EASY;
         } else if (avg <= 4) {
             return Enums.TaskDifficulty.MEDIUM;
-        } else if (avg > 5) {
+        } else {
             return Enums.TaskDifficulty.HARD;
         }
-        return null;
     }
 }
