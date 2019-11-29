@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class TaskController {
@@ -88,7 +84,7 @@ public class TaskController {
         }
     }
 
-    @PutMapping("/deleteTask")
+    @DeleteMapping("/deleteTask")
     public ResponseEntity deleteTask(@RequestBody Task task) {
         try {
             System.out.println("###Deleting task: " + task.toString());
@@ -104,7 +100,7 @@ public class TaskController {
         }
     }
 
-    @PutMapping("/deleteTasks")
+    @DeleteMapping("/deleteTasks")
     public ResponseEntity deleteTasks(@RequestBody Iterable<Task> tasks) {
         try {
             System.out.println("###Deleting multiple tasks");
@@ -120,7 +116,7 @@ public class TaskController {
         }
     }
 
-    @PutMapping("/deleteAllTasks")
+    @DeleteMapping("/deleteAllTasks")
     public ResponseEntity deleteAllTasks() {
         try {
             System.out.println("###Deleting all tasks");
