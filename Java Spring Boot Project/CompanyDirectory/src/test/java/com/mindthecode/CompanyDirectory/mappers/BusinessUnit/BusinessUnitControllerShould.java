@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.mappers.BusinessUnit;
 
 import com.mindthecode.CompanyDirectory.controllers.BusinessUnitController;
+import com.mindthecode.CompanyDirectory.models.responses.AllBusinessUnitResponse;
 import com.mindthecode.CompanyDirectory.models.responses.BusinessUnitResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
@@ -38,7 +39,10 @@ public class BusinessUnitControllerShould {
         List<BusinessUnitResponse> mockedBusinessUnits = new ArrayList<>();
         mockedBusinessUnits.add(bUnit1);
         mockedBusinessUnits.add(bUnit2);
-        GenericResponse<List<BusinessUnitResponse>> mockedResponse = new GenericResponse(mockedBusinessUnits);
+
+        AllBusinessUnitResponse response = new AllBusinessUnitResponse(mockedBusinessUnits);
+        GenericResponse<AllBusinessUnitResponse> mockedResponse = new GenericResponse<>(response);
+
         when(service.getAllBusinessUnits()).thenReturn(mockedResponse);
         controller = new BusinessUnitController(service);
     }
@@ -52,13 +56,13 @@ public class BusinessUnitControllerShould {
 
     @Test
     public void returnsErrorWhenServiceFails(){
-        Error error = mockServiceFailure();
+        ErrorResponse error = mockServiceFailure();
         ResponseEntity<List<BusinessUnitResponse>> actual = controller.getAllBusinessUnits();
         Assert.assertEquals(error, actual.getBody());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actual.getStatusCode());
     }
 
-    private Error mockServiceFailure() {
+    private ErrorResponse mockServiceFailure() {
         ErrorResponse error = new ErrorResponse(0, "Error", "Something went wrong");
         when(service.getAllBusinessUnits()).thenReturn(new GenericResponse<>(error));
         controller = new BusinessUnitController(service);

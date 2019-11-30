@@ -43,7 +43,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employee/{criteria}/{id}")
+    @GetMapping("/getEmployeesByCriteria/{criteria}/{id}")
     @ResponseBody
     public ResponseEntity getEmployeesByCriteria(@PathVariable("criteria") String criteria, @PathVariable("id") long id) {
         try {

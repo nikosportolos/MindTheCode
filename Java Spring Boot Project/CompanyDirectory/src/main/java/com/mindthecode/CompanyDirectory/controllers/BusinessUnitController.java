@@ -72,7 +72,7 @@ public class BusinessUnitController {
         }
     }
 
-    @PostMapping("/updateBusinessUnit")
+    @PutMapping("/updateBusinessUnit")
     public ResponseEntity updateBusinessUnit(@RequestBody BusinessUnit BusinessUnit) {
         try {
             System.out.println("###Updating businessUnit: " + BusinessUnit.toString());
@@ -87,7 +87,7 @@ public class BusinessUnitController {
         }
     }
 
-    @PostMapping("/updateBusinessUnits")
+    @PutMapping("/updateBusinessUnits")
     public ResponseEntity updateBusinessUnits(@RequestBody Iterable<BusinessUnit> newBusinessUnits) {
         try {
             System.out.println("###Updating multiple businessUnits");
@@ -102,7 +102,7 @@ public class BusinessUnitController {
         }
     }
 
-    @PostMapping("/deleteBusinessUnit")
+    @DeleteMapping("/deleteBusinessUnit")
     public ResponseEntity deleteBusinessUnit(@RequestBody BusinessUnit BusinessUnit) {
         try {
             System.out.println("###Deleting businessUnit: " + BusinessUnit.toString());
@@ -117,7 +117,7 @@ public class BusinessUnitController {
         }
     }
 
-    @PostMapping("/deleteBusinessUnits")
+    @DeleteMapping("/deleteBusinessUnits")
     public ResponseEntity deleteBusinessUnits(@RequestBody Iterable<BusinessUnit> BusinessUnits) {
         try {
             System.out.println("###Deleting multiple Business Units");
@@ -132,7 +132,7 @@ public class BusinessUnitController {
         }
     }
 
-    @PostMapping("/deleteAllBusinessUnits")
+    @DeleteMapping("/deleteAllBusinessUnits")
     public ResponseEntity deleteAllBusinessUnits() {
         try {
             System.out.println("###Deleting all Business Units");

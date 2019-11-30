@@ -1,6 +1,6 @@
 package com.mindthecode.CompanyDirectory.models.responses;
 
-public class ErrorResponse extends Error {
+public class ErrorResponse  {
 
     private int code;
     private String title;

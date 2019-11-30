@@ -77,7 +77,7 @@ public class EmployeeService {
             return new GenericResponse<>("Saved employees");
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save employee"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not save employees"));
         }
     }
 
@@ -107,7 +107,7 @@ public class EmployeeService {
             return new GenericResponse<>("Deleted all employees");
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all employee"));
+            return new GenericResponse<>(new ErrorResponse(0, "Error", "Could not delete all employees"));
         }
     }
 
