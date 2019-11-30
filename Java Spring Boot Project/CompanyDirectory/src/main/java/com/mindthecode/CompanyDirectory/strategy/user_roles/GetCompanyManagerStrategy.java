@@ -6,7 +6,6 @@ public class GetCompanyManagerStrategy implements GetUserRoleStrategy {
     @Override
     public String execute() {
         String role = Enums.UserRole.ADMIN.toString() + "," + Enums.UserRole.COMPANY_MANAGER.toString();
-        role = Enums.UserRole.COMPANY_MANAGER.toString();
         System.out.println("###Returning role: " + role);
         return role;
     }

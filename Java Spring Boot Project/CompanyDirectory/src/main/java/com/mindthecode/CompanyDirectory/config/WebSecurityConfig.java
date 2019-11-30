@@ -40,13 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 inMemoryAuthentication()
                 .withUser("admin").password(passwordEncoder().encode("adm1n")).roles(factory.makeStrategyForCriteria(Enums.UserRole.ADMIN).execute())
                 .and()
-                .withUser("companyManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.BUSINESS_UNIT_MANAGER.toString())
+                .withUser("companyManager").password(passwordEncoder().encode("123")).roles(Enums.UserRole.BUSINESS_UNIT_MANAGER.toString())
                 .and()
-                .withUser("buManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.BUSINESS_UNIT_MANAGER.toString())
+                .withUser("buManager").password(passwordEncoder().encode("123")).roles(Enums.UserRole.BUSINESS_UNIT_MANAGER.toString())
                 .and()
-                .withUser("deptManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.DEPARTMENT_MANAGER.toString())
+                .withUser("deptManager").password(passwordEncoder().encode("123")).roles(Enums.UserRole.DEPARTMENT_MANAGER.toString())
                 .and()
-                .withUser("unitManager").password(passwordEncoder().encode("manager")).roles(Enums.UserRole.UNIT_MANAGER.toString())
+                .withUser("unitManager").password(passwordEncoder().encode("123")).roles(Enums.UserRole.UNIT_MANAGER.toString())
         ;
     }
 
@@ -61,8 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/").permitAll()
-                .antMatchers("/h2-console").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/h2-console").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.ADMIN).execute())
+                .antMatchers("/h2-console/**").hasAnyRole(factory.makeStrategyForCriteria(Enums.UserRole.ADMIN).execute())
 
                 // Select entities
                 .antMatchers("/companies").permitAll()
@@ -153,7 +153,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login?error")
                 .permitAll()
 
