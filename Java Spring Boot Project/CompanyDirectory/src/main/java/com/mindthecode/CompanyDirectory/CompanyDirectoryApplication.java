@@ -111,32 +111,43 @@ public class CompanyDirectoryApplication implements CommandLineRunner {
 
         Employee employee1 = new Employee(23, "John", "Doe", "Wall St", "0123456789",
                 formatter.parse("2010-05-20"), formatter.parse("2010-05-20"),
-                Enums.EmployeeStatus.Active, Enums.ContractType.External, position5);
+                Enums.EmployeeStatus.Active, Enums.ContractType.UniSystems, position5);
 
         Employee employee2 = new Employee(24, "Sarah", "James", "Wall St", "6947368142",
                 formatter.parse("2014-05-20"), formatter.parse("2018-02-20"),
+                Enums.EmployeeStatus.Active, Enums.ContractType.UniSystems, position3);
+
+        Employee employee3 = new Employee(25, "Bill", "Morris", "South Park Avenue", "+96 0484536489",
+                formatter.parse("2001-03-28"), formatter.parse("2013-09-20"),
                 Enums.EmployeeStatus.Inactive, Enums.ContractType.External, position3);
 
         employeeService.saveEmployee(employee1);
         employeeService.saveEmployee(employee2);
+        employeeService.saveEmployee(employee3);
 
         // Add tasks
         List<String> updates = new ArrayList<>();
         updates.add("Create models");
         updates.add("Create controllers");
         updates.add("Create services");
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee3);
+        Task task1 = new Task(1, "", "", 10, 15, 23, Enums.TaskStatus.DONE, updates, employees);
+        taskService.saveTask(task1);
+
         updates.add("Create repositories");
         updates.add("Create controllers");
         updates.add("Create documentation");
         updates.add("Create tests");
-        List<Employee> employees = new ArrayList<>();
+        employees.clear();
         employees.add(employee1);
+        Task task2 = new Task(2, "", "", 3, 2, 4, Enums.TaskStatus.STARTED, updates, employees);
+        taskService.saveTask(task2);
+
+        updates.add("Create documentation");
+        updates.add("Modify tests");
         employees.add(employee2);
-        Task task1 = new Task(1, "", "", 10, 15, 23, Enums.TaskStatus.DONE, updates, employees);
-        taskService.saveTask(task1);
-
-
-        Company company3 = new Company(3, "Microsoft");
-        companyService.saveCompany(company3);
+        Task task3 = new Task(3, "", "", 4, 5, 3, Enums.TaskStatus.NEW, updates, employees);
+        taskService.saveTask(task3);
     }
 }

@@ -4,6 +4,7 @@ import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 import com.mindthecode.CompanyDirectory.mappers.BusinessUnitMapper;
 import com.mindthecode.CompanyDirectory.models.responses.*;
 import com.mindthecode.CompanyDirectory.repositories.BusinessUnitRepository;
+import com.mindthecode.CompanyDirectory.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,16 @@ public class BusinessUnitService {
 
     @Autowired
     private BusinessUnitRepository repository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
+
+
+    public BusinessUnitService(BusinessUnitMapper mapper, BusinessUnitRepository repository, CompanyRepository companyRepository) {
+        this.mapper = mapper;
+        this.repository = repository;
+        this.companyRepository = companyRepository;
+    }
 
     public GenericResponse<AllBusinessUnitResponse> getAllBusinessUnits() {
         List<BusinessUnitResponse> businessUnits = mapper.mapBusinessUnits(repository.findAll());

@@ -1507,6 +1507,27 @@
 					"response": []
 				},
 				{
+					"name": "Get Employee by criteria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getEmployeesByCriteria/COMPANY/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getEmployeesByCriteria",
+								"COMPANY",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Add Employee",
 					"request": {
 						"method": "POST",
@@ -1791,6 +1812,67 @@
 							"path": [
 								"task",
 								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tasks by Difficulty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getTasksByDifficulty/HARD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getTasksByDifficulty",
+								"HARD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tasks by Difficulty & Number of Employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getTasksByDiffAndNumOfEmployees/HARD/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getTasksByDiffAndNumOfEmployees",
+								"HARD",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tasks by Number of Employees Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getTasksByEmployeeNum/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getTasksByEmployeeNum",
+								"1"
 							]
 						}
 					},
