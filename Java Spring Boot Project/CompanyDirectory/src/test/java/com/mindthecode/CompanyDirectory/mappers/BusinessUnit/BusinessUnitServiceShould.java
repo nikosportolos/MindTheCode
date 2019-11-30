@@ -52,12 +52,12 @@ public class BusinessUnitServiceShould {
         MockitoAnnotations.initMocks(this);
         when(businessUnitRepository.findAll()).thenReturn(mockedBusinessUnits);
         businessUnitResponseFromMapper = new BusinessUnitResponse(1,"name", new Company("Info Quest"));
-        when(mapper.mapBusinessUnitToResponse(any())).thenReturn(businessUnitResponseFromMapper);
+        when(mapper.mapBusinessUnits(any())).thenReturn(businessUnitResponseFromMapper);
         service = new BusinessUnitService(mapper, businessUnitRepository, companyRepository);
     }
 
     @Test
-    public void retrieveBusinessUnitsFromRepository() {
+    public void retrieveBusinessUnitsFromRepository() {gi
         service.getAllBusinessUnits();
         Mockito.verify(businessUnitRepository).findAll();
     }
@@ -65,7 +65,7 @@ public class BusinessUnitServiceShould {
     @Test
     public void usesBusinessUnitMapper() {
         service.getAllBusinessUnits();
-        Mockito.verify(mapper, times(2)).mapBusinessUnitToResponse(any());
+        Mockito.verify(mapper, times(2)).mapBusinessUnits(any());
     }
 
     @Test
