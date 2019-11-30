@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory.mappers;
+package com.mindthecode.CompanyDirectory;
 
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
@@ -8,7 +8,7 @@ import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,18 +20,16 @@ public class UnitMapperShould {
     private Unit unitInput;
     private UnitResponse expectedOutput;
 
-    @Before()
+    @Before
     public void setup() {
         unitMapper = new UnitMapper();
-
 
         Company dummyCompany = new Company(1, "MindTheCode");
         BusinessUnit dummyBU = new BusinessUnit(1, "", dummyCompany);
         Department dummyDept = new Department(1, "Software Development Department", dummyBU);
 
-        String name = "Resource Management Solutions";
-        unitInput = new Unit(1, name, dummyDept);
-        expectedOutput = new UnitResponse(1, name, dummyDept);
+        unitInput = new Unit(1,  "Resource Management Solutions", dummyDept);
+        expectedOutput = unitMapper.mapUnitToResponse(unitInput);
 
         System.out.println("unitInput: " + unitInput.toString());
         System.out.println("expectedOutput: " + expectedOutput.toString());

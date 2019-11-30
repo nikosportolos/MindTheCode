@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory.mappers.BusinessUnit;
+package com.mindthecode.CompanyDirectory.BusinessUnit;
 
 
 import com.mindthecode.CompanyDirectory.CompanyDirectoryApplication;

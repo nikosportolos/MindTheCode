@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory.mappers.BusinessUnit;
+package com.mindthecode.CompanyDirectory.BusinessUnit;
 
 public class AllBusinessUnitsJson {
 

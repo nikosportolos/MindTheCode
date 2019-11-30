@@ -1,6 +1,6 @@
 package com.mindthecode.CompanyDirectory.services;
 
-import com.mindthecode.CompanyDirectory.mappers.CompanyMapper;
+import com.mindthecode.CompanyDirectory.CompanyMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
 import com.mindthecode.CompanyDirectory.models.responses.AllCompaniesResponse;
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 

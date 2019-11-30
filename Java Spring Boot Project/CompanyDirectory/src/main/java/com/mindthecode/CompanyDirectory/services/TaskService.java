@@ -1,6 +1,6 @@
 package com.mindthecode.CompanyDirectory.services;
 
-import com.mindthecode.CompanyDirectory.mappers.TaskMapper;
+import com.mindthecode.CompanyDirectory.TaskMapper;
 import com.mindthecode.CompanyDirectory.models.responses.AllTasksResponse;
 import com.mindthecode.CompanyDirectory.models.entities.Task;
 import com.mindthecode.CompanyDirectory.models.responses.TaskResponse;

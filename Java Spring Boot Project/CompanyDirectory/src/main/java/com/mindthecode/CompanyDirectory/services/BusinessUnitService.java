@@ -1,7 +1,7 @@
 package com.mindthecode.CompanyDirectory.services;
 
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
-import com.mindthecode.CompanyDirectory.mappers.BusinessUnitMapper;
+import com.mindthecode.CompanyDirectory.BusinessUnitMapper;
 import com.mindthecode.CompanyDirectory.models.responses.*;
 import com.mindthecode.CompanyDirectory.repositories.BusinessUnitRepository;
 import com.mindthecode.CompanyDirectory.repositories.CompanyRepository;

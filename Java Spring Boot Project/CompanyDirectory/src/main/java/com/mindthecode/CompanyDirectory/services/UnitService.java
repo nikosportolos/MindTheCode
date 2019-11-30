@@ -1,6 +1,6 @@
 package com.mindthecode.CompanyDirectory.services;
 
-import com.mindthecode.CompanyDirectory.mappers.UnitMapper;
+import com.mindthecode.CompanyDirectory.UnitMapper;
 import com.mindthecode.CompanyDirectory.models.responses.AllUnitsResponse;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
