@@ -24,26 +24,43 @@ namespace Timesheet.Data
         {
             base.OnModelCreating(modelBuilder);
 
-
+            /** User **/
             modelBuilder.Entity<User>()
                 .HasKey(u => u.ID);
 
+            /** Role **/
             modelBuilder.Entity<Role>()
                 .HasKey(r => r.ID);
 
+            /** Department **/
             modelBuilder.Entity<Department>()
                 .HasKey(d => d.ID);
 
+            /** TimesheetEntry **/
+            modelBuilder.Entity<TimesheetEntry>()
+                .HasKey(t => t.ID);
+
             modelBuilder.Entity<TimesheetEntry>()
                 .HasOne(t => t.User);
-            //.WithOne(u=> );
 
+            /** Project **/
             modelBuilder.Entity<Project>()
                 .HasKey(p => p.ID);
 
-            modelBuilder.Entity<Project>()
-                .HasMany(p => p.Departments);
-                
+            /** DepartmentProject **/
+            modelBuilder.Entity<DepartmentProject>()
+                .HasKey(dp => new { dp.DepartmentID, dp.ProjectID });
+
+            modelBuilder.Entity<DepartmentProject>()
+                .HasOne(dp => dp.Department)
+                .WithMany(d => d.DepartmentProjects)
+                .HasForeignKey(dp => dp.DepartmentID);
+
+            modelBuilder.Entity<DepartmentProject>()
+                .HasOne(dp => dp.Project)
+                .WithMany(p => p.DepartmentProjects)
+                .HasForeignKey(dp => dp.ProjectID);
+
         }
     }
 }
