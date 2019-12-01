@@ -7,5 +7,6 @@ namespace Timesheet.Models
 {
     public class User
     {
+        public int ID { get; set; }
     }
 }
