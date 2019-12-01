@@ -232,16 +232,26 @@ namespace Timesheet.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("DepartmentHeadID");
 
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.DepartmentProject", b =>
+                {
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DepartmentID", "ProjectID");
+
                     b.HasIndex("ProjectID");
 
-                    b.ToTable("Departments");
+                    b.ToTable("DepartmentProject");
                 });
 
             modelBuilder.Entity("Timesheet.Models.Project", b =>
@@ -372,10 +382,21 @@ namespace Timesheet.Data.Migrations
                     b.HasOne("Timesheet.Models.User", "DepartmentHead")
                         .WithMany()
                         .HasForeignKey("DepartmentHeadID");
+                });
 
-                    b.HasOne("Timesheet.Models.Project", null)
-                        .WithMany("Departments")
-                        .HasForeignKey("ProjectID");
+            modelBuilder.Entity("Timesheet.Models.DepartmentProject", b =>
+                {
+                    b.HasOne("Timesheet.Models.Department", "Department")
+                        .WithMany("DepartmentProjects")
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Timesheet.Models.Project", "Project")
+                        .WithMany("DepartmentProjects")
+                        .HasForeignKey("ProjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Timesheet.Models.Project", b =>

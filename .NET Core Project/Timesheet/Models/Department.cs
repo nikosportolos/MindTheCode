@@ -12,5 +12,7 @@ namespace Timesheet.Models
         [NotNull]
         public string Name { get; set; }
         public User DepartmentHead { get; set; }
+
+        public ICollection<DepartmentProject> DepartmentProjects { get; set; }
     }
 }

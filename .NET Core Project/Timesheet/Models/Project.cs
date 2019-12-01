@@ -11,8 +11,9 @@ namespace Timesheet.Models
         public int ID { get; set; }
         [NotNull]
         public string Name { get; set; }
-        public List<Department> Departments { get; set; }
         public Department DepartmentOwner { get; set; }
+
+        public ICollection<DepartmentProject> DepartmentProjects { get; set; }
 
     }
 }
