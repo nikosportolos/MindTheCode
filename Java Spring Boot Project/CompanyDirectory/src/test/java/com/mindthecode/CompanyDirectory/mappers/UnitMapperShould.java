@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.mappers;
 
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
+import com.mindthecode.CompanyDirectory.models.entities.Company;
 import com.mindthecode.CompanyDirectory.models.entities.Department;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.UnitResponse;
@@ -23,9 +24,17 @@ public class UnitMapperShould {
     public void setup() {
         unitMapper = new UnitMapper();
 
-        Department dummyDept = new Department(1, "Software Development Department", new BusinessUnit(("")));
-        unitInput = new Unit(1, "Resource Management Solutions", dummyDept);
-        expectedOutput = new UnitResponse(1, "Resource Management Solutions", dummyDept);
+
+        Company dummyCompany = new Company(1, "MindTheCode");
+        BusinessUnit dummyBU = new BusinessUnit(1, "", dummyCompany);
+        Department dummyDept = new Department(1, "Software Development Department", dummyBU);
+
+        String name = "Resource Management Solutions";
+        unitInput = new Unit(1, name, dummyDept);
+        expectedOutput = new UnitResponse(1, name, dummyDept);
+
+        System.out.println("unitInput: " + unitInput.toString());
+        System.out.println("expectedOutput: " + expectedOutput.toString());
     }
 
     @Test

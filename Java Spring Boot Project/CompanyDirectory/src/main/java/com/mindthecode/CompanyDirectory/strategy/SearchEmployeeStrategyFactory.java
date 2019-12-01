@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class SearchEmployeeStrategyFactory {
 
     public SearchEmployeeStrategy makeStrategyForCriteria(String criteria) {
-        switch (criteria) {
+        switch (criteria.toLowerCase()) {
             case "unit":
                 return new SearchEmployeeByUnitStrategy();
             case "businessUnit":
