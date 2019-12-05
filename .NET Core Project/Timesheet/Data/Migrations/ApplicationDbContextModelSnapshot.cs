@@ -219,6 +219,113 @@ namespace Timesheet.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Timesheet.Models.Department", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DepartmentHeadID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DepartmentHeadID");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.DepartmentProject", b =>
+                {
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DepartmentID", "ProjectID");
+
+                    b.HasIndex("ProjectID");
+
+                    b.ToTable("DepartmentProject");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.Project", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DepartmentOwnerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DepartmentOwnerID");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.Role", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.TimesheetEntry", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HoursWorked")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProjectID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("TimesheetEntries");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -268,6 +375,46 @@ namespace Timesheet.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Timesheet.Models.Department", b =>
+                {
+                    b.HasOne("Timesheet.Models.User", "DepartmentHead")
+                        .WithMany()
+                        .HasForeignKey("DepartmentHeadID");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.DepartmentProject", b =>
+                {
+                    b.HasOne("Timesheet.Models.Department", "Department")
+                        .WithMany("DepartmentProjects")
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Timesheet.Models.Project", "Project")
+                        .WithMany("DepartmentProjects")
+                        .HasForeignKey("ProjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Timesheet.Models.Project", b =>
+                {
+                    b.HasOne("Timesheet.Models.Department", "DepartmentOwner")
+                        .WithMany()
+                        .HasForeignKey("DepartmentOwnerID");
+                });
+
+            modelBuilder.Entity("Timesheet.Models.TimesheetEntry", b =>
+                {
+                    b.HasOne("Timesheet.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectID");
+
+                    b.HasOne("Timesheet.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }
