@@ -1,5 +1,7 @@
 package com.mindthecode.CompanyDirectory.BusinessUnit;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mindthecode.CompanyDirectory.controllers.BusinessUnitController;
 import com.mindthecode.CompanyDirectory.models.responses.AllBusinessUnitResponse;
 import com.mindthecode.CompanyDirectory.models.responses.BusinessUnitResponse;
@@ -10,32 +12,37 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.StatusResultMatchersExtensionsKt.isEqualTo;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BusinessUnitControllerShould {
 
-    BusinessUnitController controller;
+    private BusinessUnitController controller;
+    ResponseEntity expectedResponse;
 
     @Mock
     BusinessUnitService service;
 
-    @Mock
-    BusinessUnitResponse bUnit1;
-
-    @Mock
-    BusinessUnitResponse bUnit2;
+    private BusinessUnitResponse bUnit1;
+    private BusinessUnitResponse bUnit2;
 
     @Before
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this);
+
         List<BusinessUnitResponse> mockedBusinessUnits = new ArrayList<>();
         mockedBusinessUnits.add(bUnit1);
         mockedBusinessUnits.add(bUnit2);
@@ -48,16 +55,26 @@ public class BusinessUnitControllerShould {
     }
 
     @Test
-    public void returnAllBusinessUnits(){
-        ResponseEntity<List<BusinessUnitResponse>> actual = controller.getAllBusinessUnits();
-        Assert.assertThat(actual.getBody(), CoreMatchers.hasItems(bUnit1,bUnit2));
-        Assert.assertEquals(HttpStatus.OK, actual.getStatusCode());
+    public void returnAllBusinessUnits() {
+        List<BusinessUnitResponse> list = new ArrayList<>();
+        list.add(bUnit1);
+        list.add(bUnit2);
+
+        // Create the expected response
+        ResponseEntity expectedResponse = new ResponseEntity<>(new GenericResponse<>(new AllBusinessUnitResponse(list)), null, HttpStatus.OK);
+
+        // Get the actual response
+        ResponseEntity actualResponse = controller.getAllBusinessUnits();
+
+        Assert.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+        Assert.assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    public void returnsErrorWhenServiceFails(){
+    public void returnsErrorWhenServiceFails() {
         ErrorResponse error = mockServiceFailure();
-        ResponseEntity<List<BusinessUnitResponse>> actual = controller.getAllBusinessUnits();
+        ResponseEntity actual = controller.getAllBusinessUnits();
+
         Assert.assertEquals(error, actual.getBody());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actual.getStatusCode());
     }

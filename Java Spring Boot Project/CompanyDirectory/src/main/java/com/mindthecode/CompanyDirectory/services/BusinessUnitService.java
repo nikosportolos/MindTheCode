@@ -20,14 +20,10 @@ public class BusinessUnitService {
     @Autowired
     private BusinessUnitRepository repository;
 
-    @Autowired
-    private CompanyRepository companyRepository;
 
-
-    public BusinessUnitService(BusinessUnitMapper mapper, BusinessUnitRepository repository, CompanyRepository companyRepository) {
+    public BusinessUnitService(BusinessUnitMapper mapper, BusinessUnitRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
-        this.companyRepository = companyRepository;
     }
 
     public GenericResponse<AllBusinessUnitResponse> getAllBusinessUnits() {
@@ -47,6 +43,7 @@ public class BusinessUnitService {
                 return new GenericResponse<>(new AllBusinessUnitResponse(list));
             }
         }
+
         return new GenericResponse<>(new ErrorResponse(0, "Unknown business unit", "No business unit found with id " + id));
     }
 
