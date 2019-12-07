@@ -23,6 +23,11 @@ public class UnitService {
     @Autowired
     private UnitMapper mapper;
 
+    public UnitService(UnitMapper mapper, UnitRepository repository) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+
     public GenericResponse<AllUnitsResponse> getAllUnits() {
         List<UnitResponse> units = mapper.mapUnits(repository.findAll());
         if (units == null || units.size() > 0)
