@@ -2,6 +2,7 @@ package com.mindthecode.CompanyDirectory.controllers;
 
 import com.mindthecode.CompanyDirectory.models.entities.Position;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
+import com.mindthecode.CompanyDirectory.services.BusinessUnitService;
 import com.mindthecode.CompanyDirectory.services.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,10 @@ public class PositionController {
 
     @Autowired
     private PositionService service;
+
+    public PositionController(PositionService service) {
+        this.service = service;
+    }
 
     @GetMapping("/positions")
     public ResponseEntity getPositions() {

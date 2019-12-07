@@ -1,12 +1,16 @@
 package com.mindthecode.CompanyDirectory.services;
 
+import com.mindthecode.CompanyDirectory.mappers.BusinessUnitMapper;
 import com.mindthecode.CompanyDirectory.mappers.PositionMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Position;
 import com.mindthecode.CompanyDirectory.models.responses.AllPositionsResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
 import com.mindthecode.CompanyDirectory.models.responses.GenericResponse;
 import com.mindthecode.CompanyDirectory.models.responses.PositionResponse;
+import com.mindthecode.CompanyDirectory.repositories.BusinessUnitRepository;
+import com.mindthecode.CompanyDirectory.repositories.CompanyRepository;
 import com.mindthecode.CompanyDirectory.repositories.PositionRepository;
+import com.mindthecode.CompanyDirectory.repositories.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,15 @@ public class PositionService {
 
     @Autowired
     private PositionMapper mapper;
+
+    @Autowired
+    private UnitRepository unitRepository;
+
+    public PositionService(PositionMapper mapper, PositionRepository repository, UnitRepository unitRepository) {
+        this.mapper = mapper;
+        this.repository = repository;
+        this.unitRepository = unitRepository;
+    }
 
     public GenericResponse<AllPositionsResponse> getAllPositions() {
         List<PositionResponse> positions = mapper.mapPositions(repository.findAll());
@@ -37,7 +50,6 @@ public class PositionService {
         }
         return new GenericResponse<>(new ErrorResponse(0, "Unknown position", "No position found with id " + id));
     }
-
 
     public GenericResponse<String> savePosition(Position position) {
         try {
