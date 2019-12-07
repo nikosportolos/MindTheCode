@@ -15,6 +15,10 @@ public class UnitController {
     @Autowired
     private UnitService service;
 
+    public UnitController(UnitService service) {
+        this.service = service;
+    }
+
     @GetMapping("/units")
     @ResponseBody
     public ResponseEntity getUnits() {
