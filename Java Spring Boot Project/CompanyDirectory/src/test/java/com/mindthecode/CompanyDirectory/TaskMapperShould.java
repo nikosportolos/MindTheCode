@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory;
 
 import com.mindthecode.CompanyDirectory.common.Enums;
+import com.mindthecode.CompanyDirectory.mappers.TaskMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Task;
 import com.mindthecode.CompanyDirectory.models.responses.TaskResponse;
 import org.hamcrest.Matchers;
