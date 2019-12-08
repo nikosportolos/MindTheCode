@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory.mappers;
+package com.mindthecode.CompanyDirectory.Position;
 
 import com.mindthecode.CompanyDirectory.CompanyDirectoryApplication;
 import org.junit.Before;

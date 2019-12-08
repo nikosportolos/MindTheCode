@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.Employee;
 
 import com.mindthecode.CompanyDirectory.mappers.EmployeeMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Employee;

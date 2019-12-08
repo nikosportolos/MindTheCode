@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.Task;
 
 import com.mindthecode.CompanyDirectory.common.Enums;
 import com.mindthecode.CompanyDirectory.mappers.TaskMapper;
