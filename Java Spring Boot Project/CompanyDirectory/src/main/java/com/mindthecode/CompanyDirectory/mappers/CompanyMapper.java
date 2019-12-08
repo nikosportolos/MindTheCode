@@ -1,4 +1,4 @@
-package com.mindthecode.CompanyDirectory;
+package com.mindthecode.CompanyDirectory.mappers;
 
 import com.mindthecode.CompanyDirectory.models.entities.Company;
 import com.mindthecode.CompanyDirectory.models.responses.CompanyResponse;

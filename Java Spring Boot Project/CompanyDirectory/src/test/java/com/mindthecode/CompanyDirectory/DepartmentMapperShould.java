@@ -1,5 +1,6 @@
 package com.mindthecode.CompanyDirectory;
 
+import com.mindthecode.CompanyDirectory.mappers.DepartmentMapper;
 import com.mindthecode.CompanyDirectory.models.entities.BusinessUnit;
 import com.mindthecode.CompanyDirectory.models.entities.Company;
 import com.mindthecode.CompanyDirectory.models.entities.Department;

@@ -1,5 +1,6 @@
 package com.mindthecode.CompanyDirectory;
 
+import com.mindthecode.CompanyDirectory.mappers.PositionMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Position;
 import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.PositionResponse;

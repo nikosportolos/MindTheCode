@@ -1,6 +1,6 @@
 package com.mindthecode.CompanyDirectory.services;
 
-import com.mindthecode.CompanyDirectory.EmployeeMapper;
+import com.mindthecode.CompanyDirectory.mappers.EmployeeMapper;
 import com.mindthecode.CompanyDirectory.models.responses.AllEmployeesResponse;
 import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import com.mindthecode.CompanyDirectory.models.responses.EmployeeResponse;

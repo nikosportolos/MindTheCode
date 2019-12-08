@@ -1,5 +1,6 @@
 package com.mindthecode.CompanyDirectory;
 
+import com.mindthecode.CompanyDirectory.mappers.EmployeeMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Employee;
 import com.mindthecode.CompanyDirectory.models.responses.EmployeeResponse;
 import org.junit.Assert;
