@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Timesheet.Models;
+using Timesheet.Models.Entities;
 
 namespace Timesheet.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
+        #region Db Sets
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimesheetEntry> TimesheetEntries { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        #endregion Db Sets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -26,15 +28,16 @@ namespace Timesheet.Data
 
             /** User **/
             modelBuilder.Entity<User>()
-                .HasKey(u => u.ID);
-
-            /** Role **/
-            modelBuilder.Entity<Role>()
-                .HasKey(r => r.ID);
+                .HasKey(u => u.Id);
 
             /** Department **/
             modelBuilder.Entity<Department>()
                 .HasKey(d => d.ID);
+
+            modelBuilder.Entity<Department>()
+                .HasOne(d => d.DepartmentHead)
+                .WithOne(u => u.Department)
+                .HasForeignKey<Department>(ad => ad.DepartmentHeadId);
 
             /** TimesheetEntry **/
             modelBuilder.Entity<TimesheetEntry>()
@@ -61,6 +64,13 @@ namespace Timesheet.Data
                 .WithMany(p => p.DepartmentProjects)
                 .HasForeignKey(dp => dp.ProjectID);
 
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Name = "Employee", NormalizedName = "EMPLOYEE" },
+                new IdentityRole() { Name = "Manager", NormalizedName = "MANAGER" },
+                new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
+
         }
+
     }
 }
