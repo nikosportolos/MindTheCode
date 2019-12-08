@@ -30,7 +30,7 @@ public class BusinessUnitServiceShould {
 
     private BusinessUnitService service;
 
-    BusinessUnitResponse businessUnitResponseFromMapper;
+    private BusinessUnitResponse businessUnitResponseFromMapper;
 
     @Mock
     private BusinessUnitRepository businessUnitRepository;
@@ -44,8 +44,14 @@ public class BusinessUnitServiceShould {
     private Iterable<BusinessUnit> mockedBusinessUnits = new ArrayList<BusinessUnit>() {
         {
             add(new BusinessUnit(1, "Financial Division", new Company("Unisystems")));
-
             add(new BusinessUnit(2, "Sales", new Company("Info Quest")));
+        }
+    };
+
+    private List<BusinessUnitResponse> mockedBusinessUnitResponsess = new ArrayList<BusinessUnitResponse>() {
+        {
+            add(new BusinessUnitResponse(1, "Financial Division", new Company("Unisystems")));
+            add(new BusinessUnitResponse(2, "Sales", new Company("Info Quest")));
         }
     };
 
@@ -53,32 +59,40 @@ public class BusinessUnitServiceShould {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         when(businessUnitRepository.findAll()).thenReturn(mockedBusinessUnits);
+
+        when(mapper.mapBusinessUnits(mockedBusinessUnits)).thenReturn(mockedBusinessUnitResponsess);
+
+        service = new BusinessUnitService(mapper, businessUnitRepository);
+        GenericResponse<AllBusinessUnitResponse> mockResponse = new GenericResponse<>(new AllBusinessUnitResponse(mockedBusinessUnitResponsess));
+        System.out.println("mockResponse: " + mockResponse.toString());
+        when(service.getAllBusinessUnits().getData().getBusinessUnits()).thenReturn(mockedBusinessUnitResponsess);
+
         businessUnitResponseFromMapper = new BusinessUnitResponse(1, "name", new Company("Info Quest"));
         when(mapper.mapBusinessUnitToResponse(any())).thenReturn(businessUnitResponseFromMapper);
-        service = new BusinessUnitService(mapper, businessUnitRepository);
     }
 
     @Test
     public void retrieveBusinessUnitsFromRepository() {
         service.getAllBusinessUnits();
-        Mockito.verify(businessUnitRepository).findAll();
+        Mockito.verify(businessUnitRepository, times(2)).findAll();
     }
 
     @Test
     public void usesBusinessUnitMapper() {
-        service.getAllBusinessUnits();
-        Mockito.verify(mapper, times(2)).mapBusinessUnitToResponse(any());
+        var businessUnits = service.getAllBusinessUnits();
+        Mockito.verify(mapper, times(1)).mapBusinessUnits(any());
     }
 
     @Test
-    @Ignore
     public void returnsListOfBusinessUnitResponse() {
         GenericResponse<AllBusinessUnitResponse> output = service.getAllBusinessUnits();
-        Assert.assertEquals(2, output.getData().getBusinessUnits().size());
-        List<BusinessUnitResponse> expectedList = new ArrayList<>();
-        expectedList.add(businessUnitResponseFromMapper);
-        expectedList.add(businessUnitResponseFromMapper);
-        Assert.assertThat(output.getData().getBusinessUnits(), CoreMatchers.hasItems(businessUnitResponseFromMapper, businessUnitResponseFromMapper));
+        System.out.println("Output: " + output.toString());
+
+        List<BusinessUnitResponse> responses = output.getData().getBusinessUnits();
+        System.out.println("Responses: " + responses.size());
+        Assert.assertEquals(2, responses.size());
+
+        Assert.assertEquals(service.getAllBusinessUnits().getData().getBusinessUnits(), mockedBusinessUnitResponsess);
     }
 
 
