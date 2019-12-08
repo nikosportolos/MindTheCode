@@ -4,13 +4,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Timesheet.Models
+namespace Timesheet.Models.Entities
 {
     public class Project
     {
         public int ID { get; set; }
+
         [NotNull]
         public string Name { get; set; }
+
         public Department DepartmentOwner { get; set; }
 
         public ICollection<DepartmentProject> DepartmentProjects { get; set; }
