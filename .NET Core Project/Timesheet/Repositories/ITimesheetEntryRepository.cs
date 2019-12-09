@@ -10,6 +10,8 @@ namespace Timesheet.Repositories
 {
     public interface ITimesheetEntryRepository : IRepository<TimesheetEntry>
     {
-        List<Models.Entities.Project> GetAllProjects();
+        public List<Models.Entities.Project> GetAllProjects();
+        public List<TimesheetEntry> GetTimesheetEntriesForEmployee(User user);
+        public List<TimesheetEntry> GetTimesheetEntriesForManager(User user);
     }
 }

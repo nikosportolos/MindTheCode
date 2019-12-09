@@ -19,5 +19,15 @@ namespace Timesheet.Repositories
         {
             return _dbContext.Projects.ToList();
         }
+
+        public List<TimesheetEntry> GetTimesheetEntriesForEmployee(User user)
+        {
+            return _dbContext.TimesheetEntries.Where(e => e.User.Id == user.Id).ToList();
+        }
+
+        public List<TimesheetEntry> GetTimesheetEntriesForManager(User user)
+        {
+            return _dbContext.TimesheetEntries.Where(e => e.User.Department.ID == user.Department.ID).ToList();
+        }
     }
 }

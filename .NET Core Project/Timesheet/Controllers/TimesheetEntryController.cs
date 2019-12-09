@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Timesheet.Mappers;
@@ -15,18 +17,40 @@ namespace Timesheet.Controllers
     {
         private readonly ITimesheetEntryRepository _repository;
         private readonly ITimesheetEntryMapper _mapper;
+        private readonly UserManager<User> _userManager;
 
-        public TimesheetEntryController([FromServices] ITimesheetEntryRepository repository, ITimesheetEntryMapper mapper)
+        public TimesheetEntryController([FromServices] ITimesheetEntryRepository repository, ITimesheetEntryMapper mapper, UserManager<User> userManager)
         {
             _repository = repository;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<TimesheetEntryViewModel> viewModels = _mapper.ConvertToViewModels(_repository.GetAll()).ToList();
-            return View(viewModels);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            List<TimesheetEntry> entries;
+            if (roles.Contains("Administrator"))
+            {
+                entries = _repository.GetAll().ToList();
+            }
+            else
+            {
+                if (roles.Contains("Manager"))
+                {
+                    entries = _repository.GetTimesheetEntriesForManager(user);
+                }
+                else
+                {
+                    entries = _repository.GetTimesheetEntriesForEmployee(user);
+                }
+            }
+
+            return View(_mapper.ConvertToViewModels(entries));
         }
 
         [HttpGet]
