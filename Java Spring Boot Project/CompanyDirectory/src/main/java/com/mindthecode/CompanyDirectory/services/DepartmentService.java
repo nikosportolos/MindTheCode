@@ -2,7 +2,6 @@ package com.mindthecode.CompanyDirectory.services;
 
 import com.mindthecode.CompanyDirectory.mappers.DepartmentMapper;
 import com.mindthecode.CompanyDirectory.models.entities.Department;
-import com.mindthecode.CompanyDirectory.models.entities.Unit;
 import com.mindthecode.CompanyDirectory.models.responses.*;
 import com.mindthecode.CompanyDirectory.repositories.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
