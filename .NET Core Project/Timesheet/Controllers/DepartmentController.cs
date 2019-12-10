@@ -1,18 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Timesheet.Mappers;
+using Timesheet.Models.Entities;
+using Timesheet.Repositories;
 
 namespace Timesheet.Controllers
 {
     public class DepartmentController : Controller
     {
+        private readonly IDepartmentRepository _repository;
+        private readonly UserManager<User> _userManager;
+        private readonly IDepartmentMapper _mapper;
+
+        public DepartmentController([FromServices] IDepartmentRepository repository, IDepartmentMapper mapper, UserManager<User> userManager)
+        {
+            _repository = repository;
+            _mapper = mapper;
+            _userManager = userManager;
+        }
+
         // GET: Department
+
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            List<Department> departments =  _repository.GetAll().ToList();            
+            return View(_mapper.ConvertToViewModels(departments));
         }
 
         // GET: Department/Details/5

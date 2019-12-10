@@ -14,7 +14,7 @@ namespace Timesheet.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimesheetEntry> TimesheetEntries { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<User> Users { get; set; }
+        public override DbSet<User> Users { get; set; }
         #endregion Db Sets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

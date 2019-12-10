@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Timesheet.Models.Entities.Department>
+﻿@model IEnumerable<Timesheet.Models.ViewModels.DepartmentViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepartmentHead)
+                @Html.DisplayNameFor(model => model.DepartmentHeadId)
             </th>
             <th></th>
         </tr>
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DepartmentHead.Id)
+                @Html.DisplayFor(modelItem => item.DepartmentHeadId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
