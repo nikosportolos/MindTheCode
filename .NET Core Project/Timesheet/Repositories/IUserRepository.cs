@@ -6,7 +6,7 @@ using Timesheet.Models.Entities;
 
 namespace Timesheet.Repositories
 {
-    interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

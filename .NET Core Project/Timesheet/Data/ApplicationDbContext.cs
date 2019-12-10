@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Timesheet.Models.Entities;
+using Timesheet.Models.ViewModels;
 
 namespace Timesheet.Data
 {
@@ -71,6 +72,8 @@ namespace Timesheet.Data
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
 
         }
+
+        public DbSet<Timesheet.Models.ViewModels.UserViewModel> UserViewModel { get; set; }
 
     }
 }

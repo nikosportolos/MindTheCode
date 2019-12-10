@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Timesheet.Mappers;
+using Timesheet.Models.Entities;
+using Timesheet.Repositories;
 
 namespace Timesheet.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IUserRepository _repository;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserMapper _mapper;
+
+        public UserController([FromServices] IUserRepository repository, IUserMapper mapper, UserManager<User> userManager)
+        {
+            _repository = repository;
+            _mapper = mapper;
+            _userManager = userManager;
+        }
+
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            List<User> users = _repository.GetAll().ToList();
+            return View(_mapper.ConvertToViewModels(users));
         }
 
         // GET: User/Details/5

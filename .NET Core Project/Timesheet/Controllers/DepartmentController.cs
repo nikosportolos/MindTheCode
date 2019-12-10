@@ -26,7 +26,6 @@ namespace Timesheet.Controllers
         }
 
         // GET: Department
-
         [HttpGet]
         public ActionResult Index()
         {
