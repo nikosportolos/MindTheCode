@@ -7,7 +7,7 @@ using Timesheet.Models.ViewModels;
 
 namespace Timesheet.Mappers
 {
-    interface IProjectMapper
+    public interface IProjectMapper
     {
         public Project ConvertFromViewModel(ProjectViewModel viewModel);
         public IEnumerable<Project> ConvertFromViewModels(IEnumerable<ProjectViewModel> viewModels);

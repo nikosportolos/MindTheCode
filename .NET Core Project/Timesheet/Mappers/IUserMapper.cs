@@ -7,7 +7,7 @@ using Timesheet.Models.ViewModels;
 
 namespace Timesheet.Mappers
 {
-    interface IUserMapper
+    public interface IUserMapper
     {
         public User ConvertFromViewModel(UserViewModel viewModel);
         public IEnumerable<User> ConvertFromViewModels(IEnumerable<UserViewModel> viewModels);
