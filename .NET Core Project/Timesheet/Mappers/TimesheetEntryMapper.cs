@@ -12,17 +12,14 @@ namespace Timesheet.Mappers
 
         public TimesheetEntry ConvertFromViewModel(TimesheetEntryViewModel viewModel)
         {
-            TimesheetEntry entry = new TimesheetEntry();
-            if (entry != null)
+            return new TimesheetEntry
             {
-                entry.ID = viewModel.ID;
-                //entry.UserID = viewModel.UserID;
-                //entry.ProjectID = viewModel.Project.ID;
-                entry.EntryDate = viewModel.EntryDate;
-                entry.HoursWorked = viewModel.HoursWorked;
-            }
-
-            return entry;
+                ID = viewModel.ID,
+                //UserID = viewModel.UserID,
+                //ProjectID = viewModel.Project.ID;,
+                EntryDate = viewModel.EntryDate,
+                HoursWorked = viewModel.HoursWorked
+            };
         }
 
         public IEnumerable<TimesheetEntry> ConvertFromViewModels(IEnumerable<TimesheetEntryViewModel> viewModels)

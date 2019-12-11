@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Timesheet.Mappers;
+using Timesheet.Models.Entities;
+using Timesheet.Repositories;
 
 namespace Timesheet.Controllers
 {
     public class ProjectController : Controller
     {
+        private readonly IProjectRepository _repository;
+        private readonly UserManager<User> _userManager;
+        private readonly IProjectMapper _mapper;
+
+        public ProjectController([FromServices] IProjectRepository repository, IProjectMapper mapper, UserManager<User> userManager)
+        {
+            _repository = repository;
+            _mapper = mapper;
+            _userManager = userManager;
+        }
+
         // GET: Project
         public ActionResult Index()
         {
-            return View();
+            List<Project> projects = _repository.GetAll().ToList();
+            return View(_mapper.ConvertToViewModels(projects));
         }
 
         // GET: Project/Details/5

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Timesheet.Models.Entities;
+using Timesheet.Models.ViewModels;
 
 namespace Timesheet.Data
 {
@@ -14,7 +15,7 @@ namespace Timesheet.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimesheetEntry> TimesheetEntries { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<User> Users { get; set; }
+        public override DbSet<User> Users { get; set; }
         #endregion Db Sets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -71,6 +72,8 @@ namespace Timesheet.Data
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
 
         }
+
+        public DbSet<Timesheet.Models.ViewModels.UserViewModel> UserViewModel { get; set; }
 
     }
 }
