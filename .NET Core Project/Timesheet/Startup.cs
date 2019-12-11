@@ -54,10 +54,14 @@ namespace Timesheet
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IDepartmentProjectRepository, DepartmentProjectRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITimesheetEntryRepository, TimesheetEntryRepository>();
 
             // Add mappers
             services.AddSingleton(typeof(ITimesheetEntryMapper), typeof(TimesheetEntryMapper));
+            services.AddSingleton(typeof(IDepartmentMapper), typeof(DepartmentMapper));
+            services.AddSingleton(typeof(IProjectMapper), typeof(ProjectMapper));
+            services.AddSingleton(typeof(IUserMapper), typeof(UserMapper));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +97,9 @@ namespace Timesheet
 
             // Seed default users
             UserInitializer.SeedUsers(userManager);
+
+            // Seed default projects
+            ProjectInitializer.SeedProjects();
         }
     }
 }
