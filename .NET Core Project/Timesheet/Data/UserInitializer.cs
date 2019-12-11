@@ -9,6 +9,41 @@ namespace Timesheet.Data
 {
     public class UserInitializer
     {
+
+        public static void SeedDefaultUsers(UserManager<User> defaultSimpleUser)
+        {
+            User defaultUser2 = new User()
+            {
+                FirstName = "Babis",
+                LastName = "Kontos",
+                UserName = "bkontos",
+                Email = "bkontos@hotmail.com",
+                EmailConfirmed = false
+            };
+
+            IdentityResult identityResult2 = defaultSimpleUser.CreateAsync(defaultUser2, "1234").Result;
+
+            if (identityResult2.Succeeded)
+            {
+                defaultSimpleUser.AddToRoleAsync(defaultUser2, "SimpleUser").Wait();
+            }
+
+            User defaultUser1 = new User()
+            {
+                FirstName = "Philip",
+                LastName = "Kontos",
+                UserName = "fvkontos",
+                Email = "fvkontos@hotmail.com",
+                EmailConfirmed = false
+            };
+
+            IdentityResult identityResult1 = defaultSimpleUser.CreateAsync(defaultUser1, "1234").Result;
+
+            if(identityResult2.Succeeded)
+            {
+                defaultSimpleUser.AddToRoleAsync(defaultUser1, "SimpleUser").Wait();
+            }
+        }
         public static void SeedUsers(UserManager<User> userManager)
         {
             User user = new User()
