@@ -75,5 +75,7 @@ namespace Timesheet.Data
 
         public DbSet<Timesheet.Models.ViewModels.UserViewModel> UserViewModel { get; set; }
 
+        public DbSet<Timesheet.Models.ViewModels.DepartmentViewModel> DepartmentViewModel { get; set; }
+
     }
 }
