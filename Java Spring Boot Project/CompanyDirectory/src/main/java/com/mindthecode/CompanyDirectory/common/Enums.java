@@ -12,6 +12,8 @@ public class Enums {
 
     public enum TaskDifficulty {EASY, MEDIUM, HARD}
 
+    public enum UserRole {ADMIN, COMPANY_MANAGER, BUSINESS_UNIT_MANAGER, DEPARTMENT_MANAGER, UNIT_MANAGER}
+
     public enum AvailablePositions {
         JuniorAnalyst("Junior Analyst"),
         SeniorAnalyst("Senior Analyst"),

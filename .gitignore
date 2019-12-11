@@ -260,3 +260,4 @@ _Pvt_Extensions
 .fake/
 
 **/Migrations/**
+*/.NET Core Project/Timesheet/Migrations/**

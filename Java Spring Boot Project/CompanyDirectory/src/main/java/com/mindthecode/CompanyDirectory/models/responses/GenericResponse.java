@@ -5,6 +5,9 @@ public class GenericResponse<T> {
     private T data;
     private ErrorResponse error;
 
+    public GenericResponse() {
+    }
+
     public GenericResponse(ErrorResponse error) {
         this.error = error;
     }
