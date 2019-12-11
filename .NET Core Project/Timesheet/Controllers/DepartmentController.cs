@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Timesheet.Mappers;
 using Timesheet.Models.Entities;
+using Timesheet.Models.ViewModels;
 using Timesheet.Repositories;
 
 namespace Timesheet.Controllers
@@ -40,6 +42,7 @@ namespace Timesheet.Controllers
         }
 
         // GET: Department/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -47,19 +50,10 @@ namespace Timesheet.Controllers
 
         // POST: Department/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(DepartmentViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _repository.Create(_mapper.ConvertFromViewModel(viewModel));
+            return RedirectToAction("Index", "Department");
         }
 
         // GET: Department/Edit/5
