@@ -1,6 +1,7 @@
 package com.mindthecode.CompanyDirectory.Position;
 
 import com.mindthecode.CompanyDirectory.controllers.PositionController;
+import com.mindthecode.CompanyDirectory.models.entities.Position;
 import com.mindthecode.CompanyDirectory.models.responses.AllPositionsResponse;
 import com.mindthecode.CompanyDirectory.models.responses.PositionResponse;
 import com.mindthecode.CompanyDirectory.models.responses.ErrorResponse;
@@ -48,24 +49,42 @@ public class PositionControllerShould {
 
     @Test
     public void returnAllPositions(){
-        ResponseEntity<List<PositionResponse>> actual = controller.getPositions();
-        Assert.assertThat(actual.getBody(), CoreMatchers.hasItems(Position1,Position2));
-        Assert.assertEquals(HttpStatus.OK, actual.getStatusCode());
+        List<PositionResponse> list = new ArrayList<>();
+        list.add(Position1);
+        list.add(Position2);
+
+        // Create the expected response
+        ResponseEntity<GenericResponse<AllPositionsResponse>> expectedResponse = new ResponseEntity<>(new GenericResponse<>(new AllPositionsResponse(list)), null, HttpStatus.OK);
+
+        // Get the actual response
+        var actualResponse = controller.getPositions();
+
+        // Check http status code
+        Assert.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+
+        String actual = actualResponse.getBody().toString();
+        String expected = expectedResponse.getBody().toString();
+
+        // Check response body
+        Assert.assertTrue(actual.equalsIgnoreCase(expected));
     }
 
     @Test
     public void returnsErrorWhenServiceFails(){
-        ErrorResponse error = mockServiceFailure();
+        ResponseEntity expectedResponse = mockServiceFailure();
+        ResponseEntity actualResponse = controller.getPositions();
 
-        ResponseEntity<List<PositionResponse>> actual = controller.getPositions();
-        Assert.assertEquals(new GenericResponse(error), actual.getBody());
-        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actual.getStatusCode());
+        String actual = actualResponse.getBody().toString();
+        String expected = expectedResponse.getBody().toString();
+
+        // Check response body
+        Assert.assertTrue(actual.equalsIgnoreCase(expected));
     }
 
-    private ErrorResponse mockServiceFailure() {
+    private ResponseEntity mockServiceFailure() {
         ErrorResponse error = new ErrorResponse(0, "Error", "Something went wrong");
         when(service.getAllPositions()).thenReturn(new GenericResponse<>(error));
         controller = new PositionController(service);
-        return error;
+        return new ResponseEntity(new GenericResponse<>(error), null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
