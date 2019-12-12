@@ -34,7 +34,7 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Index()
         {
             List<Department> departments = (await _departmentRepository.GetAll()).ToList();
-            return View(_mapper.ConvertToViewModels(departments));
+            return View( _mapper.ConvertToViewModels(departments));
         }
 
         // GET: Department/Details/5

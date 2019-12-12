@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Timesheet.Mappers;
 using Timesheet.Models.Entities;
 using Timesheet.Models.ViewModels;
@@ -15,12 +16,14 @@ namespace Timesheet.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IDepartmentRepository _departmentRepository;
         private readonly UserManager<User> _userManager;
         private readonly IUserMapper _mapper;
 
-        public UserController([FromServices] IUserRepository userRepository, IUserMapper mapper, UserManager<User> userManager)
+        public UserController([FromServices] IUserRepository userRepository, IUserMapper mapper, UserManager<User> userManager, IDepartmentRepository departmentRepository)
         {
             _userRepository = userRepository;
+            _departmentRepository = departmentRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -35,12 +38,14 @@ namespace Timesheet.Controllers
         // GET: User/Details/5
         public ActionResult Details(int id)
         {
+            //ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
             return View();
         }
 
         // GET: User/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name");
             return View();
         }
 
@@ -57,6 +62,7 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(string guid)
         {
             User user = await _userRepository.GetByGuid(guid);
+            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name");
             return View(_mapper.ConvertToViewModel(user));
         }
 

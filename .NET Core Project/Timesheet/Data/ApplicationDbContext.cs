@@ -17,9 +17,6 @@ namespace Timesheet.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public DbSet<UserViewModel> UserViewModel { get; set; }
-        public DbSet<DepartmentViewModel> DepartmentViewModel { get; set; }
-        public DbSet<ProjectViewModel> ProjectViewModel { get; set; }
         #endregion Db Sets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -74,7 +71,6 @@ namespace Timesheet.Data
                 new IdentityRole() { Name = "Employee", NormalizedName = "EMPLOYEE" },
                 new IdentityRole() { Name = "Manager", NormalizedName = "MANAGER" },
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
-
         }
 
     }
