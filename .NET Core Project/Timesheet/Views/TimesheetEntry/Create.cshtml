@@ -1,7 +1,7 @@
 ﻿@model Timesheet.Models.ViewModels.TimesheetEntryViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Timesheet Entry";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,9 +19,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="ProjectID" class="control-label">Project </label>
+                <label asp-for="ProjectId" class="control-label">Project </label>
                 <div>
-                    @Html.DropDownListFor(m => m.ProjectID, ViewBag.Projects as IEnumerable<SelectListItem>, "Select a project")
+                    @Html.DropDownListFor(m => m.ProjectId, ViewBag.Projects as IEnumerable<SelectListItem>, "Select a project")
                 </div>
             </div>
 
