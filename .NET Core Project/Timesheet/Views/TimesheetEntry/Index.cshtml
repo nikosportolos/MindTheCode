@@ -13,29 +13,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HoursWorked)
-            </th>
-            <th></th>
+            <th>User</th>
+            <th>Project</th>
+            <th>Entry Date</th>
+            <th>Hours Worked</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.UserFullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProjectId)
+                @Html.DisplayFor(modelItem => item.ProjectName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EntryDate)

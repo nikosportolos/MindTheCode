@@ -15,9 +15,11 @@ namespace Timesheet.Models.ViewModels
 
         [NotNull]
         public string UserId { get; set; }
+        public string UserFullName { get; set; }
 
         [NotNull]
         public int ProjectId { get; set; }
+        public string ProjectName { get; set; }
 
         public int HoursWorked { get; set; }
 
