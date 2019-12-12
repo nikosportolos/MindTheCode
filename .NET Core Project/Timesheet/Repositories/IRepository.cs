@@ -7,8 +7,9 @@ namespace Timesheet
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
-        Task<TEntity> GetById(dynamic id);
+        Task<IEnumerable<TEntity>> GetAll();
+        Task<TEntity> GetByGuid(string guid);
+        Task<TEntity> GetById(int id);
         Task Create(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(dynamic id);

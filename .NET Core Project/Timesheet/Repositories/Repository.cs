@@ -20,12 +20,17 @@ namespace Timesheet
 
         #region Implement IRepository
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return table.AsNoTracking().ToList<TEntity>();
+            return await table.AsNoTracking().ToListAsync<TEntity>();
         }
 
-        public async Task<TEntity> GetById(dynamic id)
+        public async Task<TEntity> GetByGuid(string guid)
+        {
+            return await table.FindAsync(guid);
+        }
+
+        public async Task<TEntity> GetById(int id)
         {
             return await table.FindAsync(id);
         }
