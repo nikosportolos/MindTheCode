@@ -51,15 +51,29 @@ public class PositionServiceShould {
         }
     };
 
+    private List<PositionResponse> mockedPositionsResponse = new ArrayList<PositionResponse>() {
+        {
+            add(new PositionResponse(16, "Software Engineer", new Unit("Resource Management Solutions")));
+
+            add(new PositionResponse(17, "Data Analyst", new Unit("Resource Management Solutions")));
+        }
+    };
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         when(PositionRepository.findAll()).thenReturn(mockedPositions);
 
+        when(mapper.mapPositions(mockedPositions)).thenReturn(mockedPositionsResponse);
+
+        service = new PositionService(mapper, PositionRepository);
+        GenericResponse<AllPositionsResponse> mockResponse = new GenericResponse<>(new AllPositionsResponse(mockedPositionsResponse));
+        System.out.println("mockResponse: " + mockResponse.toString());
+        when(service.getAllPositions().getData().getPositions()).thenReturn(mockedPositionsResponse);
+
         PositionResponseFromMapper = new PositionResponse(1, "name", new Unit("Resource Management Solutions"));
         when(mapper.mapPositionToResponse(any())).thenReturn(PositionResponseFromMapper);
 
-        service = new PositionService(mapper, PositionRepository, unitRepository);
     }
 
     @Test
@@ -70,19 +84,20 @@ public class PositionServiceShould {
 
     @Test
     public void usesPositionMapper() {
-        service.getAllPositions();
-        Mockito.verify(mapper, times(2)).mapPositions(any());
+        var positions = service.getAllPositions();
+        Mockito.verify(mapper, times(1)).mapPositions(any());
     }
 
     @Test
-    @Ignore
     public void returnsListOfPositionResponse() {
         GenericResponse<AllPositionsResponse> output = service.getAllPositions();
-        Assert.assertEquals(2, output.getData().getPositions().size());
-        List<PositionResponse> expectedList = new ArrayList<>();
-        expectedList.add(PositionResponseFromMapper);
-        expectedList.add(PositionResponseFromMapper);
-        Assert.assertThat(output.getData().getPositions(), CoreMatchers.hasItems(PositionResponseFromMapper, PositionResponseFromMapper));
+        System.out.println("Output: " + output.toString());
+
+        List<PositionResponse> responses = output.getData().getPositions();
+        System.out.println("Responses: " + responses.size());
+        Assert.assertEquals(2, responses.size());
+
+        Assert.assertEquals(service.getAllPositions().getData().getPositions(), mockedPositionsResponse);
     }
 
 

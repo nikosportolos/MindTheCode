@@ -34,6 +34,11 @@ public class PositionService {
         this.unitRepository = unitRepository;
     }
 
+    public PositionService(PositionMapper mapper, PositionRepository repository) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+
     public GenericResponse<AllPositionsResponse> getAllPositions() {
         List<PositionResponse> positions = mapper.mapPositions(repository.findAll());
         if (positions == null || positions.size() > 0)
