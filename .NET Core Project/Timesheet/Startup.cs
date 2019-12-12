@@ -95,11 +95,8 @@ namespace Timesheet
                 endpoints.MapRazorPages();
             });
 
-            // Seed default users
-            UserInitializer.SeedUsers(userManager);
-
-            // Seed default projects
-            ProjectInitializer.SeedProjects();
+            // Seed mock data
+            MockDataInitializer.SeedMockData(userManager);
         }
     }
 }

@@ -20,5 +20,6 @@ namespace Timesheet.Models.Entities
         public ICollection<DepartmentProject> DepartmentProjects { get; set; }
 
         public ICollection<User> DepartmentUsers { get; set; }
+
     }
 }

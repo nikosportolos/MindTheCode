@@ -7,7 +7,7 @@ namespace Timesheet.Models.ViewModels
 {
     public class UserViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -15,6 +15,6 @@ namespace Timesheet.Models.ViewModels
 
         public int DepartmentId { get; set; }
         public double CostPerHour { get; set; }
-        public int ManagerId { get; set; }
+        public string ManagerId { get; set; }
     }
 }
