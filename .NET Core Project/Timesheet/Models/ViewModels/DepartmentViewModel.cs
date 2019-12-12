@@ -11,6 +11,6 @@ namespace Timesheet.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string DepartmentHeadId { get; set; }
-        public User UserFullName { get; set; }
+        public string UserFullName { get; set; }
     }
 }
