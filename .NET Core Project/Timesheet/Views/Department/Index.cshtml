@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>Department Name</th>
-            <th>Department Head</th>
+            <th>Department Manager</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -26,7 +26,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DepartmentHeadId)
+                    @Html.DisplayFor(modelItem => item.UserFullName)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
