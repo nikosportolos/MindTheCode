@@ -35,7 +35,7 @@ namespace Timesheet.Mappers
             viewModel.CostPerHour = user.CostPerHour;
 
             if (user.Department != null)
-                viewModel.DepartmentId = user.Department.ID;
+                viewModel.DepartmentId = user.Department.Id;
 
             viewModel.Email = user.Email;
             viewModel.FirstName = user.FirstName;

@@ -7,8 +7,8 @@ namespace Timesheet.Models.Entities
 {
     public class DepartmentProject
     {
-        public int DepartmentID { get; set; }
-        public int ProjectID { get; set; }
+        public int DepartmentId { get; set; }
+        public int ProjectId { get; set; }
 
         public Department Department { get; set; }
         public Project Project { get; set; }

@@ -7,7 +7,7 @@ namespace Timesheet.Models.ViewModels
 {
     public class DepartmentViewModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string DepartmentHeadId { get; set; }
     }

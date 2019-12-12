@@ -13,7 +13,7 @@ namespace Timesheet.Mappers
         {
             Department department = new Department();
 
-            department.ID = viewModel.ID;
+            department.Id = viewModel.Id;
             department.Name = viewModel.Name;
             department.DepartmentHeadId = viewModel.DepartmentHeadId;
 
@@ -35,7 +35,7 @@ namespace Timesheet.Mappers
         {
             DepartmentViewModel viewModel = new DepartmentViewModel
             {
-                ID = department.ID,
+                Id = department.Id,
                 Name = department.Name,
                 DepartmentHeadId = department.DepartmentHeadId,
             };

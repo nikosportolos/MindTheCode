@@ -9,10 +9,10 @@ namespace Timesheet.Mappers
 {
     public interface ITimesheetEntryMapper
     {
-        public TimesheetEntry ConvertFromViewModel(TimesheetEntryViewModel viewModel);
-        public IEnumerable<TimesheetEntry> ConvertFromViewModels(IEnumerable<TimesheetEntryViewModel> viewModels);
+        public Task<TimesheetEntry> ConvertFromViewModel(TimesheetEntryViewModel viewModel);
+        public Task<IEnumerable<TimesheetEntry>> ConvertFromViewModels(IEnumerable<TimesheetEntryViewModel> viewModels);
 
-        public TimesheetEntryViewModel ConvertToViewModel(TimesheetEntry entry);
-        public IEnumerable<TimesheetEntryViewModel> ConvertToViewModels(IEnumerable<TimesheetEntry> entries);
+        public Task<TimesheetEntryViewModel> ConvertToViewModel(TimesheetEntry entry);
+        public Task<IEnumerable<TimesheetEntryViewModel>> ConvertToViewModels(IEnumerable<TimesheetEntry> entries);
     }
 }

@@ -8,7 +8,7 @@ namespace Timesheet.Models.Entities
 {
     public class TimesheetEntry
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public DateTime EntryDate { get; set; }
 

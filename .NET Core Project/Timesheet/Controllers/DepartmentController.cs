@@ -31,9 +31,9 @@ namespace Timesheet.Controllers
 
         // GET: Department
         [HttpGet]
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Department> departments = _departmentRepository.GetAll().ToList();
+            List<Department> departments = (await _departmentRepository.GetAll()).ToList();
             return View(_mapper.ConvertToViewModels(departments));
         }
 
@@ -41,16 +41,16 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Details(int id)
         {
             Department department = await _departmentRepository.GetById(id);
-            User manager = await _userRepository.GetById(department.DepartmentHeadId);
+            User manager = await _userRepository.GetByGuid(department.DepartmentHeadId);
             ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
             return View(_mapper.ConvertToViewModel((department)));
         }
 
         // GET: Department/Create
         [HttpGet]
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Users = new SelectList(_userRepository.GetAll(), "Id", "Email");
+            ViewBag.Users = new SelectList(await _userRepository.GetAll(), "Id", "Email");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Department department = await _departmentRepository.GetById(id);
-            ViewBag.Users = new SelectList(_userRepository.GetAll(), "Id", "Email");
+            ViewBag.Users = new SelectList(await _userRepository.GetAll(), "Id", "Email");
             return View(_mapper.ConvertToViewModel((department)));
         }
 
@@ -76,14 +76,14 @@ namespace Timesheet.Controllers
         {
             Department department = _mapper.ConvertFromViewModel(viewModel);
             await _departmentRepository.Update(department);
-            return RedirectToAction(nameof(Details), "Department", new { id = department.ID });
+            return RedirectToAction(nameof(Details), "Department", new { id = department.Id });
         }
 
         // GET: Department/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             Department department = await _departmentRepository.GetById(id);
-            return View(_mapper.ConvertToViewModel((department)));
+            return View(_mapper.ConvertToViewModel(department));
         }
 
         // POST: Department/Delete/5
@@ -91,7 +91,7 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Delete(DepartmentViewModel viewModel)
         {
             Department department = _mapper.ConvertFromViewModel(viewModel);
-            await _departmentRepository.Delete(department.ID);
+            await _departmentRepository.Delete(department.Id);
             return RedirectToAction(nameof(Index));
         }
     }

@@ -13,7 +13,7 @@ namespace Timesheet.Mappers
         {
             return new Project
             {
-                ID = viewModel.ID,
+                Id = viewModel.Id,
                 Name = viewModel.Name
             };
         }
@@ -33,12 +33,12 @@ namespace Timesheet.Mappers
         {
             ProjectViewModel viewModel = new ProjectViewModel
             {
-                ID = project.ID,
+                Id = project.Id,
                 Name = project.Name
             };
 
             if (project.DepartmentOwner != null)
-                viewModel.DepartmentOwnerID = project.DepartmentOwner.ID;
+                viewModel.DepartmentOwnerId = project.DepartmentOwner.Id;
 
             return viewModel;
         }

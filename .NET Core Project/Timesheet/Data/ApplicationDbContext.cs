@@ -37,7 +37,7 @@ namespace Timesheet.Data
 
             /** Department **/
             modelBuilder.Entity<Department>()
-                .HasKey(d => d.ID);
+                .HasKey(d => d.Id);
 
             modelBuilder.Entity<Department>()
                 .HasOne(d => d.DepartmentHead)
@@ -46,28 +46,28 @@ namespace Timesheet.Data
 
             /** TimesheetEntry **/
             modelBuilder.Entity<TimesheetEntry>()
-                .HasKey(t => t.ID);
+                .HasKey(t => t.Id);
 
             modelBuilder.Entity<TimesheetEntry>()
                 .HasOne(t => t.User);
 
             /** Project **/
             modelBuilder.Entity<Project>()
-                .HasKey(p => p.ID);
+                .HasKey(p => p.Id);
 
             /** DepartmentProject **/
             modelBuilder.Entity<DepartmentProject>()
-                .HasKey(dp => new { dp.DepartmentID, dp.ProjectID });
+                .HasKey(dp => new { dp.DepartmentId, dp.ProjectId });
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Department)
                 .WithMany(d => d.DepartmentProjects)
-                .HasForeignKey(dp => dp.DepartmentID);
+                .HasForeignKey(dp => dp.DepartmentId);
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Project)
                 .WithMany(p => p.DepartmentProjects)
-                .HasForeignKey(dp => dp.ProjectID);
+                .HasForeignKey(dp => dp.ProjectId);
 
 
             modelBuilder.Entity<IdentityRole>().HasData(

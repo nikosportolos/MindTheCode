@@ -7,8 +7,8 @@ namespace Timesheet.Models.ViewModels
 {
     public class ProjectViewModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int DepartmentOwnerID { get; set; }
+        public int DepartmentOwnerId { get; set; }
     }
 }

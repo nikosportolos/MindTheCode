@@ -105,7 +105,7 @@ namespace Timesheet.Areas.Identity.Pages.Account
             // Fetch all Departments
             foreach (Department d in _dbContext.Departments.ToList())
             {
-                Departments.Add(new SelectListItem() { Value = d.ID.ToString(), Text = d.Name });
+                Departments.Add(new SelectListItem() { Value = d.Id.ToString(), Text = d.Name });
             }
         }
 
@@ -130,7 +130,7 @@ namespace Timesheet.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRolesAsync(user, Input.SelectedRoles);
 
-                    Department selDept = _dbContext.Departments.First(x => x.ID == Input.SelectedDepartment);
+                    Department selDept = _dbContext.Departments.First(x => x.Id == Input.SelectedDepartment);
                     if (selDept.DepartmentUsers == null)
                         selDept.DepartmentUsers = new List<User>();
 

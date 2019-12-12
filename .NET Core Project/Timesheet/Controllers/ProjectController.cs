@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Timesheet.Mappers;
 using Timesheet.Models.Entities;
 using Timesheet.Models.ViewModels;
@@ -14,34 +15,37 @@ namespace Timesheet.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly IProjectRepository _repository;
+        private readonly IProjectRepository _projectRepository;
+        private readonly IDepartmentRepository _departmentRepository;
         private readonly UserManager<User> _userManager;
         private readonly IProjectMapper _mapper;
 
-        public ProjectController([FromServices] IProjectRepository repository, IProjectMapper mapper, UserManager<User> userManager)
+        public ProjectController([FromServices] IProjectRepository repository, IProjectMapper mapper, UserManager<User> userManager, IDepartmentRepository departmentRepository)
         {
-            _repository = repository;
+            _projectRepository = repository;
+            _departmentRepository = departmentRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
 
         // GET: Project
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Project> projects = _repository.GetAll().ToList();
+            List<Project> projects = (await _projectRepository.GetAll()).ToList();
             return View(_mapper.ConvertToViewModels(projects));
         }
 
         // GET: Project/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            Project project = await _repository.GetById(id);
+            Project project = await _projectRepository.GetById(id);
             return View(_mapper.ConvertToViewModel((project)));
         }
 
         // GET: Project/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name");
             return View();
         }
 
@@ -49,21 +53,14 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProjectViewModel viewModel)
         {
-            try
-            {
-                await _repository.Create(_mapper.ConvertFromViewModel(viewModel));
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _projectRepository.Create(_mapper.ConvertFromViewModel(viewModel));
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Project/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            Project project = await _repository.GetById(id);
+            Project project = await _projectRepository.GetById(id);
             return View(_mapper.ConvertToViewModel((project)));
         }
 
@@ -75,8 +72,8 @@ namespace Timesheet.Controllers
             try
             {
                 Project project = _mapper.ConvertFromViewModel(viewModel);
-                await _repository.Update(project);
-                return RedirectToAction(nameof(Details), new { id = project.ID });
+                await _projectRepository.Update(project);
+                return RedirectToAction(nameof(Details), new { id = project.Id });
             }
             catch
             {
@@ -87,15 +84,15 @@ namespace Timesheet.Controllers
         // GET: Project/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            Project project = await _repository.GetById(id.ToString());
+            Project project = await _projectRepository.GetById(id);
             return View(_mapper.ConvertToViewModel((project)));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Delete(ProjectViewModel viewModel)
         {
             Project project = _mapper.ConvertFromViewModel(viewModel);
-            await _repository.Delete(project.ID);
+            await _projectRepository.Delete(project.Id);
             return RedirectToAction(nameof(Index));
         }
     }

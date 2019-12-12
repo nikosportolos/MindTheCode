@@ -34,11 +34,11 @@ namespace Timesheet.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
             var roles = await _userManager.GetRolesAsync(user);
-            
+
             List<TimesheetEntry> entries;
             if (roles.Contains("Administrator"))
             {
-                entries = _timesheetEntryRepository.GetAll().ToList();
+                entries = (await _timesheetEntryRepository.GetAll()).ToList();
             }
             else
             {
@@ -52,20 +52,21 @@ namespace Timesheet.Controllers
                 }
             }
 
-            return View(_mapper.ConvertToViewModels(entries));
+            return View(await _mapper.ConvertToViewModels(entries));
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Projects = new SelectList(_projectRepository.GetAll(), "ID", "Name");
+            ViewBag.Projects = new SelectList(await _projectRepository.GetAll(), "Id", "Name");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TimesheetEntryViewModel viewModel)
         {
-            await _timesheetEntryRepository.Create(_mapper.ConvertFromViewModel(viewModel));
+            viewModel.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _timesheetEntryRepository.Create(await _mapper.ConvertFromViewModel(viewModel));
             return RedirectToAction(nameof(Index));
         }
 
@@ -84,9 +85,9 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(TimesheetEntryViewModel viewModel)
         {
-            TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel);
+            TimesheetEntry entry = await _mapper.ConvertFromViewModel(viewModel);
             await _timesheetEntryRepository.Update(entry);
-            return RedirectToAction(nameof(Details), "TimesheetEntry", new { id = entry.ID });
+            return RedirectToAction(nameof(Details), "TimesheetEntry", new { id = entry.Id });
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -98,8 +99,8 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(TimesheetEntryViewModel viewModel)
         {
-            TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel);
-            await _timesheetEntryRepository.Delete(entry.ID);
+            TimesheetEntry entry = await _mapper.ConvertFromViewModel(viewModel);
+            await _timesheetEntryRepository.Delete(entry.Id);
             return RedirectToAction(nameof(Index));
         }
 

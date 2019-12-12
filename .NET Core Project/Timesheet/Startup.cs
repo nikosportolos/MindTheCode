@@ -58,7 +58,7 @@ namespace Timesheet
             services.AddScoped<ITimesheetEntryRepository, TimesheetEntryRepository>();
 
             // Add mappers
-            services.AddSingleton(typeof(ITimesheetEntryMapper), typeof(TimesheetEntryMapper));
+            services.AddScoped(typeof(ITimesheetEntryMapper), typeof(TimesheetEntryMapper));
             services.AddSingleton(typeof(IDepartmentMapper), typeof(DepartmentMapper));
             services.AddSingleton(typeof(IProjectMapper), typeof(ProjectMapper));
             services.AddSingleton(typeof(IUserMapper), typeof(UserMapper));
@@ -96,7 +96,7 @@ namespace Timesheet
             });
 
             // Seed mock data
-            //MockDataInitializer.SeedMockData(userManager, dbContext);
+            MockDataInitializer.SeedMockData(userManager, dbContext);
         }
     }
 }

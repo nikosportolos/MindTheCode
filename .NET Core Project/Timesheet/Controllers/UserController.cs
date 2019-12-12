@@ -7,27 +7,28 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Timesheet.Mappers;
 using Timesheet.Models.Entities;
+using Timesheet.Models.ViewModels;
 using Timesheet.Repositories;
 
 namespace Timesheet.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly IUserMapper _mapper;
 
-        public UserController([FromServices] IUserRepository repository, IUserMapper mapper, UserManager<User> userManager)
+        public UserController([FromServices] IUserRepository userRepository, IUserMapper mapper, UserManager<User> userManager)
         {
-            _repository = repository;
+            _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
 
         // GET: User
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<User> users = _repository.GetAll().ToList();
+            List<User> users = (await _userRepository.GetAll()).ToList();
             return View(_mapper.ConvertToViewModels(users));
         }
 
@@ -45,65 +46,43 @@ namespace Timesheet.Controllers
 
         // POST: User/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(UserViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            User user = _mapper.ConvertFromViewModel(viewModel);
+            await _userRepository.Create(user);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string guid)
         {
-            return View();
+            User user = await _userRepository.GetByGuid(guid);
+            return View(_mapper.ConvertToViewModel(user));
         }
 
         // POST: User/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(UserViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            User user = _mapper.ConvertFromViewModel(viewModel);
+            await _userRepository.Update(user);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string guid)
         {
-            return View();
+            User user = await _userRepository.GetByGuid(guid);
+            return View(_mapper.ConvertToViewModel(user));
         }
 
         // POST: User/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(UserViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            User user = _mapper.ConvertFromViewModel(viewModel);
+            await _userRepository.Delete(user.Id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
