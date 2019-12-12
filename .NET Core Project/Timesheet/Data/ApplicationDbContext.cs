@@ -15,7 +15,11 @@ namespace Timesheet.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimesheetEntry> TimesheetEntries { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public override DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<UserViewModel> UserViewModel { get; set; }
+        public DbSet<DepartmentViewModel> DepartmentViewModel { get; set; }
+        public DbSet<ProjectViewModel> ProjectViewModel { get; set; }
         #endregion Db Sets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -72,12 +76,6 @@ namespace Timesheet.Data
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
 
         }
-
-        public DbSet<Timesheet.Models.ViewModels.UserViewModel> UserViewModel { get; set; }
-
-        public DbSet<Timesheet.Models.ViewModels.DepartmentViewModel> DepartmentViewModel { get; set; }
-
-        public DbSet<Timesheet.Models.ViewModels.ProjectViewModel> ProjectViewModel { get; set; }
 
     }
 }

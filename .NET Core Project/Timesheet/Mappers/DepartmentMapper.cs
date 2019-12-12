@@ -11,12 +11,13 @@ namespace Timesheet.Mappers
     {
         public Department ConvertFromViewModel(DepartmentViewModel viewModel)
         {
-            return new Department
-            {
-                ID = viewModel.ID,
-                Name = viewModel.Name,
-                DepartmentHeadId = viewModel.DepartmentHeadId
-            };
+            Department department = new Department();
+
+            department.ID = viewModel.ID;
+            department.Name = viewModel.Name;
+            department.DepartmentHeadId = viewModel.DepartmentHeadId;
+
+            return department;
         }
 
         public IEnumerable<Department> ConvertFromViewModels(IEnumerable<DepartmentViewModel> viewModels)
@@ -32,12 +33,14 @@ namespace Timesheet.Mappers
 
         public DepartmentViewModel ConvertToViewModel(Department department)
         {
-            return new DepartmentViewModel
+            DepartmentViewModel viewModel = new DepartmentViewModel
             {
                 ID = department.ID,
                 Name = department.Name,
-                DepartmentHeadId = department.DepartmentHeadId
+                DepartmentHeadId = department.DepartmentHeadId,
             };
+
+            return viewModel;
         }
 
         public IEnumerable<DepartmentViewModel> ConvertToViewModels(IEnumerable<Department> departments)

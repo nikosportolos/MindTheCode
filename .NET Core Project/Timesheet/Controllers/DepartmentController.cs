@@ -16,13 +16,15 @@ namespace Timesheet.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepository _repository;
+        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly IDepartmentMapper _mapper;
 
-        public DepartmentController([FromServices] IDepartmentRepository repository, IDepartmentMapper mapper, UserManager<User> userManager)
+        public DepartmentController([FromServices] IDepartmentRepository departmentRepository, IDepartmentMapper mapper, UserManager<User> userManager, IUserRepository userRepository)
         {
-            _repository = repository;
+            _departmentRepository = departmentRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -31,20 +33,24 @@ namespace Timesheet.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<Department> departments =  _repository.GetAll().ToList();            
+            List<Department> departments = _departmentRepository.GetAll().ToList();
             return View(_mapper.ConvertToViewModels(departments));
         }
 
         // GET: Department/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            Department department = await _departmentRepository.GetById(id);
+            User manager = await _userRepository.GetById(department.DepartmentHeadId);
+            ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
+            return View(_mapper.ConvertToViewModel((department)));
         }
 
         // GET: Department/Create
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.Users = new SelectList(_userRepository.GetAll(), "Id", "Email");
             return View();
         }
 
@@ -52,54 +58,41 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DepartmentViewModel viewModel)
         {
-            await _repository.Create(_mapper.ConvertFromViewModel(viewModel));
-            return RedirectToAction("Index", "Department");
+            await _departmentRepository.Create(_mapper.ConvertFromViewModel(viewModel));
+            return RedirectToAction(nameof(Index), "Department");
         }
 
         // GET: Department/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            Department department = await _departmentRepository.GetById(id);
+            ViewBag.Users = new SelectList(_userRepository.GetAll(), "Id", "Email");
+            return View(_mapper.ConvertToViewModel((department)));
         }
 
         // POST: Department/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(DepartmentViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Department department = _mapper.ConvertFromViewModel(viewModel);
+            await _departmentRepository.Update(department);
+            return RedirectToAction(nameof(Details), "Department", new { id = department.ID });
         }
 
         // GET: Department/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            Department department = await _departmentRepository.GetById(id);
+            return View(_mapper.ConvertToViewModel((department)));
         }
 
         // POST: Department/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(DepartmentViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Department department = _mapper.ConvertFromViewModel(viewModel);
+            await _departmentRepository.Delete(department.ID);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

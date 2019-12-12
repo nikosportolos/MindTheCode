@@ -15,13 +15,15 @@ namespace Timesheet.Controllers
 {
     public class TimesheetEntryController : Controller
     {
-        private readonly ITimesheetEntryRepository _repository;
+        private readonly ITimesheetEntryRepository _timesheetEntryRepository;
+        private readonly IProjectRepository _projectRepository;
         private readonly ITimesheetEntryMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public TimesheetEntryController([FromServices] ITimesheetEntryRepository repository, ITimesheetEntryMapper mapper, UserManager<User> userManager)
+        public TimesheetEntryController(ITimesheetEntryRepository timesheetEntryRepository, ITimesheetEntryMapper mapper, UserManager<User> userManager, IProjectRepository projectRepository)
         {
-            _repository = repository;
+            _timesheetEntryRepository = timesheetEntryRepository;
+            _projectRepository = projectRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -32,21 +34,21 @@ namespace Timesheet.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
             var roles = await _userManager.GetRolesAsync(user);
-
+            
             List<TimesheetEntry> entries;
             if (roles.Contains("Administrator"))
             {
-                entries = _repository.GetAll().ToList();
+                entries = _timesheetEntryRepository.GetAll().ToList();
             }
             else
             {
                 if (roles.Contains("Manager"))
                 {
-                    entries = _repository.GetTimesheetEntriesForManager(user);
+                    entries = _timesheetEntryRepository.GetTimesheetEntriesForManager(user);
                 }
                 else
                 {
-                    entries = _repository.GetTimesheetEntriesForEmployee(user);
+                    entries = _timesheetEntryRepository.GetTimesheetEntriesForEmployee(user);
                 }
             }
 
@@ -56,26 +58,26 @@ namespace Timesheet.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Projects = new SelectList(_repository.GetAllProjects(), "ID", "Name");
+            ViewBag.Projects = new SelectList(_projectRepository.GetAll(), "ID", "Name");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(TimesheetEntryViewModel viewModel)
         {
-            await _repository.Create(_mapper.ConvertFromViewModel(viewModel));
-            return RedirectToAction("Index", "TimesheetEntry");
+            await _timesheetEntryRepository.Create(_mapper.ConvertFromViewModel(viewModel));
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            TimesheetEntry entry = await _repository.GetById(id);
+            TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
             return View(_mapper.ConvertToViewModel((entry)));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            TimesheetEntry entry = await _repository.GetById(id);
+            TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
             return View(_mapper.ConvertToViewModel((entry)));
         }
 
@@ -83,14 +85,13 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(TimesheetEntryViewModel viewModel)
         {
             TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel);
-            await _repository.Update(entry);
-            return RedirectToAction("Details", "TimesheetEntry", new { id = entry.ID });
-
+            await _timesheetEntryRepository.Update(entry);
+            return RedirectToAction(nameof(Details), "TimesheetEntry", new { id = entry.ID });
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            TimesheetEntry entry = await _repository.GetById(id);
+            TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
             return View(_mapper.ConvertToViewModel((entry)));
         }
 
@@ -98,8 +99,8 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Delete(TimesheetEntryViewModel viewModel)
         {
             TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel);
-            await _repository.Delete(entry.ID);
-            return RedirectToAction("Index", "TimesheetEntry");
+            await _timesheetEntryRepository.Delete(entry.ID);
+            return RedirectToAction(nameof(Index));
         }
 
     }

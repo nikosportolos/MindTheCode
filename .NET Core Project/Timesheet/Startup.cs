@@ -44,7 +44,7 @@ namespace Timesheet
 
             services.ConfigureApplicationCookie(options =>
             {
-                
+
             });
 
             services.AddControllersWithViews();
@@ -65,7 +65,7 @@ namespace Timesheet
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager, ApplicationDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -96,7 +96,7 @@ namespace Timesheet
             });
 
             // Seed mock data
-            MockDataInitializer.SeedMockData(userManager);
+            //MockDataInitializer.SeedMockData(userManager, dbContext);
         }
     }
 }

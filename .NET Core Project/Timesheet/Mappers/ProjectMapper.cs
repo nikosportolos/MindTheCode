@@ -14,14 +14,14 @@ namespace Timesheet.Mappers
             return new Project
             {
                 ID = viewModel.ID,
-                Name = viewModel.Name                 
+                Name = viewModel.Name
             };
         }
 
         public IEnumerable<Project> ConvertFromViewModels(IEnumerable<ProjectViewModel> viewModels)
         {
             List<Project> projects = new List<Project>();
-            foreach(var v in viewModels)
+            foreach (var v in viewModels)
             {
                 projects.Add(ConvertFromViewModel(v));
             }
@@ -31,12 +31,16 @@ namespace Timesheet.Mappers
 
         public ProjectViewModel ConvertToViewModel(Project project)
         {
-            return new ProjectViewModel
+            ProjectViewModel viewModel = new ProjectViewModel
             {
                 ID = project.ID,
-                Name = project.Name,
-                DepartmentOwnerId = project.DepartmentOwner.ID                
+                Name = project.Name
             };
+
+            if (project.DepartmentOwner != null)
+                viewModel.DepartmentOwnerID = project.DepartmentOwner.ID;
+
+            return viewModel;
         }
 
         public IEnumerable<ProjectViewModel> ConvertToViewModels(IEnumerable<Project> projects)

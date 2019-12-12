@@ -15,11 +15,6 @@ namespace Timesheet.Repositories
             _dbContext = dbContext;
         }
 
-        public List<Project> GetAllProjects()
-        {
-            return _dbContext.Projects.ToList();
-        }
-
         public List<TimesheetEntry> GetTimesheetEntriesForEmployee(User user)
         {
             return _dbContext.TimesheetEntries.Where(e => e.User.Id == user.Id).ToList();

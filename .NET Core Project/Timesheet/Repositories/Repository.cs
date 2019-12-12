@@ -25,7 +25,7 @@ namespace Timesheet
             return table.AsNoTracking().ToList<TEntity>();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(dynamic id)
         {
             return await table.FindAsync(id);
         }
@@ -42,7 +42,7 @@ namespace Timesheet
             await Save();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(dynamic id)
         {
             var entity = await GetById(id);
             table.Remove(entity);

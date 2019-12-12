@@ -9,6 +9,6 @@ namespace Timesheet.Models.ViewModels
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int DepartmentOwnerId { get; set; }
+        public int DepartmentOwnerID { get; set; }
     }
 }

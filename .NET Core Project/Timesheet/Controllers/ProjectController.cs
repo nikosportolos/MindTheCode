@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Timesheet.Mappers;
 using Timesheet.Models.Entities;
+using Timesheet.Models.ViewModels;
 using Timesheet.Repositories;
 
 namespace Timesheet.Controllers
@@ -32,9 +33,10 @@ namespace Timesheet.Controllers
         }
 
         // GET: Project/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            Project project = await _repository.GetById(id);
+            return View(_mapper.ConvertToViewModel((project)));
         }
 
         // GET: Project/Create
@@ -45,13 +47,11 @@ namespace Timesheet.Controllers
 
         // POST: Project/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(ProjectViewModel viewModel)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                await _repository.Create(_mapper.ConvertFromViewModel(viewModel));
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -61,21 +61,22 @@ namespace Timesheet.Controllers
         }
 
         // GET: Project/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            Project project = await _repository.GetById(id);
+            return View(_mapper.ConvertToViewModel((project)));
         }
 
         // POST: Project/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(ProjectViewModel viewModel)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                Project project = _mapper.ConvertFromViewModel(viewModel);
+                await _repository.Update(project);
+                return RedirectToAction(nameof(Details), new { id = project.ID });
             }
             catch
             {
@@ -84,26 +85,18 @@ namespace Timesheet.Controllers
         }
 
         // GET: Project/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            Project project = await _repository.GetById(id.ToString());
+            return View(_mapper.ConvertToViewModel((project)));
         }
-
-        // POST: Project/Delete/5
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(ProjectViewModel viewModel)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Project project = _mapper.ConvertFromViewModel(viewModel);
+            await _repository.Delete(project.ID);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
