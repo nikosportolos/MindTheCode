@@ -54,6 +54,13 @@ namespace Timesheet
             await Save();
         }
 
+        public async Task DeleteByGuid(dynamic id)
+        {
+            var entity = await GetByGuid(id);
+            table.Remove(entity);
+            await Save();
+        }
+
         public async Task Save()
         {
             await _dbContext.SaveChangesAsync();

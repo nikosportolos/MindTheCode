@@ -13,7 +13,15 @@ namespace Timesheet.Mappers
         {
             return new User
             {
-
+             
+                 UserName = viewModel.Email,
+                 Email = viewModel.Email,
+                 EmailConfirmed = true,
+                 FirstName = viewModel.FirstName,
+                 LastName = viewModel.LastName,
+                 Department = viewModel.Department,
+                 CostPerHour = viewModel.CostPerHour
+               //    Manager = viewModel.ManagerId
             };
         }
 
