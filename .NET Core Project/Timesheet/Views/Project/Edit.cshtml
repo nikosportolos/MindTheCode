@@ -17,8 +17,11 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartmentOwnerId" class="control-label"></label>
-                <input asp-for="DepartmentOwnerId" class="form-control" />
+                <label asp-for="DepartmentOwnerId" class="control-label">Department Owner</label>
+                @*<input asp-for="DepartmentOwnerId" class="form-control" />*@
+                <div>
+                    @Html.DropDownListFor(m => m.DepartmentOwnerId, ViewBag.Departments as IEnumerable<SelectListItem>, "Select a department")
+                </div>
                 <span asp-validation-for="DepartmentOwnerId" class="text-danger"></span>
             </div>
             <div class="form-group">

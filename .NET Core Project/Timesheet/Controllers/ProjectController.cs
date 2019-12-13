@@ -42,11 +42,8 @@ namespace Timesheet.Controllers
         // GET: Project/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            List<Project> departments = (await _projectRepository.GetAll()).ToList();
-
             Project project = await _projectRepository.GetById(id);
-            //   project.DepartmentOwner = await _departmentRepository.GetById();
-            //  project.DepartmentOwner = await _departmentRepository
+            project.DepartmentOwner = (await _departmentRepository.GetById(project.DepartmentOwnerId));
             return View(_mapper.ConvertToViewModel((project)));
         }
 
@@ -70,6 +67,8 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Project project = await _projectRepository.GetById(id);
+            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name", project.DepartmentOwnerId);
+
             return View(_mapper.ConvertToViewModel((project)));
         }
 
