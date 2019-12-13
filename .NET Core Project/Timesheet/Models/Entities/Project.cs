@@ -8,7 +8,7 @@ namespace Timesheet.Models.Entities
 {
     public class Project
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [NotNull]
         public string Name { get; set; }

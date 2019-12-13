@@ -15,7 +15,8 @@ namespace Timesheet.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimesheetEntry> TimesheetEntries { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public override DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+
         #endregion Db Sets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -33,7 +34,7 @@ namespace Timesheet.Data
 
             /** Department **/
             modelBuilder.Entity<Department>()
-                .HasKey(d => d.ID);
+                .HasKey(d => d.Id);
 
             modelBuilder.Entity<Department>()
                 .HasOne(d => d.DepartmentHead)
@@ -42,38 +43,35 @@ namespace Timesheet.Data
 
             /** TimesheetEntry **/
             modelBuilder.Entity<TimesheetEntry>()
-                .HasKey(t => t.ID);
+                .HasKey(t => t.Id);
 
             modelBuilder.Entity<TimesheetEntry>()
                 .HasOne(t => t.User);
 
             /** Project **/
             modelBuilder.Entity<Project>()
-                .HasKey(p => p.ID);
+                .HasKey(p => p.Id);
 
             /** DepartmentProject **/
             modelBuilder.Entity<DepartmentProject>()
-                .HasKey(dp => new { dp.DepartmentID, dp.ProjectID });
+                .HasKey(dp => new { dp.DepartmentId, dp.ProjectId });
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Department)
                 .WithMany(d => d.DepartmentProjects)
-                .HasForeignKey(dp => dp.DepartmentID);
+                .HasForeignKey(dp => dp.DepartmentId);
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Project)
                 .WithMany(p => p.DepartmentProjects)
-                .HasForeignKey(dp => dp.ProjectID);
+                .HasForeignKey(dp => dp.ProjectId);
 
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole() { Name = "Employee", NormalizedName = "EMPLOYEE" },
                 new IdentityRole() { Name = "Manager", NormalizedName = "MANAGER" },
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
-
-        }
-
-        public DbSet<Timesheet.Models.ViewModels.UserViewModel> UserViewModel { get; set; }
-
+            
+        }        
     }
 }

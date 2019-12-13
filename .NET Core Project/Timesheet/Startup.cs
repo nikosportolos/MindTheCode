@@ -44,7 +44,7 @@ namespace Timesheet
 
             services.ConfigureApplicationCookie(options =>
             {
-                
+
             });
 
             services.AddControllersWithViews();
@@ -58,14 +58,14 @@ namespace Timesheet
             services.AddScoped<ITimesheetEntryRepository, TimesheetEntryRepository>();
 
             // Add mappers
-            services.AddSingleton(typeof(ITimesheetEntryMapper), typeof(TimesheetEntryMapper));
+            services.AddScoped(typeof(ITimesheetEntryMapper), typeof(TimesheetEntryMapper));
             services.AddSingleton(typeof(IDepartmentMapper), typeof(DepartmentMapper));
             services.AddSingleton(typeof(IProjectMapper), typeof(ProjectMapper));
             services.AddSingleton(typeof(IUserMapper), typeof(UserMapper));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager, ApplicationDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -95,11 +95,8 @@ namespace Timesheet
                 endpoints.MapRazorPages();
             });
 
-            // Seed default users
-            UserInitializer.SeedUsers(userManager);
-
-            // Seed default projects
-            ProjectInitializer.SeedProjects();
+            // Seed mock data
+            //MockDataInitializer.SeedMockData(userManager, dbContext);
         }
     }
 }

@@ -30,16 +30,23 @@ namespace Timesheet.Mappers
 
         public UserViewModel ConvertToViewModel(User user)
         {
-            return new UserViewModel
+            UserViewModel viewModel = new UserViewModel
             {
-                Id = Int32.Parse(user.Id),
+                Id = user.Id,
                 CostPerHour = user.CostPerHour,
-                DepartmentId = user.Department.ID,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                ManagerId = Int32.Parse(user.Manager.Id)
+                FullName = string.Format("{0} {1}", user.FirstName, user.LastName)
             };
+
+            if (user.Department != null)
+                viewModel.DepartmentId = user.Department.Id;
+            
+            if (user.Manager != null)
+                viewModel.ManagerId = user.Manager.Id;
+
+            return viewModel;
         }
 
         public IEnumerable<UserViewModel> ConvertToViewModels(IEnumerable<User> users)

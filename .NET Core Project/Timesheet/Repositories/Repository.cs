@@ -20,9 +20,14 @@ namespace Timesheet
 
         #region Implement IRepository
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return table.AsNoTracking().ToList<TEntity>();
+            return await table.AsNoTracking().ToListAsync<TEntity>();
+        }
+
+        public async Task<TEntity> GetByGuid(string guid)
+        {
+            return await table.FindAsync(guid);
         }
 
         public async Task<TEntity> GetById(int id)
@@ -42,7 +47,7 @@ namespace Timesheet
             await Save();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(dynamic id)
         {
             var entity = await GetById(id);
             table.Remove(entity);

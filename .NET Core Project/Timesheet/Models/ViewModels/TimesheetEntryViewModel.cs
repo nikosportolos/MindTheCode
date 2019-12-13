@@ -9,15 +9,17 @@ namespace Timesheet.Models.ViewModels
 {
     public class TimesheetEntryViewModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public DateTime EntryDate { get; set; }
 
         [NotNull]
-        public int UserID { get; set; }
+        public string UserId { get; set; }
+        public string UserFullName { get; set; }
 
         [NotNull]
-        public int ProjectID { get; set; }
+        public int ProjectId { get; set; }
+        public string ProjectName { get; set; }
 
         public int HoursWorked { get; set; }
 

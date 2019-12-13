@@ -9,22 +9,30 @@ namespace Timesheet.Mappers
 {
     public class DepartmentMapper : IDepartmentMapper
     {
-        public Department ConvertFromViewModel(DepartmentViewModel viewModel)
+        public Department ConvertFromViewModel(DepartmentViewModel viewModel, User manager)
         {
-            return new Department
+            Department department = new Department
             {
-                ID = viewModel.ID,
-                Name = viewModel.Name,
-                DepartmentHeadId = viewModel.DepartmentHeadId
+                Id = viewModel.Id,
+                Name = viewModel.Name
             };
+
+            if (manager != null)
+            {
+                department.DepartmentHead = manager;
+                department.DepartmentHeadId = manager.Id;
+            }
+
+            return department;
         }
 
-        public IEnumerable<Department> ConvertFromViewModels(IEnumerable<DepartmentViewModel> viewModels)
+        public IEnumerable<Department> ConvertFromViewModels(Dictionary<DepartmentViewModel, User> viewModels)
         {
             List<Department> departments = new List<Department>();
-            foreach (DepartmentViewModel v in viewModels)
+
+            foreach (KeyValuePair<DepartmentViewModel, User> viewModel in viewModels)
             {
-                departments.Add(ConvertFromViewModel(v));
+                departments.Add(ConvertFromViewModel(viewModel.Key, viewModel.Value));
             }
 
             return departments;
@@ -32,12 +40,19 @@ namespace Timesheet.Mappers
 
         public DepartmentViewModel ConvertToViewModel(Department department)
         {
-            return new DepartmentViewModel
+            DepartmentViewModel viewModel = new DepartmentViewModel
             {
-                ID = department.ID,
+                Id = department.Id,
                 Name = department.Name,
-                DepartmentHeadId = department.DepartmentHeadId
             };
+
+            if (department.DepartmentHead != null)
+            {
+                viewModel.DepartmentHeadId = department.DepartmentHead.Id;
+                viewModel.UserFullName = department.DepartmentHead.FirstName + " " + department.DepartmentHead.LastName;
+            }
+
+            return viewModel;
         }
 
         public IEnumerable<DepartmentViewModel> ConvertToViewModels(IEnumerable<Department> departments)

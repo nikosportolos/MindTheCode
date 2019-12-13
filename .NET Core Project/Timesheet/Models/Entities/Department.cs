@@ -8,17 +8,17 @@ namespace Timesheet.Models.Entities
 {
     public class Department
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [NotNull]
         public string Name { get; set; }
-
+        
+        public virtual User DepartmentHead { get; set; }
         public string DepartmentHeadId { get; set; }
-
-        public User DepartmentHead { get; set; }
 
         public ICollection<DepartmentProject> DepartmentProjects { get; set; }
 
         public ICollection<User> DepartmentUsers { get; set; }
+
     }
 }

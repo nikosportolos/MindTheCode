@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Timesheet.Models.ViewModels.TimesheetEntryViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Timesheet Entries";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,29 +13,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HoursWorked)
-            </th>
-            <th></th>
+            <th>User</th>
+            <th>Project</th>
+            <th>Entry Date</th>
+            <th>Hours Worked</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserID)
+                @Html.DisplayFor(modelItem => item.UserFullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProjectID)
+                @Html.DisplayFor(modelItem => item.ProjectName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EntryDate)
@@ -44,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.HoursWorked)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
