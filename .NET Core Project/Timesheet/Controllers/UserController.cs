@@ -99,7 +99,7 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Delete(UserViewModel viewModel)
         {
           //  User user = _mapper.ConvertFromViewModel(viewModel);
-            await _userRepository.Delete(viewModel.Id);
+            await _userRepository.DeleteByGuid(viewModel.Id);
             return RedirectToAction(nameof(Index));
         }
     }

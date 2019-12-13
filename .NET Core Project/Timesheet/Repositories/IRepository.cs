@@ -13,6 +13,7 @@ namespace Timesheet
         Task Create(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(dynamic id);
+        Task DeleteByGuid(dynamic id);
         Task Save();
     }
 }
