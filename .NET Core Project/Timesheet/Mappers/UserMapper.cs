@@ -9,9 +9,9 @@ namespace Timesheet.Mappers
 {
     public class UserMapper : IUserMapper
     {
-        public User ConvertFromViewModel(UserViewModel viewModel)
+        public User ConvertFromViewModel(UserViewModel viewModel, Department department)
         {
-            return new User
+            User user = new User
             {
              
                  UserName = viewModel.Email,
@@ -19,18 +19,24 @@ namespace Timesheet.Mappers
                  EmailConfirmed = true,
                  FirstName = viewModel.FirstName,
                  LastName = viewModel.LastName,
-                 Department = viewModel.Department,
                  CostPerHour = viewModel.CostPerHour
-               //    Manager = viewModel.ManagerId
             };
+
+            if (department != null)
+            {
+                user.Department = department;
+                user.Manager = department.DepartmentHead;
+            }
+
+            return user;
         }
 
-        public IEnumerable<User> ConvertFromViewModels(IEnumerable<UserViewModel> viewModels)
+        public IEnumerable<User> ConvertFromViewModels(Dictionary<UserViewModel, Department> viewModels)
         {
             List<User> users = new List<User>();
-            foreach (UserViewModel v in viewModels)
+            foreach (KeyValuePair<UserViewModel, Department> viewModel in viewModels)
             {
-                users.Add(ConvertFromViewModel(v));
+                users.Add(ConvertFromViewModel(viewModel.Key, viewModel.Value));
             }
 
             return users;

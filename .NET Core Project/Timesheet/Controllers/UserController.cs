@@ -64,8 +64,9 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
-            viewModel.Department = await _departmentRepository.GetById(viewModel.DepartmentId);
-            User user = _mapper.ConvertFromViewModel(viewModel);         
+            Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
+            department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            User user = _mapper.ConvertFromViewModel(viewModel, department);         
             await _userRepository.Create(user);
             return RedirectToAction(nameof(Index));
         }
@@ -74,7 +75,7 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             User user = await _userRepository.GetByGuid(id);
-            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name");
+            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name", user.DepartmentId);
             return View(_mapper.ConvertToViewModel(user));
         }
 
@@ -82,7 +83,9 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel viewModel)
         {
-            User user = _mapper.ConvertFromViewModel(viewModel);
+            Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
+            department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            User user = _mapper.ConvertFromViewModel(viewModel, department);
             await _userRepository.Update(user);
             return RedirectToAction(nameof(Index));
         }
