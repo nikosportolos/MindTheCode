@@ -57,6 +57,7 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProjectViewModel viewModel)
         {
+            viewModel.Department = await _departmentRepository.GetById(viewModel.DepartmentOwnerId);
             await _projectRepository.Create(_mapper.ConvertFromViewModel(viewModel));
             return RedirectToAction(nameof(Index));
         }

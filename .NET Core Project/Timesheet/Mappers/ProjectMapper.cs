@@ -8,13 +8,14 @@ using Timesheet.Models.ViewModels;
 namespace Timesheet.Mappers
 {
     public class ProjectMapper : IProjectMapper
-    {
+    {        
         public Project ConvertFromViewModel(ProjectViewModel viewModel)
-        {
+        {          
             return new Project
             {
                 Id = viewModel.Id,
-                Name = viewModel.Name
+                Name = viewModel.Name,
+                DepartmentOwner = viewModel.Department
             };
         }
 
@@ -34,7 +35,7 @@ namespace Timesheet.Mappers
             ProjectViewModel viewModel = new ProjectViewModel
             {
                 Id = project.Id,
-                Name = project.Name
+                Name = project.Name                 
             };
 
             if (project.DepartmentOwner != null)

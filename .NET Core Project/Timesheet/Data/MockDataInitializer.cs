@@ -17,11 +17,15 @@ namespace Timesheet.Data
         public static void SeedMockData(UserManager<User> userManager, ApplicationDbContext dbContext)
         {
             SeedDepartments(dbContext);
-            //SeedProjects(dbContext);
-            //SeedUsers(userManager, dbContext);
+            SeedProjects(dbContext);
+            SeedUsers(userManager, dbContext);
         }
         private static void SeedDepartments(ApplicationDbContext dbContext)
         {
+            if (dbContext.Departments.Any())
+            {
+                return;
+            }
             department1 = new Department
             {
                 Name = "Application Management",
