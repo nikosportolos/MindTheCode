@@ -32,6 +32,10 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Index()
         {
             List<Project> projects = (await _projectRepository.GetAll()).ToList();
+            foreach(Project p in projects)
+            {
+                p.DepartmentOwner = (await _departmentRepository.GetById(p.DepartmentOwnerId));
+            }
             return View(_mapper.ConvertToViewModels(projects));
         }
 
@@ -41,7 +45,7 @@ namespace Timesheet.Controllers
             List<Project> departments = (await _projectRepository.GetAll()).ToList();
 
             Project project = await _projectRepository.GetById(id);
-         //   project.DepartmentOwner = await _departmentRepository.GetById();
+            //   project.DepartmentOwner = await _departmentRepository.GetById();
             //  project.DepartmentOwner = await _departmentRepository
             return View(_mapper.ConvertToViewModel((project)));
         }
@@ -57,8 +61,8 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProjectViewModel viewModel)
         {
-            viewModel.Department = await _departmentRepository.GetById(viewModel.DepartmentOwnerId);
-            await _projectRepository.Create(_mapper.ConvertFromViewModel(viewModel));
+            var department = await _departmentRepository.GetById(viewModel.DepartmentOwnerId);
+            await _projectRepository.Create(_mapper.ConvertFromViewModel(viewModel, department));
             return RedirectToAction(nameof(Index));
         }
 
@@ -76,7 +80,8 @@ namespace Timesheet.Controllers
         {
             try
             {
-                Project project = _mapper.ConvertFromViewModel(viewModel);
+                var department = await _departmentRepository.GetById(viewModel.DepartmentOwnerId);
+                Project project = _mapper.ConvertFromViewModel(viewModel, department);
                 await _projectRepository.Update(project);
                 return RedirectToAction(nameof(Details), new { id = project.Id });
             }
@@ -96,7 +101,8 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(ProjectViewModel viewModel)
         {
-            Project project = _mapper.ConvertFromViewModel(viewModel);
+            var department = await _departmentRepository.GetById(viewModel.DepartmentOwnerId);
+            Project project = _mapper.ConvertFromViewModel(viewModel, department);
             await _projectRepository.Delete(project.Id);
             return RedirectToAction(nameof(Index));
         }

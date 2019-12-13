@@ -9,8 +9,8 @@ namespace Timesheet.Mappers
 {
     public interface IProjectMapper
     {
-        public Project ConvertFromViewModel(ProjectViewModel viewModel);
-        public IEnumerable<Project> ConvertFromViewModels(IEnumerable<ProjectViewModel> viewModels);
+        public Project ConvertFromViewModel(ProjectViewModel viewModel, Department departmentOwner);
+        public IEnumerable<Project> ConvertFromViewModels(Dictionary<ProjectViewModel, Department> viewModels);
 
         public ProjectViewModel ConvertToViewModel(Project project);
         public IEnumerable<ProjectViewModel> ConvertToViewModels(IEnumerable<Project> projects);
