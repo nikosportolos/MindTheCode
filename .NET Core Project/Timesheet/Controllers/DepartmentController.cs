@@ -58,7 +58,7 @@ namespace Timesheet.Controllers
             foreach (Department department in departments)
             {
                 var u = managers.Where<User>(u => u.Id == department.DepartmentHeadId).First();
-                if (u != null && string.IsNullOrEmpty(u.Email))
+                if (u != null && !string.IsNullOrEmpty(u.Email))
                 {
                     managers.Remove(u);
                 }
