@@ -52,7 +52,19 @@ namespace Timesheet.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Users = new SelectList(await _userRepository.GetAll(), "Id", "Email");
+            var departments = await _departmentRepository.GetAll();
+            List<User> managers = (await _userRepository.GetAll()).ToList();
+
+            foreach (Department department in departments)
+            {
+                var u = managers.Where<User>(u => u.Id == department.DepartmentHeadId).First();
+                if (u != null && string.IsNullOrEmpty(u.Email))
+                {
+                    managers.Remove(u);
+                }
+            }
+
+            ViewBag.Users = new SelectList(managers, "Id", "Email");
             return View();
         }
 
@@ -101,7 +113,7 @@ namespace Timesheet.Controllers
             {
                 await _departmentRepository.Delete(viewModel.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return RedirectToAction(nameof(DeleteError), "Department", new { id = viewModel.Id });
             }
