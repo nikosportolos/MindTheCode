@@ -30,17 +30,19 @@ namespace Timesheet.Mappers
 
         public UserViewModel ConvertToViewModel(User user)
         {
-            UserViewModel viewModel = new UserViewModel();
-            viewModel.Id = user.Id;
-            viewModel.CostPerHour = user.CostPerHour;
+            UserViewModel viewModel = new UserViewModel
+            {
+                Id = user.Id,
+                CostPerHour = user.CostPerHour,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                FullName = string.Format("{0} {1}", user.FirstName, user.LastName)
+            };
 
             if (user.Department != null)
                 viewModel.DepartmentId = user.Department.Id;
-
-            viewModel.Email = user.Email;
-            viewModel.FirstName = user.FirstName;
-            viewModel.LastName = user.LastName;
-
+            
             if (user.Manager != null)
                 viewModel.ManagerId = user.Manager.Id;
 

@@ -11,11 +11,13 @@ namespace Timesheet.Mappers
     {
         public Department ConvertFromViewModel(DepartmentViewModel viewModel)
         {
-            Department department = new Department();
-
-            department.Id = viewModel.Id;
-            department.Name = viewModel.Name;
-            department.DepartmentHeadId = viewModel.DepartmentHeadId;
+            Department department = new Department
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                DepartmentHead = new User(),
+                DepartmentHeadId = viewModel.DepartmentHeadId
+            };
 
             return department;
         }
@@ -37,9 +39,13 @@ namespace Timesheet.Mappers
             {
                 Id = department.Id,
                 Name = department.Name,
-                DepartmentHeadId = department.DepartmentHeadId,
-                UserFullName = department.DepartmentHead.FirstName + " " + department.DepartmentHead.LastName
             };
+
+            if (department.DepartmentHead != null)
+            {
+                viewModel.DepartmentHeadId = department.DepartmentHead.Id;
+                viewModel.UserFullName = department.DepartmentHead.FirstName + " " + department.DepartmentHead.LastName;
+            }
 
             return viewModel;
         }

@@ -15,6 +15,7 @@ namespace Timesheet.Models.ViewModels
         public string Email { get; set; }
 
         public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
         public double CostPerHour { get; set; }
         public string ManagerId { get; set; }
     }

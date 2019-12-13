@@ -12,10 +12,9 @@ namespace Timesheet.Models.Entities
 
         [NotNull]
         public string Name { get; set; }
-
+        
+        public virtual User DepartmentHead { get; set; }
         public string DepartmentHeadId { get; set; }
-
-        public User DepartmentHead { get; set; }
 
         public ICollection<DepartmentProject> DepartmentProjects { get; set; }
 
