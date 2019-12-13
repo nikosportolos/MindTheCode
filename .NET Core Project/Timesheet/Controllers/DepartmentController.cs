@@ -36,7 +36,7 @@ namespace Timesheet.Controllers
             List<Department> departments = (await _departmentRepository.GetAll()).ToList();
             foreach (var x in departments)
                 x.DepartmentHead = (await _userRepository.GetByGuid(x.DepartmentHeadId));
-            return View( _mapper.ConvertToViewModels(departments));
+            return View(_mapper.ConvertToViewModels(departments));
         }
 
         // GET: Department/Details/5
@@ -45,7 +45,7 @@ namespace Timesheet.Controllers
             Department department = await _departmentRepository.GetById(id);
             User manager = await _userRepository.GetByGuid(department.DepartmentHeadId);
             ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
-            return View(_mapper.ConvertToViewModel((department)));
+            return View(_mapper.ConvertToViewModel(department));
         }
 
         // GET: Department/Create
@@ -60,7 +60,9 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DepartmentViewModel viewModel)
         {
-            await _departmentRepository.Create(_mapper.ConvertFromViewModel(viewModel));
+            User manager = await _userRepository.GetByGuid(viewModel.DepartmentHeadId);
+            Department department = _mapper.ConvertFromViewModel(viewModel, manager);
+            await _departmentRepository.Create(department);
             return RedirectToAction(nameof(Index), "Department");
         }
 
@@ -68,15 +70,16 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Department department = await _departmentRepository.GetById(id);
-            ViewBag.Users = new SelectList(await _userRepository.GetAll(), "Id", "Email");
-            return View(_mapper.ConvertToViewModel((department)));
+            ViewBag.Users = new SelectList(await _userRepository.GetAll(), "Id", "Email", department.DepartmentHeadId);
+            return View(_mapper.ConvertToViewModel(department));
         }
 
         // POST: Department/Edit/5
         [HttpPost]
         public async Task<IActionResult> Edit(DepartmentViewModel viewModel)
         {
-            Department department = _mapper.ConvertFromViewModel(viewModel);
+            User manager = await _userRepository.GetByGuid(viewModel.DepartmentHeadId);
+            Department department = _mapper.ConvertFromViewModel(viewModel, manager);
             await _departmentRepository.Update(department);
             return RedirectToAction(nameof(Details), "Department", new { id = department.Id });
         }
@@ -85,6 +88,8 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Department department = await _departmentRepository.GetById(id);
+            User manager = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
             return View(_mapper.ConvertToViewModel(department));
         }
 
@@ -92,9 +97,25 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(DepartmentViewModel viewModel)
         {
-            Department department = _mapper.ConvertFromViewModel(viewModel);
-            await _departmentRepository.Delete(department.Id);
+            try
+            {
+                await _departmentRepository.Delete(viewModel.Id);
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction(nameof(DeleteError), "Department", new { id = viewModel.Id });
+            }
+
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteError(int id)
+        {
+            Department department = await _departmentRepository.GetById(id);
+            User manager = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
+
+            return View(_mapper.ConvertToViewModel(department));
         }
     }
 }
