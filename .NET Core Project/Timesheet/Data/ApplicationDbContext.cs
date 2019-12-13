@@ -71,7 +71,7 @@ namespace Timesheet.Data
                 new IdentityRole() { Name = "Employee", NormalizedName = "EMPLOYEE" },
                 new IdentityRole() { Name = "Manager", NormalizedName = "MANAGER" },
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
-
+            
         }
 
     }

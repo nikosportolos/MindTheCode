@@ -17,9 +17,9 @@ namespace Timesheet.Models.Entities
         [NotNull]
         public string LastName { get; set; }
 
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
         public double CostPerHour { get; set; }
-        public User Manager { get; set; }
+        public virtual User Manager { get; set; }
 
     }
 }
