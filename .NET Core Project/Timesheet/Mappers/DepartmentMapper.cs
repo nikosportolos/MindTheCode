@@ -38,6 +38,7 @@ namespace Timesheet.Mappers
                 Id = department.Id,
                 Name = department.Name,
                 DepartmentHeadId = department.DepartmentHeadId,
+                UserFullName = department.DepartmentHead.FirstName + " " + department.DepartmentHead.LastName
             };
 
             return viewModel;

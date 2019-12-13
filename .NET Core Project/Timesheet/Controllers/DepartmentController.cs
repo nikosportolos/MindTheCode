@@ -34,6 +34,8 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Index()
         {
             List<Department> departments = (await _departmentRepository.GetAll()).ToList();
+            foreach (var x in departments)
+                x.DepartmentHead = (await _userRepository.GetByGuid(x.DepartmentHeadId));
             return View( _mapper.ConvertToViewModels(departments));
         }
 
