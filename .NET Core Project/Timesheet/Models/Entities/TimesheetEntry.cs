@@ -17,6 +17,7 @@ namespace Timesheet.Models.Entities
 
         [NotNull]
         public Project Project { get; set; }
+        public int ProjectId { get; set; }
 
         public int HoursWorked { get; set; }
 

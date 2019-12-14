@@ -17,15 +17,17 @@ namespace Timesheet.Controllers
     {
         private readonly ITimesheetEntryRepository _timesheetEntryRepository;
         private readonly IProjectRepository _projectRepository;
+        private readonly IDepartmentRepository _departmentRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITimesheetEntryMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public TimesheetEntryController(ITimesheetEntryRepository timesheetEntryRepository, ITimesheetEntryMapper mapper, UserManager<User> userManager, IProjectRepository projectRepository, IUserRepository userRepository)
+        public TimesheetEntryController(ITimesheetEntryRepository timesheetEntryRepository, ITimesheetEntryMapper mapper, UserManager<User> userManager, IProjectRepository projectRepository, IUserRepository userRepository, IDepartmentRepository departmentRepository)
         {
             _timesheetEntryRepository = timesheetEntryRepository;
             _projectRepository = projectRepository;
             _userRepository = userRepository;
+            _departmentRepository = departmentRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -86,6 +88,7 @@ namespace Timesheet.Controllers
             viewModel.ProjectName = (await _projectRepository.GetById(viewModel.ProjectId)).Name;
 
             Project project = await _projectRepository.GetById(viewModel.ProjectId);
+            Department department = await _departmentRepository.GetById(project.DepartmentOwnerId);
             TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel, project);
             entry.User = user;
 
