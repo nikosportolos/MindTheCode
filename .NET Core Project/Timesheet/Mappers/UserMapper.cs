@@ -51,7 +51,8 @@ namespace Timesheet.Mappers
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                FullName = string.Format("{0} {1}", user.FirstName, user.LastName)
+                FullName = string.Format("{0} {1}", user.FirstName, user.LastName),
+                Department = user.Department
             };
 
             if (user.Department != null)
