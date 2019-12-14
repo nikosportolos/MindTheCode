@@ -12,7 +12,8 @@ namespace Timesheet
         Task<TEntity> GetById(int id);
         Task Create(TEntity entity);
         Task Update(TEntity entity);
-        Task Delete(dynamic id);
+        Task Delete(int id);
+        Task DeleteByGuid(string id);
         Task Save();
     }
 }

@@ -47,9 +47,16 @@ namespace Timesheet
             await Save();
         }
 
-        public async Task Delete(dynamic id)
+        public async Task Delete(int id)
         {
             var entity = await GetById(id);
+            table.Remove(entity);
+            await Save();
+        }
+
+        public async Task DeleteByGuid(string id)
+        {
+            var entity = await GetByGuid(id);
             table.Remove(entity);
             await Save();
         }

@@ -11,7 +11,6 @@ namespace Timesheet.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public int DepartmentOwnerId { get; set; }
-        public Department Department { get; set; }
         public string DepartmentName { get; set; }
     }
 }

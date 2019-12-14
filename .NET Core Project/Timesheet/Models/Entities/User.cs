@@ -18,8 +18,10 @@ namespace Timesheet.Models.Entities
         public string LastName { get; set; }
 
         public virtual Department Department { get; set; }
+        public int DepartmentId { get; set; }
         public double CostPerHour { get; set; }
         public virtual User Manager { get; set; }
+        public string ManagerId { get; set; }
 
     }
 }

@@ -47,10 +47,10 @@ namespace Timesheet.Controllers
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> DetailsAsync(string id)
         {
-            //ViewBag.HeadFullName = String.Format("{0} {1}", manager.FirstName, manager.LastName);
-            return View();
+            User user = await _userRepository.GetByGuid(id);
+            return View(_mapper.ConvertToViewModel(user));
         }
 
         // GET: User/Create
@@ -64,16 +64,18 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
-            User user = _mapper.ConvertFromViewModel(viewModel);
+            Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
+            department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            User user = _mapper.ConvertFromViewModel(viewModel, department);         
             await _userRepository.Create(user);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: User/Edit/5
-        public async Task<IActionResult> Edit(string guid)
+        // GET: User/Edit/5      
+        public async Task<IActionResult> Edit(string id)
         {
-            User user = await _userRepository.GetByGuid(guid);
-            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name");
+            User user = await _userRepository.GetByGuid(id);
+            ViewBag.Departments = new SelectList(await _departmentRepository.GetAll(), "Id", "Name", user.DepartmentId);
             return View(_mapper.ConvertToViewModel(user));
         }
 
@@ -81,15 +83,18 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel viewModel)
         {
-            User user = _mapper.ConvertFromViewModel(viewModel);
+            Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
+            department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);            
+            User user = _mapper.ConvertFromViewModel(viewModel, department);
+            user.ManagerId = department.DepartmentHeadId;
             await _userRepository.Update(user);
             return RedirectToAction(nameof(Index));
         }
 
         // GET: User/Delete/5
-        public async Task<IActionResult> Delete(string guid)
+        public async Task<IActionResult> Delete(string id)
         {
-            User user = await _userRepository.GetByGuid(guid);
+            User user = await _userRepository.GetByGuid(id);
             return View(_mapper.ConvertToViewModel(user));
         }
 
@@ -97,8 +102,8 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(UserViewModel viewModel)
         {
-            User user = _mapper.ConvertFromViewModel(viewModel);
-            await _userRepository.Delete(user.Id);
+          //  User user = _mapper.ConvertFromViewModel(viewModel);
+            await _userRepository.DeleteByGuid(viewModel.Id);
             return RedirectToAction(nameof(Index));
         }
     }

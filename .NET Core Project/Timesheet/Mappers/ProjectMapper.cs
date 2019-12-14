@@ -8,23 +8,30 @@ using Timesheet.Models.ViewModels;
 namespace Timesheet.Mappers
 {
     public class ProjectMapper : IProjectMapper
-    {        
-        public Project ConvertFromViewModel(ProjectViewModel viewModel)
-        {          
-            return new Project
+    {
+        public Project ConvertFromViewModel(ProjectViewModel viewModel, Department departmentOwner)
+        {
+            Project project = new Project
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
-                DepartmentOwner = viewModel.Department
             };
+
+            if (departmentOwner != null)
+            {
+                project.DepartmentOwner = departmentOwner;
+            }
+
+            return project;
         }
 
-        public IEnumerable<Project> ConvertFromViewModels(IEnumerable<ProjectViewModel> viewModels)
+        public IEnumerable<Project> ConvertFromViewModels(Dictionary<ProjectViewModel, Department> viewModels)
         {
             List<Project> projects = new List<Project>();
-            foreach (var v in viewModels)
+
+            foreach (KeyValuePair<ProjectViewModel, Department> viewModel in viewModels)
             {
-                projects.Add(ConvertFromViewModel(v));
+                projects.Add(ConvertFromViewModel(viewModel.Key, viewModel.Value));
             }
 
             return projects;
@@ -35,11 +42,14 @@ namespace Timesheet.Mappers
             ProjectViewModel viewModel = new ProjectViewModel
             {
                 Id = project.Id,
-                Name = project.Name                 
+                Name = project.Name
             };
 
             if (project.DepartmentOwner != null)
+            {
                 viewModel.DepartmentOwnerId = project.DepartmentOwner.Id;
+                viewModel.DepartmentName = project.DepartmentOwner.Name;
+            }          
 
             return viewModel;
         }

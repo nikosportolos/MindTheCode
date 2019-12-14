@@ -13,7 +13,8 @@ namespace Timesheet.Models.Entities
         [NotNull]
         public string Name { get; set; }
 
-        public Department DepartmentOwner { get; set; }
+        public int DepartmentOwnerId { get; set; }
+        public virtual Department DepartmentOwner { get; set; }
 
         public ICollection<DepartmentProject> DepartmentProjects { get; set; }
 
