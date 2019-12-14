@@ -4,7 +4,7 @@
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Department).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cost).ToList());
-    ViewData["Title"] = "Pie Chart";
+    ViewData["Title"] = "Project Time Chart";
 }
 
 <!DOCTYPE html>
@@ -15,8 +15,11 @@
     <title>Pie</title>
 </head>
 <body>
+    <center>
+        <h3>Cost/time spent per project</h3>
+    </center>
+    <hr />
     <div class="box-body">
-
         <div class="chart-container">
             <canvas id="chart" style="width:100%; height:500px"></canvas>
         </div>
@@ -35,7 +38,7 @@
         var data = {
                 labels: @Html.Raw(XLabels),
                 datasets: [{
-                    label: "Drinks Chart",
+                    label: "Project Time Chart",
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -71,27 +74,27 @@
 
 var options = {
                 maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            min: 0,
-                            beginAtZero: true
-                        },
-                        gridLines: {
-                            display: true,
-                            color: "rgba(255,99,164,0.2)"
-                        }
-}],
-                    xAxes: [{
-                        ticks: {
-                            min: 0,
-                            beginAtZero: true
-                        },
-                        gridLines: {
-                            display: false
-                        }
-                    }]
-                }
+                //scales: {
+                //    yAxes: [{
+                //        ticks: {
+                //            min: 0,
+                //            beginAtZero: true
+                //        },
+                //        gridLines: {
+                //            display: false,
+                //            color: "rgba(255,99,164,0.2)"
+                //        }
+                //}],
+                //    xAxes: [{
+                //        ticks: {
+                //            min: 0,
+                //            beginAtZero: true
+                //        },
+                //        gridLines: {
+                //            display: false
+                //        }
+                //    }]
+                //}
             };
 
        var myChart = new  Chart(ctx, {

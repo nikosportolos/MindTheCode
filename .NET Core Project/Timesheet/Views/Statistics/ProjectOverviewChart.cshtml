@@ -4,7 +4,7 @@
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Department).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cost).ToList());
-    ViewData["Title"] = "Line Chart";
+    ViewData["Title"] = "Project Overview Chart";
 }
 
 <!DOCTYPE html>
@@ -15,8 +15,11 @@
     <title>Line</title>
 </head>
 <body>
+    <center>
+        <h3>Project overview per month for current year</h3>
+    </center>
+    <hr />
     <div class="box-body">
-
         <div class="chart-container">
             <canvas id="chart" style="width:100%; height:500px"></canvas>
         </div>
