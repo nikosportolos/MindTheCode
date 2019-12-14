@@ -23,6 +23,12 @@ public class CompanyService {
     @Autowired
     private CompanyRepository repository;
 
+
+    public CompanyService(CompanyMapper mapper, CompanyRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
+
     public GenericResponse<AllCompaniesResponse> getAllCompanies() {
         List<CompanyResponse> companies = mapper.mapCompanies(repository.findAll());
         System.out.println("Loaded " + companies.size() + " companies");

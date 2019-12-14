@@ -28,11 +28,11 @@ public class PositionService {
     @Autowired
     private UnitRepository unitRepository;
 
-    public PositionService(PositionMapper mapper, PositionRepository repository, UnitRepository unitRepository) {
+   /* public PositionService(PositionMapper mapper, PositionRepository repository, UnitRepository unitRepository) {
         this.mapper = mapper;
         this.repository = repository;
         this.unitRepository = unitRepository;
-    }
+    }*/
 
     public PositionService(PositionMapper mapper, PositionRepository repository) {
         this.repository = repository;
