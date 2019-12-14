@@ -23,8 +23,8 @@ namespace Timesheet.Models.Entities
         public TimesheetEntry()
         {
             EntryDate = DateTime.Now;
-            User = new User();
-            Project = new Project();
+            //User = new User();
+            //Project = new Project();
         }
     }
 }

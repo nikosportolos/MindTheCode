@@ -11,18 +11,9 @@ namespace Timesheet.Mappers
 {
     public class TimesheetEntryMapper : ITimesheetEntryMapper
     {
-        //private readonly IUserRepository _userRepository;
-        //private readonly IProjectRepository _projectRepository;
-        private readonly ApplicationDbContext _dbContext;
-
-        public TimesheetEntryMapper(ApplicationDbContext dbContext)
+        public TimesheetEntry ConvertFromViewModel(TimesheetEntryViewModel viewModel, Project project)
         {
-            _dbContext = dbContext;
-        }
-
-        public async Task<TimesheetEntry> ConvertFromViewModel(TimesheetEntryViewModel viewModel)
-        {
-            return new TimesheetEntry
+            TimesheetEntry entry = new TimesheetEntry
             {
                 Id = viewModel.Id,
                 //User = await _dbContext.FindAsync<TimesheetEntry>(viewModel.UserId),
@@ -30,20 +21,27 @@ namespace Timesheet.Mappers
                 EntryDate = viewModel.EntryDate,
                 HoursWorked = viewModel.HoursWorked
             };
+
+            if (project != null)
+            {
+                entry.Project = project;
+            }
+
+            return entry;
         }
 
-        public async Task<IEnumerable<TimesheetEntry>> ConvertFromViewModels(IEnumerable<TimesheetEntryViewModel> viewModels)
+        public IEnumerable<TimesheetEntry> ConvertFromViewModels(Dictionary<TimesheetEntryViewModel, Project> viewModels)
         {
             List<TimesheetEntry> list = new List<TimesheetEntry>();
-            foreach (TimesheetEntryViewModel viewModel in viewModels)
+            foreach (KeyValuePair<TimesheetEntryViewModel, Project> viewModel in viewModels)
             {
-                list.Add(await ConvertFromViewModel(viewModel));
+                list.Add(ConvertFromViewModel(viewModel.Key, viewModel.Value));
             }
 
             return list;
         }
 
-        public async Task<TimesheetEntryViewModel> ConvertToViewModel(TimesheetEntry entry)
+        public TimesheetEntryViewModel ConvertToViewModel(TimesheetEntry entry)
         {
             TimesheetEntryViewModel viewModel = new TimesheetEntryViewModel();
             if (entry != null)
@@ -60,12 +58,12 @@ namespace Timesheet.Mappers
             return viewModel;
         }
 
-        public async Task<IEnumerable<TimesheetEntryViewModel>> ConvertToViewModels(IEnumerable<TimesheetEntry> entries)
+        public IEnumerable<TimesheetEntryViewModel> ConvertToViewModels(IEnumerable<TimesheetEntry> entries)
         {
             List<TimesheetEntryViewModel> list = new List<TimesheetEntryViewModel>();
             foreach (TimesheetEntry entry in entries)
             {
-                list.Add(await ConvertToViewModel(entry));
+                list.Add(ConvertToViewModel(entry));
             }
 
             return list;

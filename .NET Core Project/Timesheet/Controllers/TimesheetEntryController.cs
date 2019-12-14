@@ -54,7 +54,7 @@ namespace Timesheet.Controllers
                 }
             }
 
-            var viewModels = await _mapper.ConvertToViewModels(entries);
+            var viewModels = _mapper.ConvertToViewModels(entries);
             foreach (TimesheetEntryViewModel vm in viewModels)
             {
                 User u = await _userRepository.GetByGuid(vm.UserId);
@@ -85,8 +85,12 @@ namespace Timesheet.Controllers
             viewModel.UserFullName = string.Format("{0} {1}", user.FirstName, user.LastName);
             viewModel.ProjectName = (await _projectRepository.GetById(viewModel.ProjectId)).Name;
 
+            Project project = await _projectRepository.GetById(viewModel.ProjectId);
+            TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel, project);
+            entry.User = user;
+
             // Add TimesheetEntry to database
-            await _timesheetEntryRepository.Create(await _mapper.ConvertFromViewModel(viewModel));
+            await _timesheetEntryRepository.Create(entry);
 
             // Return to Index
             return RedirectToAction(nameof(Index));
@@ -95,20 +99,21 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Details(int id)
         {
             TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
-            return View(await _mapper.ConvertToViewModel((entry)));
+            return View(_mapper.ConvertToViewModel(entry));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
             ViewBag.HeadFullName = String.Format("{0} {1}", entry.User.FirstName, entry.User.LastName);
-            return View(await _mapper.ConvertToViewModel((entry)));
+            return View(_mapper.ConvertToViewModel(entry));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(TimesheetEntryViewModel viewModel)
         {
-            TimesheetEntry entry = await _mapper.ConvertFromViewModel(viewModel);
+            Project project = await _projectRepository.GetById(viewModel.ProjectId);
+            TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel, project);
             await _timesheetEntryRepository.Update(entry);
             return RedirectToAction(nameof(Details), "TimesheetEntry", new { id = entry.Id });
         }
@@ -116,13 +121,14 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
-            return View(await _mapper.ConvertToViewModel((entry)));
+            return View(_mapper.ConvertToViewModel(entry));
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(TimesheetEntryViewModel viewModel)
         {
-            var entry = await _mapper.ConvertFromViewModel(viewModel);
+            Project project = await _projectRepository.GetById(viewModel.ProjectId);
+            TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel, project);
             await _timesheetEntryRepository.Delete(entry.Id);
             return RedirectToAction(nameof(Index));
         }

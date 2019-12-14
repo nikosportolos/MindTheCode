@@ -127,21 +127,18 @@ namespace Timesheet.Areas.Identity.Pages.Account
                     DepartmentId = selDept.Id
                 };
 
-
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRolesAsync(user, Input.SelectedRoles);
-
-                    
+                                        
                     if (selDept.DepartmentUsers == null)
                         selDept.DepartmentUsers = new List<User>();
 
                     selDept.DepartmentUsers.Add(user);
                     _dbContext.SaveChanges();
-                    
-
+            
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

@@ -96,7 +96,7 @@ namespace Timesheet
             });
 
             // Seed mock data
-            //MockDataInitializer.SeedMockData(userManager, dbContext);
+            MockDataInitializer.SeedMockData(userManager, dbContext);
         }
     }
 }
