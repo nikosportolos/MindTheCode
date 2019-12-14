@@ -97,71 +97,72 @@ namespace Timesheet.Controllers
         }
 
 
-        public IActionResult ProjectOverviewChart()
+        public async Task<IActionResult> ProjectOverviewChartAsync()
         {
             Random rnd = new Random();
-
+            List<TimesheetEntry> entries = (await _timesheetEntryRepository.GetAll()).ToList();
             //list of countries  
             var lstModel = new List<CostPerDepartmentViewModel>();
+            
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "January",
-                Cost = rnd.Next(10)
-            });
+                Cost = entries.Where(x => x.EntryDate.Month == 1 && x.EntryDate.Year == 2019).Sum(x=>x.HoursWorked)
+            });;
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "February",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 2 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "March",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 3 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "April",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 4 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "May",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 5 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "June",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 6 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "July",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 7 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "August",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 8 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "September",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 9 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "October",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 10 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "November",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 11 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
             lstModel.Add(new CostPerDepartmentViewModel
             {
                 Department = "December",
-                Cost = rnd.Next(10)
+                Cost = entries.Where(x => x.EntryDate.Month == 12 && x.EntryDate.Year == 2019).Sum(x => x.HoursWorked)
             });
 
             return View(lstModel);
