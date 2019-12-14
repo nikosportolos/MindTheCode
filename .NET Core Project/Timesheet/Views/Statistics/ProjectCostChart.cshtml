@@ -1,10 +1,10 @@
 ﻿@using System.Linq;
 @using  Timesheet.Models.StatisticsModel;
-@model List<SimpleReportViewModel>
+@model List<CostPerDepartmentViewModel>
 @{
-    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DimensionOne).ToList());
-    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Quantity).ToList());
-    ViewData["Title"] = "Pie Chart";
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Department).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cost).ToList());
+    ViewData["Title"] = "Project cost by Department";
 }
 
 <!DOCTYPE html>
@@ -30,12 +30,12 @@
 <script type="text/javascript">
 
         $(function () {
-    var chartName = "chart";
+        var chartName = "chart";
         var ctx = document.getElementById(chartName).getContext('2d');
         var data = {
                 labels: @Html.Raw(XLabels),
                 datasets: [{
-                    label: "Project Cost Chart",
+                    label: "Project cost by Department",
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -66,10 +66,10 @@
                     ],
                     borderWidth: 1,
                     data: @Html.Raw(YValues)
-    }]
+                }]
             };
 
-var options = {
+        var options = {
                 maintainAspectRatio: false,
                 scales: {
                     yAxes: [{
@@ -97,7 +97,7 @@ var options = {
        var myChart = new  Chart(ctx, {
                 options: options,
                 data: data,
-                type:'pie'
+                type:'bar'
 
             });
         });

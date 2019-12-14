@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Timesheet.Data;
+using Timesheet.Mappers;
+using Timesheet.Models.Entities;
 using Timesheet.Mappers;
 using Timesheet.Models.Entities;
 using Timesheet.Models.StatisticsModel;
@@ -14,6 +17,7 @@ namespace Timesheet.Controllers
 {
     public class StatisticsController : Controller
     {
+        private readonly ApplicationDbContext _dbContext;
         private readonly ITimesheetEntryRepository _timesheetEntryRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly IDepartmentRepository _departmentRepository;
@@ -21,8 +25,9 @@ namespace Timesheet.Controllers
         private readonly ITimesheetEntryMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public StatisticsController(ITimesheetEntryRepository timesheetEntryRepository, ITimesheetEntryMapper mapper, UserManager<User> userManager, IProjectRepository projectRepository, IUserRepository userRepository, IDepartmentRepository departmentRepository)
+        public StatisticsController(ApplicationDbContext dbContext, ITimesheetEntryRepository timesheetEntryRepository, ITimesheetEntryMapper mapper, UserManager<User> userManager, IProjectRepository projectRepository, IUserRepository userRepository, IDepartmentRepository departmentRepository)
         {
+            _dbContext = dbContext;
             _timesheetEntryRepository = timesheetEntryRepository;
             _projectRepository = projectRepository;
             _userRepository = userRepository;
@@ -37,29 +42,26 @@ namespace Timesheet.Controllers
 
         public IActionResult ProjectCostChart()
         {
+            var department_partialCost = from user in _dbContext.Users
+                                         join entry in _dbContext.TimesheetEntries on user.Id equals entry.User.Id
+                                         join project in _dbContext.Projects on entry.ProjectId equals project.Id
+                                         join department in _dbContext.Departments on project.DepartmentOwnerId equals department.Id
+                                         select new { department.Name, Cost = user.CostPerHour * entry.HoursWorked };
 
-            Random rnd = new Random();
-            var lstModel = new List<SimpleReportViewModel>();
-            lstModel.Add(new SimpleReportViewModel
+            var groupCostByDepartment = from result in department_partialCost
+                                        group result by result.Name into departments
+                                        select new { departments.Key, TotalCost = departments.Sum(d => d.Cost) };
+
+            List<CostPerDepartmentViewModel> lstModel = new List<CostPerDepartmentViewModel>();
+
+            foreach (var element in groupCostByDepartment)
             {
-                DimensionOne = "Beer",
-                Quantity = rnd.Next(10)
-            });
-            lstModel.Add(new SimpleReportViewModel
-            {
-                DimensionOne = "Wine",
-                Quantity = rnd.Next(10)
-            });
-            lstModel.Add(new SimpleReportViewModel
-            {
-                DimensionOne = "Whisky",
-                Quantity = rnd.Next(10)
-            });
-            lstModel.Add(new SimpleReportViewModel
-            {
-                DimensionOne = "Water",
-                Quantity = rnd.Next(10)
-            });
+                lstModel.Add(new CostPerDepartmentViewModel
+                {
+                    Department = element.Key,
+                    Cost = element.TotalCost
+                });
+            }
 
             return View(lstModel);
         }
@@ -67,106 +69,101 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> ProjectTimeChartAsync()
         {
             /*Add hours of timesheets in each project they belong*/
-            var lstModel = new List<SimpleReportViewModel>();
+            var lstModel = new List<CostPerDepartmentViewModel>();
             int cost = 0;
             List<TimesheetEntry> entries = (await _timesheetEntryRepository.GetAll()).ToList();
             List<Project> projects = (await _projectRepository.GetAll()).ToList();
-            foreach(var x in projects)
+
+            foreach (var x in projects)
             {
-                foreach(var y in entries)
+                foreach (var y in entries)
                 {
-                    if(y.ProjectId == x.Id)
+                    if (y.ProjectId == x.Id)
                     {
                         cost += y.HoursWorked;
                     }
                 }
-                lstModel.Add(new SimpleReportViewModel
+
+                lstModel.Add(new CostPerDepartmentViewModel
                 {
-                    DimensionOne = x.Name,
-                    Quantity = cost
+                    Department = x.Name,
+                    Cost = cost
                 });
+
                 cost = 0;
             }
 
-            /*
-            Random rnd = new Random();
-            
-            lstModel.Add(new SimpleReportViewModel
-            {
-                DimensionOne = "Beer",
-                Quantity = rnd.Next(10)
-            });
-            */
-
-            return View(lstModel);           
+            return View(lstModel);
         }
 
 
         public IActionResult ProjectOverviewChart()
         {
             Random rnd = new Random();
+
             //list of countries  
-            var lstModel = new List<SimpleReportViewModel>();
-            lstModel.Add(new SimpleReportViewModel
+            var lstModel = new List<CostPerDepartmentViewModel>();
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "January",
-                Quantity = rnd.Next(10)
+                Department = "January",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "February",
-                Quantity = rnd.Next(10)
+                Department = "February",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "March",
-                Quantity = rnd.Next(10)
+                Department = "March",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "April",
-                Quantity = rnd.Next(10)
+                Department = "April",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "May",
-                Quantity = rnd.Next(10)
+                Department = "May",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "June",
-                Quantity = rnd.Next(10)
+                Department = "June",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "July",
-                Quantity = rnd.Next(10)
+                Department = "July",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "August",
-                Quantity = rnd.Next(10)
+                Department = "August",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "September",
-                Quantity = rnd.Next(10)
+                Department = "September",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "October",
-                Quantity = rnd.Next(10)
+                Department = "October",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "November",
-                Quantity = rnd.Next(10)
+                Department = "November",
+                Cost = rnd.Next(10)
             });
-            lstModel.Add(new SimpleReportViewModel
+            lstModel.Add(new CostPerDepartmentViewModel
             {
-                DimensionOne = "December",
-                Quantity = rnd.Next(10)
+                Department = "December",
+                Cost = rnd.Next(10)
             });
+
             return View(lstModel);
         }
 

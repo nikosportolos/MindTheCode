@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Timesheet.Models.StatisticsModel
 {
-    public class SimpleReportViewModel
+    public class CostPerDepartmentViewModel
     {
-        public string DimensionOne { get; set; }
-        public int Quantity { get; set; }
+        public string Department { get; set; }
+        public double Cost { get; set; }
     }
 }

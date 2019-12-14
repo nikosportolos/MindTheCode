@@ -1,9 +1,9 @@
 ﻿@using System.Linq;
 @using  Timesheet.Models.StatisticsModel;
-@model List<SimpleReportViewModel>
+@model List<CostPerDepartmentViewModel>
 @{
-    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DimensionOne).ToList());
-    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Quantity).ToList());
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Department).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cost).ToList());
     ViewData["Title"] = "Pie Chart";
 }
 

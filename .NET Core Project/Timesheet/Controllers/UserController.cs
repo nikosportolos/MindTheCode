@@ -92,11 +92,6 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel viewModel)
         {
-            //Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
-            //department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
-            //User user = _mapper.ConvertFromViewModel(viewModel, department);
-            //user.ManagerId = department.DepartmentHeadId;
-
             User user = await _userRepository.GetByGuid(viewModel.Id);
             user.CostPerHour = viewModel.CostPerHour;
 
@@ -104,6 +99,9 @@ namespace Timesheet.Controllers
             user.ManagerId = department.DepartmentHeadId;
             user.Department = department;
             user.DepartmentId = department.Id;
+            user.FirstName = viewModel.FirstName;
+            user.LastName = viewModel.LastName;
+            user.Email = viewModel.Email;
 
             await _userRepository.Update(user);
             return RedirectToAction(nameof(Index));
