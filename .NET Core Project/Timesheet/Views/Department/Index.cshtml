@@ -11,9 +11,12 @@
 
 <h1>Departments</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (this.User.IsInRole("Administrator"))
+{
+    <p>
+        <a asp-action="Create">Create new</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
