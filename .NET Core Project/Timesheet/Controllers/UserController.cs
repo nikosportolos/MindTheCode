@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -31,7 +32,22 @@ namespace Timesheet.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            List<User> users = (await _userRepository.GetAll()).ToList();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            Department department = await _departmentRepository.GetById((await _userRepository.GetByGuid(user.Id)).DepartmentId);
+
+            List<User> users;
+            if (roles.Contains("Administrator"))
+            {
+                users = (await _userRepository.GetAll()).ToList();
+            }
+            else
+            {
+                users = _userRepository.GetUsersForDepartment(await _departmentRepository.GetById(department.Id)).ToList();
+            }
+
             foreach (var x in users)
                 x.Department = await _departmentRepository.GetById(x.DepartmentId);
             var viewModels = _mapper.ConvertToViewModels(users);

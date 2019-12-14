@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,13 +18,15 @@ namespace Timesheet.Controllers
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly IProjectMapper _mapper;
 
-        public ProjectController([FromServices] IProjectRepository repository, IProjectMapper mapper, UserManager<User> userManager, IDepartmentRepository departmentRepository)
+        public ProjectController([FromServices] IProjectRepository repository, IProjectMapper mapper, UserManager<User> userManager, IDepartmentRepository departmentRepository, IUserRepository userRepository)
         {
             _projectRepository = repository;
             _departmentRepository = departmentRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -31,8 +34,23 @@ namespace Timesheet.Controllers
         // GET: Project
         public async Task<IActionResult> Index()
         {
-            List<Project> projects = (await _projectRepository.GetAll()).ToList();
-            foreach(Project p in projects)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            Department department = await _departmentRepository.GetById((await _userRepository.GetByGuid(user.Id)).DepartmentId);
+
+            List<Project> projects;
+            if (roles.Contains("Administrator"))
+            {
+                projects = (await _projectRepository.GetAll()).ToList();
+            }
+            else
+            {
+                projects = _projectRepository.GetProjectsForDepartment(await _departmentRepository.GetById(department.Id)).ToList();
+            }
+
+            foreach (Project p in projects)
             {
                 p.DepartmentOwner = (await _departmentRepository.GetById(p.DepartmentOwnerId));
             }

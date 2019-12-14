@@ -8,5 +8,6 @@ namespace Timesheet.Repositories
 {
     public interface IDepartmentRepository : IRepository<Department>
     {
+        public List<Department> GetDepartmentForUser(User user);
     }
 }

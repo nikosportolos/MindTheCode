@@ -33,7 +33,20 @@ namespace Timesheet.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Department> departments = (await _departmentRepository.GetAll()).ToList();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+            
+            List<Department> departments;
+            if (roles.Contains("Administrator"))
+            {
+                departments = (await _departmentRepository.GetAll()).ToList();
+            }
+            else
+            {
+                departments = _departmentRepository.GetDepartmentForUser(await _userRepository.GetByGuid(user.Id)).ToList();
+            }
+
             foreach (var x in departments)
                 x.DepartmentHead = (await _userRepository.GetByGuid(x.DepartmentHeadId));
             return View(_mapper.ConvertToViewModels(departments));

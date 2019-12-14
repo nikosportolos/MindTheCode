@@ -14,5 +14,10 @@ namespace Timesheet.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public List<User> GetUsersForDepartment(Department department)
+        {
+            return _dbContext.Users.Where(u => u.DepartmentId == department.Id).ToList();
+        }
     }
 }
