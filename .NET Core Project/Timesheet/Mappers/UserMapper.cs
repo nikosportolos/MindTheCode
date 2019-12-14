@@ -13,7 +13,7 @@ namespace Timesheet.Mappers
         {
             User user = new User
             {
-                Id = viewModel.Id,
+               // Id = viewModel.Id,
                 UserName = viewModel.UserName,
                 Email = viewModel.Email,
                 EmailConfirmed = true,
@@ -26,6 +26,7 @@ namespace Timesheet.Mappers
             {
                 user.Department = department;
                 user.Manager = department.DepartmentHead;
+                user.ManagerId = department.DepartmentHead.ManagerId;
                 user.DepartmentId = department.Id;
             }
 
