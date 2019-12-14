@@ -26,6 +26,7 @@ namespace Timesheet.Mappers
             {
                 user.Department = department;
                 user.Manager = department.DepartmentHead;
+                user.DepartmentId = department.Id;
             }
 
             return user;
