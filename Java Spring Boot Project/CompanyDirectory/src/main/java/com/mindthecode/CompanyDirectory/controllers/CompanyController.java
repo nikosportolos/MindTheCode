@@ -14,6 +14,10 @@ public class CompanyController {
     @Autowired
     private CompanyService service;
 
+    public CompanyController(CompanyService service) {
+        this.service = service;
+    }
+
     @GetMapping("/companies")
     public ResponseEntity getAllCompanies() {
         try {
