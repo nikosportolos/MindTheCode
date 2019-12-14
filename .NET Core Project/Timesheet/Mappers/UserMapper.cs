@@ -13,13 +13,13 @@ namespace Timesheet.Mappers
         {
             User user = new User
             {
-             
-                 UserName = viewModel.Email,
-                 Email = viewModel.Email,
-                 EmailConfirmed = true,
-                 FirstName = viewModel.FirstName,
-                 LastName = viewModel.LastName,
-                 CostPerHour = viewModel.CostPerHour
+                Id = viewModel.Id,
+                UserName = viewModel.UserName,
+                Email = viewModel.Email,
+                EmailConfirmed = true,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                CostPerHour = viewModel.CostPerHour
             };
 
             if (department != null)
@@ -58,7 +58,7 @@ namespace Timesheet.Mappers
 
             if (user.Department != null)
                 viewModel.DepartmentId = user.Department.Id;
-            
+
             if (user.Manager != null)
                 viewModel.ManagerId = user.Manager.Id;
 

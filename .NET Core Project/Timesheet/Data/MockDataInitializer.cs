@@ -108,11 +108,18 @@ namespace Timesheet.Data
 
         private static void AddRoleToUser(User user, string role, string password, UserManager<User> userManager)
         {
-            IdentityResult identityResult2 = userManager.CreateAsync(user, password).Result;
-
-            if (identityResult2.Succeeded)
+            try
             {
-                userManager.AddToRoleAsync(user, role).Wait();
+                IdentityResult identityResult2 = userManager.CreateAsync(user, password).Result;
+
+                if (identityResult2.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, role).Wait();
+                }
+            }
+            catch
+            {
+
             }
         }
     }
