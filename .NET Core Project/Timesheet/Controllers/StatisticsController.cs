@@ -104,7 +104,70 @@ namespace Timesheet.Controllers
 
         public IActionResult ProjectOverviewChart()
         {
-            return View();
+            Random rnd = new Random();
+            //list of countries  
+            var lstModel = new List<SimpleReportViewModel>();
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "January",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "February",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "March",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "April",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "May",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "June",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "July",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "August",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "September",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "October",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "November",
+                Quantity = rnd.Next(10)
+            });
+            lstModel.Add(new SimpleReportViewModel
+            {
+                DimensionOne = "December",
+                Quantity = rnd.Next(10)
+            });
+            return View(lstModel);
         }
 
     }
