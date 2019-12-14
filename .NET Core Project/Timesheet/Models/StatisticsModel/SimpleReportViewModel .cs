@@ -7,7 +7,7 @@ namespace Timesheet.Models.StatisticsModel
 {
     public class SimpleReportViewModel
     {
-        public string DimensionOne { get; set; }
-        public int Quantity { get; set; }
+        public string Department { get; set; }
+        public double TotalCost { get; set; }
     }
 }
