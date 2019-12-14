@@ -22,4 +22,8 @@ public class DepartmentMapper {
     public DepartmentResponse mapDepartmentToDepartmentResponse(Department department) {
         return new DepartmentResponse(department.getId(), department.getName(), department.getBusinessUnit());
     }
+
+    public Object mapDepartmentToResponse(Object any) {
+        return null;
+    }
 }

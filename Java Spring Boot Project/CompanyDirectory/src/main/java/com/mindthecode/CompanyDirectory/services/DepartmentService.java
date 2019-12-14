@@ -19,6 +19,10 @@ public class DepartmentService {
     @Autowired
     private DepartmentMapper mapper;
 
+    public DepartmentService(DepartmentMapper mapper, DepartmentRepository departmentRepository) {
+
+    }
+
     public GenericResponse<AllDepartmentsResponse> getAllDepartments() {
         List<DepartmentResponse> departments = mapper.mapDepartments(repository.findAll());
         if (departments == null || departments.size() > 0)
