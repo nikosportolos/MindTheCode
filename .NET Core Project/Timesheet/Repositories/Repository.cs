@@ -22,7 +22,7 @@ namespace Timesheet
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return await table.AsNoTracking().ToListAsync<TEntity>();
+            return await table.ToListAsync<TEntity>();
         }
 
         public async Task<TEntity> GetByGuid(string guid)

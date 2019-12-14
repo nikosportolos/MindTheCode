@@ -115,12 +115,16 @@ namespace Timesheet.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                Department selDept = _dbContext.Departments.First(x => x.Id == Input.SelectedDepartment);
+
                 var user = new User
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
-                    LastName = Input.LastName
+                    LastName = Input.LastName,
+                    Department = selDept,
+                    DepartmentId = selDept.Id
                 };
 
 
@@ -130,12 +134,13 @@ namespace Timesheet.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRolesAsync(user, Input.SelectedRoles);
 
-                    ////Department selDept = _dbContext.Departments.First(x => x.Id == Input.SelectedDepartment);
-                    ////if (selDept.DepartmentUsers == null)
-                    ////    selDept.DepartmentUsers = new List<User>();
+                    
+                    if (selDept.DepartmentUsers == null)
+                        selDept.DepartmentUsers = new List<User>();
 
-                    ////selDept.DepartmentUsers.Add(user);
-                    ////_dbContext.SaveChanges();
+                    selDept.DepartmentUsers.Add(user);
+                    _dbContext.SaveChanges();
+                    
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
