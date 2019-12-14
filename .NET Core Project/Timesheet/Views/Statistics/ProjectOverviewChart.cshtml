@@ -4,7 +4,7 @@
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Department).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Cost).ToList());
-    ViewData["Title"] = "Project cost by Department";
+    ViewData["Title"] = "Line Chart";
 }
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Pie</title>
+    <title>Line</title>
 </head>
 <body>
     <div class="box-body">
@@ -23,19 +23,18 @@
     </div>
 </body>
 </html>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script type="text/javascript">
 
         $(function () {
-        var chartName = "chart";
+    var chartName = "chart";
         var ctx = document.getElementById(chartName).getContext('2d');
         var data = {
                 labels: @Html.Raw(XLabels),
                 datasets: [{
-                    label: "Project cost by Department",
+                    label: "Project Overview Chart",
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -66,10 +65,10 @@
                     ],
                     borderWidth: 1,
                     data: @Html.Raw(YValues)
-                }]
+    }]
             };
 
-        var options = {
+var options = {
                 maintainAspectRatio: false,
                 scales: {
                     yAxes: [{
@@ -97,7 +96,7 @@
        var myChart = new  Chart(ctx, {
                 options: options,
                 data: data,
-                type:'bar'
+                type:'line'
 
             });
         });
