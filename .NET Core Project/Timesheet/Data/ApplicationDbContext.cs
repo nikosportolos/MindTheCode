@@ -52,6 +52,10 @@ namespace Timesheet.Data
             modelBuilder.Entity<Project>()
                 .HasKey(p => p.Id);
 
+            /*modelBuilder.Entity<Project>()
+                .HasOne(p => p.DepartmentOwner)
+                .WithMany(d => d.OwnedProjects);
+                */
             /** DepartmentProject **/
             modelBuilder.Entity<DepartmentProject>()
                 .HasKey(dp => new { dp.DepartmentId, dp.ProjectId });
@@ -59,19 +63,23 @@ namespace Timesheet.Data
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Department)
                 .WithMany(d => d.DepartmentProjects)
-                .HasForeignKey(dp => dp.DepartmentId);
+                .HasForeignKey(dp => dp.DepartmentId)
+                .HasPrincipalKey(d => d.Id)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Project)
                 .WithMany(p => p.DepartmentProjects)
-                .HasForeignKey(dp => dp.ProjectId);
+                .HasForeignKey(dp => dp.ProjectId)
+                .HasPrincipalKey(p => p.Id)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole() { Name = "Employee", NormalizedName = "EMPLOYEE" },
                 new IdentityRole() { Name = "Manager", NormalizedName = "MANAGER" },
                 new IdentityRole() { Name = "Administrator", NormalizedName = "ADMINISTRATOR" });
-            
-        }        
+
+        }
     }
 }

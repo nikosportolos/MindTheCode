@@ -17,7 +17,7 @@ namespace Timesheet.Models.Entities
         public string DepartmentHeadId { get; set; }
 
         public ICollection<DepartmentProject> DepartmentProjects { get; set; }
-
+        public ICollection<Project> OwnedProjects { get; set; }
         public ICollection<User> DepartmentUsers { get; set; }
 
     }
