@@ -16,7 +16,7 @@ namespace Timesheet.Models.Entities
         public int DepartmentOwnerId { get; set; }
         public virtual Department DepartmentOwner { get; set; }
 
-        public ICollection<DepartmentProject> DepartmentProjects { get; set; }
+        public ICollection<DepartmentProject> Departments { get; set; }
 
     }
 }

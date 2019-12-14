@@ -92,36 +92,35 @@ namespace Timesheet.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel viewModel)
         {
-            try
-            {
-                //Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
-                //department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
-                //User user = _mapper.ConvertFromViewModel(viewModel, department);
-                //user.ManagerId = department.DepartmentHeadId;
+            //Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
+            //department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            //User user = _mapper.ConvertFromViewModel(viewModel, department);
+            //user.ManagerId = department.DepartmentHeadId;
 
-                User user = await _userRepository.GetByGuid(viewModel.Id);
-                user.CostPerHour = viewModel.CostPerHour;
+            User user = await _userRepository.GetByGuid(viewModel.Id);
+            user.CostPerHour = viewModel.CostPerHour;
 
-                Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
-                user.ManagerId = department.DepartmentHeadId;
-                user.Department = department;
-                user.DepartmentId = department.Id;
+            Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
+            user.ManagerId = department.DepartmentHeadId;
+            user.Department = department;
+            user.DepartmentId = department.Id;
 
-                await _userRepository.Update(user);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-                return RedirectToAction(nameof(Index));
-            }
+            await _userRepository.Update(user);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: User/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             User user = await _userRepository.GetByGuid(id);
-            return View(_mapper.ConvertToViewModel(user));
+            user.Department = (await _departmentRepository.GetById(user.DepartmentId));
+            user.Department.DepartmentHead = await _userRepository.GetByGuid(user.Department.DepartmentHeadId);
+
+            var viewModel = _mapper.ConvertToViewModel(user);
+            viewModel.DepartmentName = user.Department.Name;
+            viewModel.ManagerName = string.Format("{0} {1}", user.Department.DepartmentHead.FirstName, user.Department.DepartmentHead.LastName);
+
+            return View(viewModel);
         }
 
         // POST: User/Delete/5

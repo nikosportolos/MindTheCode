@@ -37,9 +37,13 @@ namespace Timesheet.Data
                 .HasKey(d => d.Id);
 
             modelBuilder.Entity<Department>()
-                .HasOne(d => d.DepartmentHead)
-                .WithOne(u => u.Department)
-                .HasForeignKey<Department>(ad => ad.DepartmentHeadId);
+                .HasMany(u => u.DepartmentUsers)
+                .WithOne(d => d.Department);
+
+            modelBuilder.Entity<Department>()
+                .HasOne(d => d.DepartmentHead);
+                //.WithOne(u => u.Department)
+                //.HasForeignKey<Department>(ad => ad.DepartmentHeadId);
 
             /** TimesheetEntry **/
             modelBuilder.Entity<TimesheetEntry>()
@@ -62,14 +66,14 @@ namespace Timesheet.Data
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Department)
-                .WithMany(d => d.DepartmentProjects)
+                .WithMany(d => d.Projects)
                 .HasForeignKey(dp => dp.DepartmentId)
                 .HasPrincipalKey(d => d.Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<DepartmentProject>()
                 .HasOne(dp => dp.Project)
-                .WithMany(p => p.DepartmentProjects)
+                .WithMany(p => p.Departments)
                 .HasForeignKey(dp => dp.ProjectId)
                 .HasPrincipalKey(p => p.Id)
                 .OnDelete(DeleteBehavior.NoAction);

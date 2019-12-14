@@ -13,7 +13,6 @@ namespace Timesheet.Mappers
         {
             User user = new User
             {
-                Id = viewModel.Id,
                 UserName = viewModel.UserName,
                 Email = viewModel.Email,
                 EmailConfirmed = true,
