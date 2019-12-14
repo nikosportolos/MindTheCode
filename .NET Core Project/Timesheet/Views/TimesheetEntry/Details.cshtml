@@ -1,4 +1,8 @@
-﻿@model Timesheet.Models.ViewModels.TimesheetEntryViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Timesheet.Models.Entities.User> SignInManager
+@inject UserManager<Timesheet.Models.Entities.User> UserManager
+
+@model Timesheet.Models.ViewModels.TimesheetEntryViewModel
 
 @{
     ViewData["Title"] = "Timesheet Entry Details";
@@ -25,6 +29,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (!this.User.IsInRole("Employee"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit | </a>
+    }
     <a asp-action="Index">Back to List</a>
 </div>

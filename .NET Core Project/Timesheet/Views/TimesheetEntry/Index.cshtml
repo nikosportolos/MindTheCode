@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Timesheet.Models.ViewModels.TimesheetEntryViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Timesheet.Models.Entities.User> SignInManager
+@inject UserManager<Timesheet.Models.Entities.User> UserManager
+
+@model IEnumerable<Timesheet.Models.ViewModels.TimesheetEntryViewModel>
 
 @{
     ViewData["Title"] = "Timesheet Entries";
@@ -21,26 +25,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserFullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoursWorked)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserFullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoursWorked)
+                </td>
+                <td>
+                    @if (!this.User.IsInRole("Employee"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
+                    }
+
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                    @if (!this.User.IsInRole("Employee"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id"> | Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

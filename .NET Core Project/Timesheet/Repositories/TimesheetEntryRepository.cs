@@ -22,7 +22,7 @@ namespace Timesheet.Repositories
 
         public List<TimesheetEntry> GetTimesheetEntriesForManager(User user)
         {
-            return _dbContext.TimesheetEntries.Where(e => e.User.Department.Id == user.Department.Id).ToList();
+            return _dbContext.TimesheetEntries.Where(e => e.User.DepartmentId == user.DepartmentId).ToList();
         }
     }
 }
