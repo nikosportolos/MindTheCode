@@ -16,6 +16,10 @@ public class DepartmentController {
     @Autowired
     private DepartmentService service;
 
+    public DepartmentController(DepartmentService service) {
+
+    }
+
     @GetMapping("/departments")
     public ResponseEntity getDepartments() {
         try {
