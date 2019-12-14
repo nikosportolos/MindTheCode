@@ -84,8 +84,9 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(UserViewModel viewModel)
         {
             Department department = await _departmentRepository.GetById(viewModel.DepartmentId);
-            department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);
+            department.DepartmentHead = await _userRepository.GetByGuid(department.DepartmentHeadId);            
             User user = _mapper.ConvertFromViewModel(viewModel, department);
+            user.ManagerId = department.DepartmentHeadId;
             await _userRepository.Update(user);
             return RedirectToAction(nameof(Index));
         }
