@@ -108,15 +108,24 @@ namespace Timesheet.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             TimesheetEntry entry = await _timesheetEntryRepository.GetById(id);
-            ViewBag.HeadFullName = String.Format("{0} {1}", entry.User.FirstName, entry.User.LastName);
+            User user = await _userRepository.GetByGuid(entry.UserId);
+            ViewBag.HeadFullName = String.Format("{0} {1}", user.FirstName, user.LastName);
             return View(_mapper.ConvertToViewModel(entry));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(TimesheetEntryViewModel viewModel)
         {
-            Project project = await _projectRepository.GetById(viewModel.ProjectId);
-            TimesheetEntry entry = _mapper.ConvertFromViewModel(viewModel, project);
+            TimesheetEntry entry = await _timesheetEntryRepository.GetById(viewModel.Id);
+            Project project = await _projectRepository.GetById(entry.ProjectId);
+            User user = await _userRepository.GetByGuid(entry.UserId);
+            entry.User = user;
+            entry.UserId = user.Id;
+            entry.Project = project;
+            entry.ProjectId = project.Id;
+            entry.HoursWorked = viewModel.HoursWorked;
+            entry.EntryDate = viewModel.EntryDate;
+
             await _timesheetEntryRepository.Update(entry);
             return RedirectToAction(nameof(Details), "TimesheetEntry", new { id = entry.Id });
         }

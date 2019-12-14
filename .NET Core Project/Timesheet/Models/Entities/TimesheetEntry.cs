@@ -14,6 +14,7 @@ namespace Timesheet.Models.Entities
 
         [NotNull]
         public User User { get; set; }
+        public string UserId { get; set; }
 
         [NotNull]
         public Project Project { get; set; }

@@ -50,8 +50,7 @@ namespace Timesheet.Mappers
                 viewModel.EntryDate = entry.EntryDate;
                 viewModel.HoursWorked = entry.HoursWorked;
                 viewModel.ProjectId = entry.ProjectId;
-                if (entry.User != null)
-                    viewModel.UserId = entry.User.Id;
+                viewModel.UserId = entry.UserId;
             }
 
             return viewModel;
